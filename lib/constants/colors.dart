@@ -4,6 +4,7 @@ final blueSky = MaterialColor(0xFF3E96FF, blueSkySwatch);
 final red = MaterialColor(0xFFEB5757, redSwatch);
 final lime = MaterialColor(0xFF70DA74, limeSwatch);
 final purple = MaterialColor(0xFF9747FF, purpleSwatch);
+final blackBlue = MaterialColor(0xFF171441, blackBlueSwatch);
 final background = MaterialColor(0xFFF3F7FF, backgroundSwatch);
 
 Map<int, Color> blueSkySwatch = {
@@ -56,6 +57,19 @@ Map<int, Color> purpleSwatch = {
   700: const Color.fromRGBO(151, 71, 255, .8),
   800: const Color.fromRGBO(151, 71, 255, .9),
   900: const Color.fromRGBO(151, 71, 255, 1),
+};
+
+Map<int, Color> blackBlueSwatch = {
+  50: const Color.fromRGBO(23, 20, 60, .1),
+  100: const Color.fromRGBO(23, 20, 60, .2),
+  200: const Color.fromRGBO(23, 20, 60, .3),
+  300: const Color.fromRGBO(23, 20, 60, .4),
+  400: const Color.fromRGBO(23, 20, 60, .5),
+  500: const Color.fromRGBO(23, 20, 60, .6),
+  600: const Color.fromRGBO(23, 20, 60, .7),
+  700: const Color.fromRGBO(23, 20, 60, .8),
+  800: const Color.fromRGBO(23, 20, 60, .9),
+  900: const Color.fromRGBO(23, 20, 60, 1),
 };
 
 Map<int, Color> backgroundSwatch = {
