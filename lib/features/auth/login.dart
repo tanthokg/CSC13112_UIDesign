@@ -52,11 +52,11 @@ class _LoginViewState extends State<LoginView> {
                     hintText: 'Email',
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(left: 16, right: 12),
-                      child: Icon(Icons.mail, color: blueSky, size: 36),
+                      child: Icon(Icons.mail_rounded, color: blueSky, size: 32),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 24),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 20),
                     enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 2),
+                      borderSide: BorderSide(color: Colors.transparent, width: 2),
                       borderRadius: BorderRadius.all(Radius.circular(16)),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -83,11 +83,11 @@ class _LoginViewState extends State<LoginView> {
                     hintText: 'Password',
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(left: 16, right: 12),
-                      child: Icon(Icons.key, color: blueSky, size: 36),
+                      child: Icon(Icons.key_rounded, color: blueSky, size: 32),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 24),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 20),
                     enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 2),
+                      borderSide: BorderSide(color: Colors.transparent, width: 2),
                       borderRadius: BorderRadius.all(Radius.circular(16)),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -132,12 +132,12 @@ class _LoginViewState extends State<LoginView> {
                 onPressed: () {},
                 style: TextButton.styleFrom(
                   backgroundColor: blueSky,
-                  minimumSize: const Size.fromHeight(64),
+                  minimumSize: const Size.fromHeight(56),
                 ),
                 child: const Text(
                   'Đăng nhập',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.w400,
                     color: Colors.white,
                   ),
@@ -147,7 +147,7 @@ class _LoginViewState extends State<LoginView> {
               Text(
                 'hoặc đăng nhập bằng',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: blackBlue),
+                style: TextStyle(fontSize: 15, color: blackBlue),
               ),
               const SizedBox(height: 24),
               Row(
@@ -176,7 +176,7 @@ class _LoginViewState extends State<LoginView> {
                     'Chưa có tài khoản?',
                     style: TextStyle(fontSize: 17, color: blackBlue),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 4),
                   InkWell(
                     onTap: () {},
                     child: Text('Đăng ký ngay',
@@ -187,6 +187,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ],
               ),
+              const SizedBox(height: 24),
             ],
           ),
         ),
