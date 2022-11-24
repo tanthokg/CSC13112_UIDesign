@@ -182,7 +182,7 @@ class _RegisterViewState extends State<RegisterView> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Chưa có tài khoản?',
+                    'Đã có tài khoản?',
                     style: TextStyle(fontSize: 17, color: blackBlue),
                   ),
                   const SizedBox(width: 4),
@@ -191,7 +191,7 @@ class _RegisterViewState extends State<RegisterView> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      'Đăng ký ngay',
+                      'Đăng nhập',
                       style: TextStyle(
                           fontSize: 17, fontWeight: FontWeight.bold, color: blueSky),
                     ),

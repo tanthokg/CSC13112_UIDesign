@@ -118,7 +118,9 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.forgotPassword);
+                    },
                     child: Text(
                       'Quên mật khẩu',
                       style: TextStyle(

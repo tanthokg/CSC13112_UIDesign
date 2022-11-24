@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
+import 'package:uniride/features/auth/forgot_password.dart';
 import 'package:uniride/features/auth/login.dart';
 import 'package:uniride/features/auth/register.dart';
 
@@ -21,12 +22,12 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: blueSky,
       ),
-      home: const RegisterView(),
+      home: const LoginView(),
       routes: {
         Routes.login: (context) => const LoginView(),
         Routes.register: (context) => const RegisterView(),
-      }
-      ,
+        Routes.forgotPassword: (context) => const ForgotPassword(),
+      },
     );
   }
 }
