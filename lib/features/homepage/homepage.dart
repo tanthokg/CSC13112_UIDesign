@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 
@@ -9,6 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _role = true;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -67,14 +70,88 @@ class _HomePageState extends State<HomePage> {
                   surfaceTintColor: Colors.white,
                   clipBehavior: Clip.hardEdge,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32)
-                  ),
+                      borderRadius: BorderRadius.circular(32)),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       children: [
-                        Image.asset('assets/illustration/role_rider.png', width: 240, height: 240,),
-
+                        Image.asset(
+                          _role
+                              ? 'assets/illustration/role_rider.png'
+                              : 'assets/illustration/role_booker.png',
+                          width: 240,
+                          height: 240,
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          width: 200,
+                          height: 48,
+                          child: Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: blueSky.shade50,
+                                    borderRadius: BorderRadius.circular(32)),
+                              ),
+                              _role
+                                  ? Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: InkWell(
+                                        highlightColor: Colors.transparent,
+                                        splashFactory: NoSplash.splashFactory,
+                                        onTap: () {
+                                          setState(() {
+                                            _role = !_role;
+                                          });
+                                        },
+                                        child: Container(
+                                          width: 120,
+                                          decoration: BoxDecoration(
+                                              color: blueSky.shade100,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: blueSky.shade50,
+                                                  spreadRadius: 2,
+                                                  blurRadius: 2,
+                                                  //offset: const Offset(0, 3), // changes position of shadow
+                                                ),
+                                              ],
+                                              borderRadius:
+                                                  BorderRadius.circular(32)),
+                                        ),
+                                      ),
+                                    )
+                                  : Align(
+                                      alignment: Alignment.centerRight,
+                                      child: InkWell(
+                                        highlightColor: Colors.transparent,
+                                        splashFactory: NoSplash.splashFactory,
+                                        onTap: () {
+                                          setState(() {
+                                            _role = !_role;
+                                          });
+                                        },
+                                        child: Container(
+                                          width: 120,
+                                          decoration: BoxDecoration(
+                                              color: purple.shade100,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: purple.shade50,
+                                                  spreadRadius: 2,
+                                                  blurRadius: 2,
+                                                  //offset: const Offset(0, 3), // changes position of shadow
+                                                ),
+                                              ],
+                                              borderRadius:
+                                                  BorderRadius.circular(32)),
+                                        ),
+                                      ),
+                                    )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
                         Text(
                           'Bạn đang chọn',
                           textAlign: TextAlign.left,
@@ -84,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Text(
-                          'Người lái xe',
+                          _role ? 'Người lái xe' : 'Người đặt xe',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -95,12 +172,12 @@ class _HomePageState extends State<HomePage> {
                         TextButton(
                           onPressed: () {},
                           style: TextButton.styleFrom(
-                            backgroundColor: blueSky,
+                            backgroundColor: _role ? blueSky : purple,
                             minimumSize: const Size.fromHeight(56),
                           ),
-                          child: const Text(
-                            'Tạo chuyến xe',
-                            style: TextStyle(
+                          child: Text(
+                            _role ? 'Tạo chuyến xe' : 'Tìm chuyến xe',
+                            style: const TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w400,
                               color: Colors.white,
