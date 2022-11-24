@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 
@@ -19,6 +18,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: background,
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 padding: const EdgeInsets.all(16),
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                             'Chào mừng,',
                             textAlign: TextAlign.left,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               color: blackBlue.shade200,
                             ),
                           ),
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 width: double.maxFinite,
                 child: Card(
-                  margin: const EdgeInsets.all(24),
+                  margin: const EdgeInsets.all(16),
                   elevation: 3.0,
                   surfaceTintColor: Colors.white,
                   clipBehavior: Clip.hardEdge,
@@ -156,14 +156,14 @@ class _HomePageState extends State<HomePage> {
                           'Bạn đang chọn',
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             color: blackBlue.shade200,
                           ),
                         ),
                         Text(
                           _role ? 'Người lái xe' : 'Người đặt xe',
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
                             color: blackBlue,
                           ),
@@ -186,6 +186,266 @@ class _HomePageState extends State<HomePage> {
                         ),
                         const SizedBox(height: 16),
                       ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(24),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Tính năng nổi bật',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                              color: blackBlue,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Các tính năng được nhiều người\nsử dụng trong vòng 1 tháng!',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: blackBlue.shade200,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Image.asset(
+                      'assets/illustration/top_features.png',
+                      width: 80,
+                      height: 80,
+                    )
+                  ],
+                ),
+              ),
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                elevation: 2.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(28),
+                ),
+                surfaceTintColor: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/icon/create_trip.png',
+                        width: 56,
+                        height: 56,
+                      ),
+                      const SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            _role ? 'Tạo chuyến xe' : 'Tạo cuộc hẹn',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: blackBlue,
+                            ),
+                          ),
+                          Text(
+                            _role
+                                ? 'Tạo thông tin chuyến xe để\nthực hiện dịch vụ đi xe'
+                                : 'Tạo cuộc hẹn để đồng hành\ncùng người lái xe ',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: blackBlue.shade300,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                elevation: 2.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(28),
+                ),
+                surfaceTintColor: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/icon/find_trip.png',
+                        width: 56,
+                        height: 56,
+                      ),
+                      const SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            _role ? 'Xác nhận chuyến xe' : 'Tìm chuyến xe',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: blackBlue,
+                            ),
+                          ),
+                          Text(
+                            _role
+                                ? 'Xem và phê duyệt các\nyêu cầu đặt xe'
+                                : 'Tìm các chuyến xe để\nđi đến vị trí mong muốn',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: blackBlue.shade300,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                elevation: 2.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(28),
+                ),
+                surfaceTintColor: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/icon/open_map.png',
+                        width: 56,
+                        height: 56,
+                      ),
+                      const SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Xem bản đồ',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: blackBlue,
+                            ),
+                          ),
+                          Text(
+                            'Tìm kiểm địa điểm\ntrên bản đồ',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: blackBlue.shade300,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(24),
+                child: Text(
+                  'Tính năng khác',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w500,
+                    color: blackBlue,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        Card(
+                          elevation: 1.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          surfaceTintColor: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(24),
+                            child: Image.asset(
+                              'assets/icon/wallet.png',
+                              width: 32,
+                              height: 32,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 12),
+                          child: Text(
+                            'Liên kết\nví điện tử',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                              color: blackBlue,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 32),
+                    Column(
+                      children: [
+                        Card(
+                          elevation: 1.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          surfaceTintColor: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(24),
+                            child: Image.asset(
+                              'assets/icon/chat.png',
+                              width: 32,
+                              height: 32,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 12),
+                          child: Text(
+                            'Trò chuyện\n',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                              color: blackBlue,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
+                child: SizedBox(
+                  width: double.maxFinite,
+                  child: Text(
+                    'Phát triển bởi nhóm HCMUS UniRide\n© All rights reserved',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: blackBlue.shade300,
                     ),
                   ),
                 ),
