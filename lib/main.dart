@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/auth/login.dart';
+import 'package:uniride/features/auth/register.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,9 +21,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: blueSky,
       ),
-      home: const LoginView(),
+      home: const RegisterView(),
       routes: {
-        Routes.login: (context) => const LoginView()
+        Routes.login: (context) => const LoginView(),
+        Routes.register: (context) => const RegisterView(),
       }
       ,
     );
