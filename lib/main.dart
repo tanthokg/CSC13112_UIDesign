@@ -4,6 +4,7 @@ import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/auth/login.dart';
 import 'package:uniride/features/chat/chat.dart';
 import 'package:uniride/features/chat/chat_detail.dart';
+import 'package:uniride/features/notification/dialog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: blueSky,
       ),
-      home: const LoginView(),
+      // home: const LoginView(),
+      home: const DialogView(),
       routes: {
         Routes.login: (context) => const LoginView(),
         Routes.chat: (context) => const ChatView(),
