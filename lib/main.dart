@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/auth/login.dart';
+import 'package:uniride/features/chat/chat.dart';
+import 'package:uniride/features/chat/chat_detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,9 +24,10 @@ class MyApp extends StatelessWidget {
       ),
       home: const LoginView(),
       routes: {
-        Routes.login: (context) => const LoginView()
-      }
-      ,
+        Routes.login: (context) => const LoginView(),
+        Routes.chat: (context) => const ChatView(),
+        Routes.chatDetail: (context) => const ChatDetailView(),
+      },
     );
   }
 }
