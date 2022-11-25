@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/auth/login.dart';
+import 'package:uniride/features/map/current_location_screen.dart';
+import 'package:uniride/features/map/search_places.dart';
+import 'package:uniride/features/map/simple_map.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +23,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: blueSky,
       ),
-      home: const LoginView(),
+      home: const SearchPlacesView(),
       routes: {
         Routes.login: (context) => const LoginView()
       }
