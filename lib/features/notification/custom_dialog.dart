@@ -14,13 +14,17 @@ class CustomDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Align(
+      title: Align(
           alignment: Alignment.topRight,
-          child: Icon(
-            Icons.clear,
-            color: Color.fromARGB(122, 89, 89, 90),
-            size: 24,
-          )),
+          child: TextButton(
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+              child: const Icon(
+                Icons.clear,
+                color: Color.fromARGB(122, 89, 89, 90),
+                size: 24,
+              ))),
       content: Container(
         height: 320,
         width: 300,
@@ -56,7 +60,9 @@ class CustomDialog extends StatelessWidget {
                   height: 10,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context, true);
+                  },
                   style: TextButton.styleFrom(
                     backgroundColor: blueSky,
                     minimumSize: const Size.fromHeight(56),
