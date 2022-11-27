@@ -1,4 +1,3 @@
-import 'dart:js_util';
 
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
@@ -22,38 +21,38 @@ class _CreateRouteState extends State<CreateRoute> {
     return SafeArea(
         child: Scaffold(
             backgroundColor: background,
-            appBar: AppBar(title: Center(child: Text("Thông tin chuyến xe"))),
+            appBar: AppBar(title: const Center(child: Text("Thông tin chuyến xe"))),
             body: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(children: [
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   TextField(
                     onChanged: (newString) {
                       departureText = newString;
                     },
                     keyboardType: TextInputType.text,
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                     decoration: InputDecoration(
                         labelText: "Vị trí đi",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12))),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   TextField(
                     onChanged: (newString) {
                       destinationText = newString;
                     },
                     keyboardType: TextInputType.text,
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                     decoration: InputDecoration(
                         labelText: "Vị trí đến",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12))),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
                     ElevatedButton(
-                        child: Text("Bấm vô đây để chọn ngày"),
+                        child: const Text("Bấm vô đây để chọn ngày"),
                         onPressed: () async {
                           DateTime? dateTime = await showDatePicker(
                               context: context,
@@ -62,15 +61,15 @@ class _CreateRouteState extends State<CreateRoute> {
                               lastDate: DateTime(2025));
                         })
                   ]),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   TextField(
                     onChanged: (newString) {
                       additionalDescription = newString;
                     },
                     keyboardType: TextInputType.text,
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
+                        contentPadding: const EdgeInsets.symmetric(
                             vertical: 40.0, horizontal: 10),
                         labelText: "Mô tả",
                         border: OutlineInputBorder(
@@ -100,7 +99,7 @@ class _CreateRouteState extends State<CreateRoute> {
                                     minimumSize: const Size.fromHeight(56),
                                   ),
                                   child: const Text('Tạo chuyến xe',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 22,
                                           fontWeight: FontWeight.w400,
                                           color: Colors.white))))))
