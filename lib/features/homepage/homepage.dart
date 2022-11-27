@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/features/auth/forgot_password.dart';
+import 'package:uniride/features/auth/create_route.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,7 +31,8 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     const CircleAvatar(
                       radius: 32,
-                      backgroundImage: AssetImage('assets/avatar/avatar-01.png'),
+                      backgroundImage:
+                          AssetImage('assets/avatar/avatar-01.png'),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -170,7 +173,12 @@ class _HomePageState extends State<HomePage> {
                         ),
                         const SizedBox(height: 16),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CreateRoute()));
+                          },
                           style: TextButton.styleFrom(
                             backgroundColor: _role ? blueSky : purple,
                             minimumSize: const Size.fromHeight(56),
@@ -226,7 +234,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Card(
-                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(28),
@@ -270,7 +279,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Card(
-                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(28),
@@ -314,7 +324,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Card(
-                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(28),
@@ -437,7 +448,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
                 child: SizedBox(
                   width: double.maxFinite,
                   child: Text(
