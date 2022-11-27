@@ -11,53 +11,53 @@ class ChatView extends StatefulWidget {
 class _ChatState extends State<ChatView> {
   List<ChatTile> chatTiles = [
     const ChatTile(
-        name: "Jane Russel",
-        messageText: "Awesome Setup",
+        name: "Vương Ðức Tuệ",
+        messageText: "Bạn ơi cho mình hỏi",
         imageURL:
             "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/7/16/1069162/BTS-Jimin-8B.jpg",
-        time: "Now"),
+        time: "Bây giờ"),
     const ChatTile(
-        name: "Glady's Murphy",
-        messageText: "That's Great",
+        name: "Bá Quang Vinh",
+        messageText: "Bạn có thể cho mình xin fb đc ko",
         imageURL:
             "https://thethaovanhoa.mediacdn.vn/Upload/QDN4HPIpMrJuoPNyIvLDA/files/2022/04/Jimin-BTS-media14.jpg",
-        time: "Yesterday"),
+        time: "Hôm qua"),
     const ChatTile(
-        name: "Jorge Henry",
-        messageText: "Hey where are you?",
+        name: "Công Thanh Minh",
+        messageText: "Chào bạn, mình muốn đi nhờ xe",
         imageURL:
             "https://static2.yan.vn/YanNews/2167221/201812/201812040926131c0a-36a21416.jpg",
-        time: "31 Mar"),
+        time: "31/03/2022"),
     const ChatTile(
-        name: "Philip Fox",
-        messageText: "Busy! Call me in 20 mins",
+        name: "Phù Thiếu Anh",
+        messageText: "Bạn đợi mình 15p nữa nha",
         imageURL:
             "https://photo-3-baomoi.zadn.vn/w700_r1/2020_01_31_329_33808535/288aa8b690f579ab20e4.jpg",
-        time: "28 Mar"),
+        time: "28/03/2022"),
     const ChatTile(
-        name: "Debra Hawkins",
-        messageText: "Thankyou, It's awesome",
+        name: "Cát Uyên Thy",
+        messageText: "Ok bạn nha",
         imageURL:
             "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/7/16/1069162/BTS-Jimin-8B.jpg",
-        time: "23 Mar"),
+        time: "23/03/2022"),
     const ChatTile(
-        name: "Jacob Pena",
-        messageText: "will update you in evening",
+        name: "Doãn Diễm Chi",
+        messageText: "Bạn có tạo chuyến xe này cố định kh",
         imageURL:
             "https://thethaovanhoa.mediacdn.vn/Upload/PQgc44ci4D5b7WtAo06jg/files/2022/01/anh3(45).jpeg",
-        time: "17 Mar"),
+        time: "17/03/2022"),
     const ChatTile(
-        name: "Andrey Jones",
-        messageText: "Can you please share the file?",
+        name: "Lương Cảnh Tuấn",
+        messageText: "Mình gửi sđt liên lạc ne",
         imageURL:
             "https://photo-3-baomoi.zadn.vn/w700_r1/2020_01_31_329_33808535/288aa8b690f579ab20e4.jpg",
-        time: "24 Feb"),
+        time: "24/02/2022"),
     const ChatTile(
-        name: "John Wick",
-        messageText: "How are you?",
+        name: "Khu Xuân Vũ",
+        messageText: "Chiều nay mình qua đón sớm 1 xíu nha",
         imageURL:
             "https://static2.yan.vn/YanNews/2167221/201812/201812040926131c0a-36a21416.jpg",
-        time: "18 Feb"),
+        time: "18/02/2022"),
   ];
 
   @override

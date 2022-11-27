@@ -12,15 +12,17 @@ class ChatDetailView extends StatefulWidget {
 class _ChatDetailViewState extends State<ChatDetailView> {
   String name = '';
   List<Message> messages = [
-    const Message(messageContent: "Hello, Will", messageType: "receiver"),
     const Message(
-        messageContent: "How have you been?", messageType: "receiver"),
+        messageContent: "Chào bạn, mình muốn đi nhờ xe", messageType: "sender"),
+    const Message(messageContent: "Ok bạn nha", messageType: "receiver"),
     const Message(
-        messageContent: "Hey Kriss, I am doing fine dude. wbu?",
+        messageContent: "Như vậy tóm lại ngày mai bạn đón mình ở đâu nhỉ",
         messageType: "sender"),
-    const Message(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
     const Message(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
+        messageContent: "Bạn đứng ở cổng trước KTX khu B giúp mình nha",
+        messageType: "receiver"),
+    const Message(messageContent: "Dèee", messageType: "sender"),
+    const Message(messageContent: "Bạn ơi cho mình hỏi", messageType: "sender"),
   ];
 
   @override
