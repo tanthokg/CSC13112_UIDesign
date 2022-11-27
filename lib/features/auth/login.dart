@@ -11,6 +11,10 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  bool _emptyEmail = false;
+  bool _emptyPassword = false;
+  bool _invalidEmail = false;
+
   bool _saveLogin = false;
 
   final _emailController = TextEditingController();
@@ -71,6 +75,24 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
+              _emptyEmail
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                      child: Text(
+                        'E-mail address cannot be empty',
+                        style: TextStyle(fontSize: 14, color: red),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              _invalidEmail
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                      child: Text(
+                        'Please enter a valid email address',
+                        style: TextStyle(fontSize: 14, color: red),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
               const SizedBox(height: 16),
               Material(
                 borderRadius: BorderRadius.circular(16),
@@ -104,6 +126,15 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
+              _emptyPassword
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                      child: Text(
+                        'Password cannot be empty',
+                        style: TextStyle(fontSize: 14, color: red),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
               const SizedBox(height: 12),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -139,16 +170,50 @@ class _LoginViewState extends State<LoginView> {
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () async {
-                  final email = _emailController.text;
-                  final password = _passwordController.text;
+                  // Validate email address
+                  if (_emailController.text.isEmpty) {
+                    setState(() {
+                      _emptyEmail = true;
+                    });
+                  } else {
+                    setState(() {
+                      _emptyEmail = false;
+                    });
+                    if (!RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(_emailController.text)) {
+                      setState(() {
+                        _invalidEmail = true;
+                      });
+                    } else {
+                      setState(() {
+                        _invalidEmail = false;
+                      });
+                    }
+                  }
+                  // Validate password
+                  if (_passwordController.text.isEmpty) {
+                    setState(() {
+                      _emptyPassword = true;
+                    });
+                  } else {
+                    setState(() {
+                      _emptyPassword = false;
+                    });
+                  }
 
-                  final result =
-                      await _login(email, password);
+                  if (!_emptyEmail && !_emptyPassword && !_invalidEmail) {
+                    final email = _emailController.text;
+                    final password = _passwordController.text;
 
-                  if (result) {
-                    final user = await UserDAO.instance.readUserByEmail(email);
-                    if (mounted) {
-                      Navigator.pushReplacementNamed(context, Routes.homepage, arguments: {'name': user!.name});
+                    final result = await _login(email, password);
+
+                    if (result) {
+                      final user = await UserDAO.instance.readUserByEmail(email);
+                      if (mounted) {
+                        Navigator.pushReplacementNamed(context, Routes.homepage,
+                            arguments: {'name': user!.name});
+                      }
                     }
                   }
                 },
