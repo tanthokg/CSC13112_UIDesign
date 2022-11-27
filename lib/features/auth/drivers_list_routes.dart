@@ -29,48 +29,50 @@ class _DriversListRouteState extends State<DriversListRoute> {
                 padding: const EdgeInsets.all(24.0),
                 child: Column(children: [
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: EdgeInsets.all(24),
                     child: Column(children: [
                       Padding(
                           padding: EdgeInsets.all(24),
                           child: Container(
                             alignment: Alignment.center,
-                            color: Color(0xECF5FF),
-                            child: Row(
-                              children: [
-                                Container(
-                                  child: CircleAvatar(
-                                      radius: 32,
-                                      backgroundImage: AssetImage(
-                                          'assets/avatar/avatar-01.png')),
-                                ),
-                                const SizedBox(width: 12),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Người lái xe',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: blackBlue.shade300,
-                                        ),
+                            color: Color.fromARGB(255, 236, 245, 255),
+                            child: Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      child: CircleAvatar(
+                                          radius: 32,
+                                          backgroundImage: AssetImage(
+                                              'assets/avatar/avatar-01.png')),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Người lái xe',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: blackBlue.shade300,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Nguyễn Văn A',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                              color: blackBlue,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        'Nguyễn Văn A',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500,
-                                          color: blackBlue,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                                    ),
+                                  ],
+                                )),
                           )),
                       Row(mainAxisSize: MainAxisSize.max, children: [
                         Text('Vị trí đi',
@@ -109,8 +111,42 @@ class _DriversListRouteState extends State<DriversListRoute> {
                                 fontSize: 16, fontWeight: FontWeight.bold)),
                         SizedBox(width: 20),
                         Text(widget.additionalDescription,
-                            style: TextStyle(fontSize: 16))
+                            style: TextStyle(fontSize: 16)),
                       ]),
+                      SizedBox(height: 12),
+                      Row(mainAxisSize: MainAxisSize.max, children: [
+                        Text('Độ dài quãng đường',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                        SizedBox(width: 20),
+                        Text(widget.additionalDescription,
+                            style: TextStyle(fontSize: 16)),
+                      ]),
+                      SizedBox(height: 12),
+                      Row(mainAxisSize: MainAxisSize.max, children: [
+                        Text('Thời gian ước tính',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                        SizedBox(width: 20),
+                        Text(widget.additionalDescription,
+                            style: TextStyle(fontSize: 16)),
+                      ]),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Giá tiền',
+                            style: TextStyle(fontWeight: FontWeight.w200),
+                          ),
+                          Text(
+                            '7,000đ',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Inter',
+                                fontSize: 32),
+                          )
+                        ],
+                      )
                     ]),
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -122,7 +158,7 @@ class _DriversListRouteState extends State<DriversListRoute> {
                               blurRadius: 7)
                         ]),
                   ),
-                  SizedBox(height: 12)
+                  SizedBox(height: 12),
                 ]))));
   }
 }
