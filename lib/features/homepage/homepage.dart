@@ -15,6 +15,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final data = ModalRoute.of(context)?.settings.arguments as Map;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: background,
@@ -30,11 +32,11 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const CircleAvatar(
-                      radius: 32,
+                      radius: 24,
                       backgroundImage:
                           AssetImage('assets/avatar/avatar-01.png'),
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Text(
-                            'Nguyễn Văn A',
+                            data['name'],
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,

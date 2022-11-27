@@ -139,12 +139,16 @@ class _LoginViewState extends State<LoginView> {
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () async {
+                  final email = _emailController.text;
+                  final password = _passwordController.text;
+
                   final result =
-                      await _login(_emailController.text, _passwordController.text);
+                      await _login(email, password);
 
                   if (result) {
+                    final user = await UserDAO.instance.readUserByEmail(email);
                     if (mounted) {
-                      Navigator.pushReplacementNamed(context, Routes.homepage);
+                      Navigator.pushReplacementNamed(context, Routes.homepage, arguments: {'name': user!.name});
                     }
                   }
                 },
