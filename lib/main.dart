@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/auth/login.dart';
+import 'package:uniride/features/book_ride/book_ride_list.dart';
 import 'package:uniride/features/map/current_location_screen.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: blueSky,
       ),
-      home: const CurrentLocationView(),
+      home: const BookRideListView(),
       routes: {
         Routes.login: (context) => const LoginView()
       }
