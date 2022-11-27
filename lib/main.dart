@@ -5,6 +5,7 @@ import 'package:uniride/features/auth/login.dart';
 import 'package:uniride/features/book_ride/book_ride_list.dart';
 import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/features/notification/notification_list.dart';
+import 'package:uniride/features/ride_track/waitting_rider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: blueSky,
       ),
-      home: const NotificationView(),
+      home: const WaittingRiderView(),
       routes: {
         Routes.login: (context) => const LoginView()
       }
