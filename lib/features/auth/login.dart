@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
+import 'package:uniride/database/user_dao.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -11,6 +12,9 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   bool _saveLogin = false;
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +46,7 @@ class _LoginViewState extends State<LoginView> {
                 clipBehavior: Clip.hardEdge,
                 shadowColor: Colors.grey[200],
                 child: TextField(
+                  controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
                   decoration: InputDecoration(
@@ -73,6 +78,7 @@ class _LoginViewState extends State<LoginView> {
                 clipBehavior: Clip.hardEdge,
                 shadowColor: Colors.grey[200],
                 child: TextField(
+                  controller: _passwordController,
                   autocorrect: false,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -132,7 +138,16 @@ class _LoginViewState extends State<LoginView> {
               ),
               const SizedBox(height: 20),
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final result =
+                      await _login(_emailController.text, _passwordController.text);
+
+                  if (result) {
+                    if (mounted) {
+                      Navigator.pushReplacementNamed(context, Routes.homepage);
+                    }
+                  }
+                },
                 style: TextButton.styleFrom(
                   backgroundColor: blueSky,
                   minimumSize: const Size.fromHeight(56),
@@ -199,4 +214,18 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
+}
+
+Future<bool> _login(String email, String password) async {
+  final user = await UserDAO.instance.readUserByEmail(email);
+
+  if (user == null) {
+    return false;
+  }
+
+  if (user.password != password) {
+    return false;
+  }
+
+  return true;
 }

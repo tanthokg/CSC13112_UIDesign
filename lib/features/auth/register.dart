@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
+import 'package:uniride/database/user_dao.dart';
+import 'package:uniride/entity/user.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -10,6 +12,11 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _retypePasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,7 +48,8 @@ class _RegisterViewState extends State<RegisterView> {
                 clipBehavior: Clip.hardEdge,
                 shadowColor: Colors.grey[200],
                 child: TextField(
-                  keyboardType: TextInputType.emailAddress,
+                  controller: _nameController,
+                  keyboardType: TextInputType.text,
                   autocorrect: false,
                   decoration: InputDecoration(
                     hintStyle: TextStyle(
@@ -72,6 +80,7 @@ class _RegisterViewState extends State<RegisterView> {
                 clipBehavior: Clip.hardEdge,
                 shadowColor: Colors.grey[200],
                 child: TextField(
+                  controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
                   decoration: InputDecoration(
@@ -103,6 +112,7 @@ class _RegisterViewState extends State<RegisterView> {
                 clipBehavior: Clip.hardEdge,
                 shadowColor: Colors.grey[200],
                 child: TextField(
+                  controller: _passwordController,
                   autocorrect: false,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -111,7 +121,7 @@ class _RegisterViewState extends State<RegisterView> {
                       fontWeight: FontWeight.w300,
                       color: Colors.grey[400],
                     ),
-                    hintText: 'Password',
+                    hintText: 'Mật khẩu',
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(left: 16, right: 12),
                       child: Icon(Icons.key_rounded, color: blueSky, size: 32),
@@ -135,6 +145,7 @@ class _RegisterViewState extends State<RegisterView> {
                 clipBehavior: Clip.hardEdge,
                 shadowColor: Colors.grey[200],
                 child: TextField(
+                  controller: _retypePasswordController,
                   autocorrect: false,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -162,7 +173,17 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               const SizedBox(height: 32),
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await _register(
+                    _nameController.text,
+                    _emailController.text,
+                    _passwordController.text,
+                  );
+
+                  if (mounted) {
+                    Navigator.pop(context);
+                  }
+                },
                 style: TextButton.styleFrom(
                   backgroundColor: blueSky,
                   minimumSize: const Size.fromHeight(56),
@@ -204,4 +225,13 @@ class _RegisterViewState extends State<RegisterView> {
       ),
     );
   }
+}
+
+Future<void> _register(String name, String email, String password) async {
+  if (name.isEmpty || email.isEmpty || password.isEmpty) {
+    return;
+  }
+
+  final user = User(name: name, email: email, password: password);
+  await UserDAO.instance.createUser(user);
 }
