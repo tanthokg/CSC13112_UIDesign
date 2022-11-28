@@ -35,7 +35,7 @@ class _DriverReadyToStartViewState extends State<DriverReadyToStartView> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
 
       body: Stack(
-        children: [const CurrentLocationView(),]
+        children: const [CurrentLocationView(),]
       ),
 
       bottomSheet: const SimpleBottomSheet(
