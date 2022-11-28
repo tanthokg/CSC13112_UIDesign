@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/constants/routes.dart';
 import 'package:uniride/widget/customer_info.dart';
 import 'package:uniride/widget/customer_pick_up_destination_card.dart';
 
@@ -47,27 +48,33 @@ class SimpleBottomSheet extends StatelessWidget {
 
 
             // the button
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: blueSky,
-              ),
-              height:50, width: 90,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+            InkWell(
+                child:Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: blueSky,
+                  ),
+                  height:50, width: 90,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
 
-                children: const [
-                  Text(
-                    'Đã đến địa điểm đón',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      color: Colors.white
-                    ),),
-                ],
-              ),
-            )
+                    children: const [
+                      Text(
+                        'Đã đến địa điểm đón',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                          color: Colors.white
+                        ),),
+                    ],
+                  ),
+                ),
+                onTap: () { 
+                  Navigator.pushNamed(context, Routes.driverStart);
+                },
+            ),
+            
           ],
         ),
       );

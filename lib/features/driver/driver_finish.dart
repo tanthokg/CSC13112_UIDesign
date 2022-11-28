@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/constants/routes.dart';
 import 'package:uniride/widget/driver_start_end_card.dart';
 
 import '../../widget/customer_pick_up_destination_card.dart';
@@ -83,7 +84,7 @@ class _DriverFinishViewState extends State<DriverFinishView> {
                         // customer pick up - destination
                         const PickUpDestinationCard(
                             pickUp: '480 Nguyen Thi Minh Khai',
-                            destination: '311 Nguyen Thuong Hien'),
+                            destination: '2212 Nguyen Thuong Hien'),
                         Container(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: const Divider(
@@ -209,7 +210,10 @@ class _DriverFinishViewState extends State<DriverFinishView> {
           ),
 
           // the buttons
-          Container(
+
+          InkWell(
+            onTap: () { Navigator.pushNamed(context, Routes.driverRating);},
+            child: Container(
               margin: const EdgeInsets.only(bottom: 10, left: 30, right: 30),
               child: Container(
                 decoration: BoxDecoration(
@@ -231,7 +235,12 @@ class _DriverFinishViewState extends State<DriverFinishView> {
                     ),
                   ],
                 ),
-              )),
+              ),
+            ),
+          ),
+          
+
+
           Container(
               margin: const EdgeInsets.only(bottom: 30, left: 30, right: 30),
               child: Container(

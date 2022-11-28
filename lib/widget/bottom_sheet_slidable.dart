@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:slidable_button/slidable_button.dart';
+import 'package:uniride/constants/routes.dart';
 import 'package:uniride/widget/customer_info.dart';
 import 'package:uniride/widget/customer_pick_up_destination_card.dart';
 
@@ -91,7 +92,15 @@ class BottomSheetSlidable extends StatelessWidget {
                   ],
                 ),
               ),
-              onChanged: (position) {},
+              onChanged: (position) {
+                if (position == SlidableButtonPosition.end) {
+                  if (buttonContent == 'Bắt đầu chuyến xe') {
+                    Navigator.pushNamed(context, Routes.driverEnd);
+                  } else {
+                    Navigator.pushNamed(context, Routes.driverFinish);
+                  }
+                }
+              },
             ),
           ],
         ),

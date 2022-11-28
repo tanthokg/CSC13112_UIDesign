@@ -83,7 +83,7 @@ class _DriverRateViewState extends State<DriverRateView> {
                   ),
 
                   const Text(
-                    'Phan Hoàng Tiến Khải',
+                    'Huynh Van Khong',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
