@@ -5,6 +5,8 @@ import 'package:uniride/features/auth/login.dart';
 import 'package:uniride/features/rating/driver_rate.dart';
 import 'package:uniride/features/driver/driver_ready_to_start.dart';
 
+import 'features/driver/driver_finish.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
 
         Routes.driverRating: (context) => const DriverRateView(),
         Routes.driverReadyToStart: (context) => const DriverReadyToStartView(),
+        Routes.driverFinish: (context) => const DriverFinishView(),
         
       },
     );

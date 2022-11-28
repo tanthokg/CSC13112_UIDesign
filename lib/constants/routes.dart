@@ -6,4 +6,5 @@ class Routes {
 
   static const driverRating = '/driver_rating/';
   static const driverReadyToStart = '/driver_ready/';
+  static const driverFinish = '/driver_finish/';
 }
