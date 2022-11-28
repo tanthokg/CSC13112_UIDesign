@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/auth/create_route.dart';
+import 'package:uniride/features/find_location/find_location.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -135,7 +136,8 @@ class _HomePageState extends State<HomePage> {
                                 ? Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CreateRoute()))
+                                        builder: (context) =>
+                                            const FindLocationView()))
                                 : Navigator.pushNamed(context, Routes.rideList);
                           },
                           style: TextButton.styleFrom(
@@ -193,8 +195,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Card(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(28),
@@ -238,8 +239,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Card(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(28),
@@ -283,8 +283,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Card(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(28),
@@ -377,8 +376,7 @@ class _HomePageState extends State<HomePage> {
                         overlayColor: MaterialStateColor.resolveWith(
                             (states) => Colors.transparent),
                       ),
-                      onPressed: () =>
-                          Navigator.pushNamed(context, Routes.chat),
+                      onPressed: () => Navigator.pushNamed(context, Routes.chat),
                       child: Column(
                         children: [
                           Card(
@@ -415,8 +413,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
+                padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
                 child: SizedBox(
                   width: double.maxFinite,
                   child: Text(
