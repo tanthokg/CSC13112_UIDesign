@@ -9,6 +9,7 @@ class Routes {
   static const driverFinish = '/driver_finish/';
   static const driverStart = '/driver_start/';
   static const driverEnd = '/driver_end/';
+  static const driverConfirm = '/driver_confirm/';
 
   static const home = '/home/';
   static const rideList = '/ride_list/';

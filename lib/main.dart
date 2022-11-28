@@ -10,6 +10,7 @@ import 'package:uniride/features/homepage/homepage.dart';
 import 'package:uniride/features/rating/driver_rate.dart';
 import 'package:uniride/features/driver/driver_ready_to_start.dart';
 
+import 'features/driver/driver_confirm_trip.dart';
 import 'features/driver/driver_end_trip.dart';
 import 'features/driver/driver_finish.dart';
 
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
         Routes.driverStart: (context) => const DriverStartView(),
         Routes.driverEnd: (context) => const DriverEndView(),
         Routes.driverFinish: (context) => const DriverFinishView(),
+        Routes.driverConfirm: (context) => const DriverConfirmView(),
         
 
         Routes.register: (context) => const RegisterView(),
