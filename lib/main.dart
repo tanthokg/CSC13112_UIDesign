@@ -19,8 +19,11 @@ import 'package:uniride/features/driver/driver_ready_to_start.dart';
 import 'features/driver/driver_finish.dart';
 
 import 'package:uniride/features/map/current_location_screen.dart';
+import 'package:uniride/features/book_ride/book_ride_list.dart';
+import 'package:uniride/features/home.dart';
+import 'package:uniride/features/chat/chat.dart';
+import 'package:uniride/features/chat/chat_detail.dart';
 import 'package:uniride/features/auth/register.dart';
-import 'package:uniride/features/homepage/homepage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,7 +42,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: blueSky,
       ),
-      home: const HomePage(),
+      home: const LoginView(),
       routes: {
         Routes.login: (context) => const LoginView(),
 
@@ -53,7 +56,10 @@ class MyApp extends StatelessWidget {
 
         Routes.register: (context) => const RegisterView(),
         Routes.forgotPassword: (context) => const ForgotPassword(),
-        Routes.homepage: (context) => const HomePage(),
+        Routes.home: (context) => const HomeView(),
+        Routes.rideList: (context) => const BookRideListView(),
+        Routes.chat: (context) => const ChatView(),
+        Routes.chatDetail: (context) => const ChatDetailView(),
       },
     );
   }

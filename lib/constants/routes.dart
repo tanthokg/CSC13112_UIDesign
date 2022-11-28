@@ -9,4 +9,10 @@ class Routes {
   static const driverFinish = '/driver_finish/';
   static const driverStart = '/driver_start/';
   static const driverEnd = '/driver_end/';
+
+  static const home = '/home/';
+  static const rideList = '/ride_list/';
+  static const chat = '/chat/';
+  static const chatDetail = '/chat/detail/';
 }
+
