@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/features/map/simple_map.dart';
+import 'package:uniride/features/ride_track/waitting_rider.dart';
 
 class BookRideListView extends StatefulWidget {
   const BookRideListView({Key? key}) : super(key: key);
@@ -385,19 +386,24 @@ class _RiderRoadInformationCardState extends State<RiderRoadInformationCard> {
               padding:
                   const EdgeInsets.only(left: 24.0, right: 24.0, bottom: 16.0),
               child: isBook
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text(
-                          '...',
-                          style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                          ),
-                        )
-                      ],
-                    )
+                  ? FutureBuilder(
+                    future: _riderAccepted(),
+                    builder: (context, snapshot) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            '...',
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                  )
                   : TextButton(
                       onPressed: () {
                         setState(() {
@@ -416,5 +422,13 @@ class _RiderRoadInformationCardState extends State<RiderRoadInformationCard> {
         ),
       ),
     );
+  }
+
+  Future<void> _riderAccepted() async {
+    await Future.delayed(const Duration(seconds: 5)).then((value) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+        return const WaittingRiderView();
+      }));
+    });
   }
 }

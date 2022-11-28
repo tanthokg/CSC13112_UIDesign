@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/features/map/simple_map.dart';
 import 'package:uniride/features/notification/notification_list.dart';
+import 'package:uniride/features/ride_track/dialog.dart';
+import 'package:uniride/features/ride_track/driver_arrived.dart';
 
 class WaittingRiderView extends StatefulWidget {
   const WaittingRiderView({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class _WatitingRiderViewState extends State<WaittingRiderView> {
     return SafeArea(
       child: Scaffold(
         body: FutureBuilder(
-          future: _riderAccepted(),
+          future: _riderArrived(),
           builder: (context, snapshot) {
             return Stack(
               children: [
@@ -178,11 +180,10 @@ class _WatitingRiderViewState extends State<WaittingRiderView> {
     );
   }
 
-  Future<void> _riderAccepted() async {
-    await Future.delayed(const Duration(seconds: 30)).then((value) {
+  Future<void> _riderArrived() async {
+    await Future.delayed(const Duration(seconds: 5)).then((value) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        // TODO: Navigate to page has Dialog
-        return const NotificationView();
+        return const DriverArrivedView();
       }));
     });
   }

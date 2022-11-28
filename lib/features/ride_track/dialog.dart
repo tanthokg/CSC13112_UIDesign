@@ -31,14 +31,10 @@ class _DialogState extends State<DialogView> {
                 padding: const EdgeInsets.only(top: 16),
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return TextButton(
-                    onPressed: () => showDialog(
-                        context: context,
-                        builder: (BuildContext context) => CustomDialog(
-                            img: data[index]['img'],
-                            title: data[index]['title'],
-                            content: data[index]['content'])),
-                    child: Text(data[index]['title']),
+                  return Container(
+                    child: SimpleDialog(
+                      title: data,
+                    )
                   );
                 },
               ),
@@ -47,3 +43,11 @@ class _DialogState extends State<DialogView> {
         ));
   }
 }
+
+
+showDialog(
+context: context,
+builder: (BuildContext context) => CustomDialog(
+img: data[index]['img'],
+title: data[index]['title'],
+content: data[index]['content'])),
