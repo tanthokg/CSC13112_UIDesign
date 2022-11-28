@@ -66,7 +66,7 @@ class Trip {
           status: status ?? this.status,
           notes: notes ?? this.notes);
 
-  Map<String, Object?> toJson(Trip trip) => {
+  Map<String, Object?> toJson() => {
         TripFields.id: id,
         TripFields.rider: rider,
         TripFields.person: person,
