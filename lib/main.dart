@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/auth/login.dart';
+import 'package:uniride/features/rating/driver_rate.dart';
+import 'package:uniride/features/driver/driver_ready_to_start.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,9 +24,12 @@ class MyApp extends StatelessWidget {
       ),
       home: const LoginView(),
       routes: {
-        Routes.login: (context) => const LoginView()
-      }
-      ,
+        Routes.login: (context) => const LoginView(),
+
+        Routes.driverRating: (context) => const DriverRateView(),
+        Routes.driverReadyToStart: (context) => const DriverReadyToStartView(),
+        
+      },
     );
   }
 }
