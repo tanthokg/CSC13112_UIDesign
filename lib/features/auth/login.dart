@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/constants/routes.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -80,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
                       fontWeight: FontWeight.w300,
                       color: Colors.grey[400],
                     ),
-                    hintText: 'Password',
+                    hintText: 'Mật khẩu',
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(left: 16, right: 12),
                       child: Icon(Icons.key_rounded, color: blueSky, size: 32),
@@ -117,7 +118,9 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.forgotPassword);
+                    },
                     child: Text(
                       'Quên mật khẩu',
                       style: TextStyle(
@@ -178,12 +181,14 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   const SizedBox(width: 4),
                   InkWell(
-                    onTap: () {},
-                    child: Text('Đăng ký ngay',
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: blueSky)),
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.register);
+                    },
+                    child: Text(
+                      'Đăng ký ngay',
+                      style: TextStyle(
+                          fontSize: 17, fontWeight: FontWeight.bold, color: blueSky),
+                    ),
                   ),
                 ],
               ),
