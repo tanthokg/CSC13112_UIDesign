@@ -17,6 +17,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final data = ModalRoute.of(context)?.settings.arguments as Map;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: background,
