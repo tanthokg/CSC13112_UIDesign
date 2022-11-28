@@ -4,6 +4,7 @@ import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/auth/forgot_password.dart';
 import 'package:uniride/features/auth/login.dart';
 import 'package:uniride/features/driver/driver_start_trip.dart';
+import 'package:uniride/features/find_location/find_location.dart';
 import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/features/auth/register.dart';
 import 'package:uniride/features/homepage/homepage.dart';
@@ -46,6 +47,10 @@ class MyApp extends StatelessWidget {
       home: const LoginView(),
       routes: {
         Routes.login: (context) => const LoginView(),
+        Routes.register: (context) => const RegisterView(),
+        Routes.forgotPassword: (context) => const ForgotPassword(),
+        Routes.findLocation: (context) => const FindLocationView(),
+        Routes.currentLocation: (context) => const CurrentLocationView(),
 
         Routes.driverRating: (context) => const DriverRateView(),
 
@@ -54,10 +59,7 @@ class MyApp extends StatelessWidget {
         Routes.driverEnd: (context) => const DriverEndView(),
         Routes.driverFinish: (context) => const DriverFinishView(),
         Routes.driverConfirm: (context) => const DriverConfirmView(),
-        
 
-        Routes.register: (context) => const RegisterView(),
-        Routes.forgotPassword: (context) => const ForgotPassword(),
         Routes.home: (context) => const HomeView(),
         Routes.rideList: (context) => const BookRideListView(),
         Routes.chat: (context) => const ChatView(),

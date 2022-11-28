@@ -133,11 +133,7 @@ class _HomePageState extends State<HomePage> {
                         TextButton(
                           onPressed: () {
                             _riderRole
-                                ? Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const FindLocationView()))
+                                ? Navigator.pushNamed(context, Routes.findLocation)
                                 : Navigator.pushNamed(context, Routes.rideList);
                           },
                           style: TextButton.styleFrom(
@@ -203,124 +199,143 @@ class _HomePageState extends State<HomePage> {
                 surfaceTintColor: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.all(20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/icon/create_trip.png',
-                        width: 56,
-                        height: 56,
-                      ),
-                      const SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            _riderRole ? 'Tạo chuyến xe' : 'Tạo cuộc hẹn',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: blackBlue,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.findLocation);
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/icon/create_trip.png',
+                          width: 56,
+                          height: 56,
+                        ),
+                        const SizedBox(width: 16),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _riderRole ? 'Tạo chuyến xe' : 'Tạo cuộc hẹn',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: blackBlue,
+                              ),
                             ),
-                          ),
-                          Text(
-                            _riderRole
-                                ? 'Tạo thông tin chuyến xe để\nthực hiện dịch vụ đi xe'
-                                : 'Tạo cuộc hẹn để đồng hành\ncùng người lái xe ',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: blackBlue.shade300,
+                            Text(
+                              _riderRole
+                                  ? 'Tạo thông tin chuyến xe để\nthực hiện dịch vụ đi xe'
+                                  : 'Tạo cuộc hẹn để đồng hành\ncùng người lái xe ',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: blackBlue.shade300,
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-              Card(
-                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                elevation: 2.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(28),
-                ),
-                surfaceTintColor: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/icon/find_trip.png',
-                        width: 56,
-                        height: 56,
-                      ),
-                      const SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            _riderRole ? 'Xác nhận chuyến xe' : 'Tìm chuyến xe',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: blackBlue,
+              InkWell(
+                onTap: () {
+                  if (_riderRole) {
+                    Navigator.pushNamed(context, Routes.driverConfirm);
+                  } else {
+                    Navigator.pushNamed(context, Routes.rideList);
+                  }
+                },
+                child: Card(
+                  margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                  elevation: 2.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(28),
+                  ),
+                  surfaceTintColor: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/icon/find_trip.png',
+                          width: 56,
+                          height: 56,
+                        ),
+                        const SizedBox(width: 16),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _riderRole ? 'Xác nhận chuyến xe' : 'Tìm chuyến xe',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: blackBlue,
+                              ),
                             ),
-                          ),
-                          Text(
-                            _riderRole
-                                ? 'Xem và phê duyệt các\nyêu cầu đặt xe'
-                                : 'Tìm các chuyến xe để\nđi đến vị trí mong muốn',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: blackBlue.shade300,
+                            Text(
+                              _riderRole
+                                  ? 'Xem và phê duyệt các\nyêu cầu đặt xe'
+                                  : 'Tìm các chuyến xe để\nđi đến vị trí mong muốn',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: blackBlue.shade300,
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-              Card(
-                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                elevation: 2.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(28),
-                ),
-                surfaceTintColor: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/icon/open_map.png',
-                        width: 56,
-                        height: 56,
-                      ),
-                      const SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Xem bản đồ',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: blackBlue,
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.currentLocation);
+                },
+                child: Card(
+                  margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                  elevation: 2.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(28),
+                  ),
+                  surfaceTintColor: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/icon/open_map.png',
+                          width: 56,
+                          height: 56,
+                        ),
+                        const SizedBox(width: 16),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Xem bản đồ',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: blackBlue,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Tìm kiếm địa điểm\ntrên bản đồ',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: blackBlue.shade300,
+                            Text(
+                              'Tìm kiếm địa điểm\ntrên bản đồ',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: blackBlue.shade300,
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

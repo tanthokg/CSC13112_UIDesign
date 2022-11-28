@@ -21,7 +21,7 @@ class _CreateRouteState extends State<CreateRoute> {
         child: Scaffold(
             backgroundColor: background,
             appBar:
-                AppBar(title: const Center(child: Text("Thông tin chuyến xe"))),
+                AppBar(title: Text('Thông tin chuyến xe'), centerTitle: true,),
             body: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(children: [
