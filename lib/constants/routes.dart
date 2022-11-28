@@ -18,5 +18,6 @@ class Routes {
   static const rideList = '/ride_list/';
   static const chat = '/chat/';
   static const chatDetail = '/chat/detail/';
+  static const rating = '/rating/';
 }
 

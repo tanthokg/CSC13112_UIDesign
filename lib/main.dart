@@ -27,6 +27,8 @@ import 'package:uniride/features/chat/chat.dart';
 import 'package:uniride/features/chat/chat_detail.dart';
 import 'package:uniride/features/auth/register.dart';
 
+import 'features/rating/booker_rate.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: blueSky,
       ),
-      home: const LoginView(),
+      home: const BookerRatingView(),
       routes: {
         Routes.login: (context) => const LoginView(),
         Routes.register: (context) => const RegisterView(),
@@ -64,6 +66,7 @@ class MyApp extends StatelessWidget {
         Routes.rideList: (context) => const BookRideListView(),
         Routes.chat: (context) => const ChatView(),
         Routes.chatDetail: (context) => const ChatDetailView(),
+        Routes.rating: (context) => const BookerRatingView(),
       },
     );
   }
