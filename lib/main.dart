@@ -5,6 +5,8 @@ import 'package:uniride/features/auth/forgot_password.dart';
 import 'package:uniride/features/auth/login.dart';
 import 'package:uniride/features/book_ride/book_ride_list.dart';
 import 'package:uniride/features/home.dart';
+import 'package:uniride/features/chat/chat.dart';
+import 'package:uniride/features/chat/chat_detail.dart';
 import 'package:uniride/features/auth/register.dart';
 
 void main() {
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
         Routes.forgotPassword: (context) => const ForgotPassword(),
         Routes.home: (context) => const HomeView(),
         Routes.rideList: (context) => const BookRideListView(),
+        Routes.chat: (context) => const ChatView(),
+        Routes.chatDetail: (context) => const ChatDetailView(),
       },
     );
   }

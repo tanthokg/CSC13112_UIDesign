@@ -376,36 +376,44 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     const SizedBox(width: 32),
-                    Column(
-                      children: [
-                        Card(
-                          elevation: 1.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          surfaceTintColor: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(24),
-                            child: Image.asset(
-                              'assets/icon/chat.png',
-                              width: 32,
-                              height: 32,
+                    TextButton(
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateColor.resolveWith(
+                            (states) => Colors.transparent),
+                      ),
+                      onPressed: () =>
+                          Navigator.pushNamed(context, Routes.chat),
+                      child: Column(
+                        children: [
+                          Card(
+                            elevation: 1.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            surfaceTintColor: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(24),
+                              child: Image.asset(
+                                'assets/icon/chat.png',
+                                width: 32,
+                                height: 32,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 12),
-                          child: Text(
-                            'Trò chuyện\n',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w300,
-                              color: blackBlue,
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: Text(
+                              'Trò chuyện\n',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                                color: blackBlue,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
