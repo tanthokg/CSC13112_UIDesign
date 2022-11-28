@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:uniride/features/map/current_location_screen.dart';
-import 'package:uniride/features/notification/custom_dialog.dart';
+import 'package:uniride/features/ride_track/custom_dialog.dart';
 
 class DialogView extends StatefulWidget {
   const DialogView({super.key});
