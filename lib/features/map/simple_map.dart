@@ -22,10 +22,6 @@ class _SimpleMapViewState extends State<SimpleMapView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Simple Google Map"),
-          centerTitle: true,
-        ),
         body: GoogleMap(
           initialCameraPosition: initialPosition,
           mapType: MapType.normal,
@@ -33,17 +29,7 @@ class _SimpleMapViewState extends State<SimpleMapView> {
             _controller.complete(controller);
           },
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: (){},
-          label: const Text("To the lake!"),
-          icon: const Icon(Icons.directions_boat),
-        ),
       ),
     );
-  }
-
-  Future<void> goToLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(targetPosition));
   }
 }
