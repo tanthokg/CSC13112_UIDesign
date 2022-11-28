@@ -5,9 +5,7 @@ import 'package:uniride/features/auth/forgot_password.dart';
 import 'package:uniride/features/auth/login.dart';
 import 'package:uniride/features/book_ride/book_ride_list.dart';
 import 'package:uniride/features/home.dart';
-import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/features/auth/register.dart';
-import 'package:uniride/features/homepage/homepage.dart';
 
 void main() {
   runApp(const MyApp());
