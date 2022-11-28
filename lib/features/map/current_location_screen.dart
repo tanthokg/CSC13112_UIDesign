@@ -21,10 +21,6 @@ class _CurrentLocationViewState extends State<CurrentLocationView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('User Current Location',),
-          centerTitle: true,
-        ),
         body: GoogleMap(
           initialCameraPosition: initialCameraPosition,
           markers: markers,

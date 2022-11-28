@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/auth/forgot_password.dart';
 import 'package:uniride/features/auth/create_route.dart';
 
@@ -11,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _role = true;
+  bool _riderRole = true;
 
   @override
   Widget build(BuildContext context) {
@@ -22,49 +24,6 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(16),
-                width: double.maxFinite,
-                color: Colors.white,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const CircleAvatar(
-                      radius: 32,
-                      backgroundImage:
-                          AssetImage('assets/avatar/avatar-01.png'),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Chào mừng,',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: blackBlue.shade200,
-                            ),
-                          ),
-                          Text(
-                            'Nguyễn Văn A',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: blackBlue,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.apps_rounded, size: 32, color: blueSky),
-                    )
-                  ],
-                ),
-              ),
               SizedBox(
                 width: double.maxFinite,
                 child: Card(
@@ -79,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: [
                         Image.asset(
-                          _role
+                          _riderRole
                               ? 'assets/illustration/role_rider.png'
                               : 'assets/illustration/role_booker.png',
                           width: 240,
@@ -96,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                                     color: blueSky.shade50,
                                     borderRadius: BorderRadius.circular(32)),
                               ),
-                              _role
+                              _riderRole
                                   ? Align(
                                       alignment: Alignment.centerLeft,
                                       child: InkWell(
@@ -104,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                                         splashFactory: NoSplash.splashFactory,
                                         onTap: () {
                                           setState(() {
-                                            _role = !_role;
+                                            _riderRole = !_riderRole;
                                           });
                                         },
                                         child: Container(
@@ -131,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                                         splashFactory: NoSplash.splashFactory,
                                         onTap: () {
                                           setState(() {
-                                            _role = !_role;
+                                            _riderRole = !_riderRole;
                                           });
                                         },
                                         child: Container(
@@ -164,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Text(
-                          _role ? 'Người lái xe' : 'Người đặt xe',
+                          _riderRole ? 'Người lái xe' : 'Người đặt xe',
                           style: TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
@@ -174,17 +133,19 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(height: 16),
                         TextButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CreateRoute()));
+                            _riderRole
+                                ? Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CreateRoute()))
+                                : Navigator.pushNamed(context, Routes.rideList);
                           },
                           style: TextButton.styleFrom(
-                            backgroundColor: _role ? blueSky : purple,
+                            backgroundColor: _riderRole ? blueSky : purple,
                             minimumSize: const Size.fromHeight(56),
                           ),
                           child: Text(
-                            _role ? 'Tạo chuyến xe' : 'Tìm chuyến xe',
+                            _riderRole ? 'Tạo chuyến xe' : 'Tìm chuyến xe',
                             style: const TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w400,
@@ -256,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _role ? 'Tạo chuyến xe' : 'Tạo cuộc hẹn',
+                            _riderRole ? 'Tạo chuyến xe' : 'Tạo cuộc hẹn',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
@@ -264,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Text(
-                            _role
+                            _riderRole
                                 ? 'Tạo thông tin chuyến xe để\nthực hiện dịch vụ đi xe'
                                 : 'Tạo cuộc hẹn để đồng hành\ncùng người lái xe ',
                             style: TextStyle(
@@ -301,7 +262,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _role ? 'Xác nhận chuyến xe' : 'Tìm chuyến xe',
+                            _riderRole ? 'Xác nhận chuyến xe' : 'Tìm chuyến xe',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
@@ -309,7 +270,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Text(
-                            _role
+                            _riderRole
                                 ? 'Xem và phê duyệt các\nyêu cầu đặt xe'
                                 : 'Tìm các chuyến xe để\nđi đến vị trí mong muốn',
                             style: TextStyle(
@@ -354,7 +315,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Text(
-                            'Tìm kiểm địa điểm\ntrên bản đồ',
+                            'Tìm kiếm địa điểm\ntrên bản đồ',
                             style: TextStyle(
                               fontSize: 14,
                               color: blackBlue.shade300,

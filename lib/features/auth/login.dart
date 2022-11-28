@@ -132,7 +132,9 @@ class _LoginViewState extends State<LoginView> {
               ),
               const SizedBox(height: 20),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, Routes.home);
+                },
                 style: TextButton.styleFrom(
                   backgroundColor: blueSky,
                   minimumSize: const Size.fromHeight(56),

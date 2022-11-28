@@ -24,24 +24,33 @@ class _DriversListRouteState extends State<DriversListRoute> {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
-                title: Center(child: Text("Danh sách chuyến xe của tôi"))),
+                title: const Center(child: Text("Danh sách chuyến xe của tôi"))),
             body: Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Column(children: [
                   Container(
-                    padding: EdgeInsets.all(24),
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7)
+                        ]),
                     child: Column(children: [
                       Padding(
-                          padding: EdgeInsets.all(24),
+                          padding: const EdgeInsets.all(24),
                           child: Container(
                             alignment: Alignment.center,
-                            color: Color.fromARGB(255, 236, 245, 255),
+                            color: const Color.fromARGB(255, 236, 245, 255),
                             child: Padding(
-                                padding: EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(16),
                                 child: Row(
                                   children: [
                                     Container(
-                                      child: CircleAvatar(
+                                      child: const CircleAvatar(
                                           radius: 32,
                                           backgroundImage: AssetImage(
                                               'assets/avatar/avatar-01.png')),
@@ -75,65 +84,65 @@ class _DriversListRouteState extends State<DriversListRoute> {
                                 )),
                           )),
                       Row(mainAxisSize: MainAxisSize.max, children: [
-                        Text('Vị trí đi',
+                        const Text('Vị trí đi',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Text(widget.departureText,
-                            style: TextStyle(fontSize: 16)),
-                        Expanded(child: SizedBox()),
+                            style: const TextStyle(fontSize: 16)),
+                        const Expanded(child: SizedBox()),
                         Container(
                             alignment: Alignment.topRight,
-                            child: Text('Trạng thái: Mới tạo',
+                            child: const Text('Trạng thái: Mới tạo',
                                 style: TextStyle(fontWeight: FontWeight.w200)))
                       ]),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(mainAxisSize: MainAxisSize.max, children: [
-                        Text('Vị trí đến',
+                        const Text('Vị trí đến',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Text(widget.destinationText,
-                            style: TextStyle(fontSize: 16))
+                            style: const TextStyle(fontSize: 16))
                       ]),
-                      SizedBox(height: 12),
-                      Row(mainAxisSize: MainAxisSize.max, children: [
+                      const SizedBox(height: 12),
+                      Row(mainAxisSize: MainAxisSize.max, children: const [
                         Text('Thời gian',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold)),
                         SizedBox(width: 20),
                         Text('24/11/2022', style: TextStyle(fontSize: 16))
                       ]),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(mainAxisSize: MainAxisSize.max, children: [
-                        Text('Mô tả',
+                        const Text('Mô tả',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Text(widget.additionalDescription,
-                            style: TextStyle(fontSize: 16)),
+                            style: const TextStyle(fontSize: 16)),
                       ]),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(mainAxisSize: MainAxisSize.max, children: [
-                        Text('Độ dài quãng đường',
+                        const Text('Độ dài quãng đường',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Text(widget.additionalDescription,
-                            style: TextStyle(fontSize: 16)),
+                            style: const TextStyle(fontSize: 16)),
                       ]),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(mainAxisSize: MainAxisSize.max, children: [
-                        Text('Thời gian ước tính',
+                        const Text('Thời gian ước tính',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold)),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Text(widget.additionalDescription,
-                            style: TextStyle(fontSize: 16)),
+                            style: const TextStyle(fontSize: 16)),
                       ]),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
+                        children: const [
                           Text(
                             'Giá tiền',
                             style: TextStyle(fontWeight: FontWeight.w200),
@@ -148,17 +157,8 @@ class _DriversListRouteState extends State<DriversListRoute> {
                         ],
                       )
                     ]),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7)
-                        ]),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                 ]))));
   }
 }
