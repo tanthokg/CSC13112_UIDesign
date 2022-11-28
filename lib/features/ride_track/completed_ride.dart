@@ -304,7 +304,9 @@ class _CompletedRideViewState extends State<CompletedRideView> {
               const SizedBox(height: 18,),
 
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.rating);
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(purple),
                   foregroundColor: MaterialStateProperty.all(Colors.white),
