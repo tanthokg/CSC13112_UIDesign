@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
-import 'package:uniride/constants/routes.dart';
 import 'package:uniride/database/user_dao.dart';
 import 'package:uniride/entity/user.dart';
 

@@ -58,7 +58,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {},
-                      child: Container(
+                      child: SizedBox(
                         height: 30,
                         width: 30,
                         child: Icon(
@@ -70,7 +70,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                     ),
                     GestureDetector(
                       onTap: () {},
-                      child: Container(
+                      child: SizedBox(
                         height: 30,
                         width: 30,
                         child: Icon(
@@ -100,7 +100,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                     ),
                     GestureDetector(
                       onTap: () {},
-                      child: Container(
+                      child: SizedBox(
                         height: 30,
                         width: 30,
                         child: FloatingActionButton(

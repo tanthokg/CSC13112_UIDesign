@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
@@ -21,7 +20,8 @@ class _CreateRouteState extends State<CreateRoute> {
     return SafeArea(
         child: Scaffold(
             backgroundColor: background,
-            appBar: AppBar(title: const Center(child: Text("Thông tin chuyến xe"))),
+            appBar:
+                AppBar(title: const Center(child: Text("Thông tin chuyến xe"))),
             body: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(children: [
