@@ -7,7 +7,6 @@ import 'package:uniride/features/driver/driver_start_trip.dart';
 import 'package:uniride/features/find_location/find_location.dart';
 import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/features/auth/register.dart';
-import 'package:uniride/features/homepage/homepage.dart';
 import 'package:uniride/features/rating/driver_rate.dart';
 import 'package:uniride/features/driver/driver_ready_to_start.dart';
 
@@ -15,17 +14,10 @@ import 'features/driver/driver_confirm_trip.dart';
 import 'features/driver/driver_end_trip.dart';
 import 'features/driver/driver_finish.dart';
 
-import 'package:uniride/features/rating/driver_rate.dart';
-import 'package:uniride/features/driver/driver_ready_to_start.dart';
-
-import 'features/driver/driver_finish.dart';
-
-import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/features/book_ride/book_ride_list.dart';
 import 'package:uniride/features/home.dart';
 import 'package:uniride/features/chat/chat.dart';
 import 'package:uniride/features/chat/chat_detail.dart';
-import 'package:uniride/features/auth/register.dart';
 
 import 'features/rating/booker_rate.dart';
 
@@ -46,7 +38,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: blueSky,
       ),
-      home: const BookerRatingView(),
+      home: const LoginView(),
       routes: {
         Routes.login: (context) => const LoginView(),
         Routes.register: (context) => const RegisterView(),
