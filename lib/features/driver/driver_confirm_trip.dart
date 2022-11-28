@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/widget/customer_pick_up_destination_card.dart';
 import 'package:uniride/widget/driver_start_end_card.dart';
@@ -225,25 +226,30 @@ class _DriverConfirmViewState extends State<DriverConfirmView> {
                                 ],
                               ),
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.blue,
-                              ),
-                              height: 45,
-                              width: 100,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Đồng ý',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17,
-                                        color: Colors.white),
-                                  ),
-                                ],
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, Routes.driverReadyToStart);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.blue,
+                                ),
+                                height: 45,
+                                width: 100,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: const [
+                                    Text(
+                                      'Đồng ý',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17,
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
