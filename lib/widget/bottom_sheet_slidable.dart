@@ -3,7 +3,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:slidable_button/slidable_button.dart';
 import 'package:uniride/widget/customer_info.dart';
-import 'package:uniride/widget/pick_up_destination_card.dart';
+import 'package:uniride/widget/customer_pick_up_destination_card.dart';
 
 // for begin and end the trip
 class BottomSheetSlidable extends StatelessWidget {

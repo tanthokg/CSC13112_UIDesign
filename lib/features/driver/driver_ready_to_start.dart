@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/widget/bottom_sheet_slidable.dart';
 
 import '../../widget/simple_bottom_sheet.dart';
@@ -33,9 +34,12 @@ class _DriverReadyToStartViewState extends State<DriverReadyToStartView> {
       
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
 
+      body: Stack(
+        children: [const CurrentLocationView(),]
+      ),
+
       bottomSheet: const SimpleBottomSheet(
         fullName: 'Huynh Van Khong',
-        //buttonContent: 'Bat dau chuyen xe',
         pickUp: '480 Nguyễn Thị Minh Khai',
         destination: '2212 Nguyen Thuong Hien',
       ),

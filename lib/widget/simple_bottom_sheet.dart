@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/widget/customer_info.dart';
-import 'package:uniride/widget/pick_up_destination_card.dart';
+import 'package:uniride/widget/customer_pick_up_destination_card.dart';
 
 
 class SimpleBottomSheet extends StatelessWidget {
