@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/features/notification/custom_dialog.dart';
 
 class DialogView extends StatefulWidget {
@@ -19,26 +20,30 @@ class _DialogState extends State<DialogView> {
     List<dynamic> data = jsonDecode(jsonData);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Demo Dialog')),
-      body: SingleChildScrollView(
-        child: ListView.builder(
-          itemCount: data.length,
-          shrinkWrap: true,
-          padding: const EdgeInsets.only(top: 16),
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return TextButton(
-              onPressed: () => showDialog(
-                  context: context,
-                  builder: (BuildContext context) => CustomDialog(
-                      img: data[index]['img'],
-                      title: data[index]['title'],
-                      content: data[index]['content'])),
-              child: Text(data[index]['title']),
-            );
-          },
-        ),
-      ),
-    );
+        appBar: AppBar(title: const Text('Demo Dialog')),
+        body: Stack(
+          children: [
+            const CurrentLocationView(),
+            SingleChildScrollView(
+              child: ListView.builder(
+                itemCount: data.length,
+                shrinkWrap: true,
+                padding: const EdgeInsets.only(top: 16),
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return TextButton(
+                    onPressed: () => showDialog(
+                        context: context,
+                        builder: (BuildContext context) => CustomDialog(
+                            img: data[index]['img'],
+                            title: data[index]['title'],
+                            content: data[index]['content'])),
+                    child: Text(data[index]['title']),
+                  );
+                },
+              ),
+            ),
+          ],
+        ));
   }
 }

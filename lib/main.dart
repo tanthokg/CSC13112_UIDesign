@@ -5,10 +5,8 @@ import 'package:uniride/features/auth/forgot_password.dart';
 import 'package:uniride/features/auth/login.dart';
 import 'package:uniride/features/chat/chat.dart';
 import 'package:uniride/features/chat/chat_detail.dart';
-import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/features/auth/register.dart';
 import 'package:uniride/features/homepage/homepage.dart';
-import 'package:uniride/features/map/simple_map.dart';
 
 void main() {
   runApp(const MyApp());
