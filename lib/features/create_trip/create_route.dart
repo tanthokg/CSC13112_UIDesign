@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
-import 'package:uniride/features/auth/drivers_list_routes.dart';
+import 'package:uniride/features/create_trip/drivers_list_routes.dart';
 
 class CreateRoute extends StatefulWidget {
   const CreateRoute({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/features/map/simple_map.dart';
-import 'package:uniride/features/ride_track/waitting_rider.dart';
+import 'package:uniride/features/ride_track/waiting_rider.dart';
 
 class BookRideListView extends StatefulWidget {
   const BookRideListView({Key? key}) : super(key: key);
@@ -427,7 +427,7 @@ class _RiderRoadInformationCardState extends State<RiderRoadInformationCard> {
   Future<void> _riderAccepted() async {
     await Future.delayed(const Duration(seconds: 5)).then((value) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const WaittingRiderView();
+        return const WaitingRiderView();
       }));
     });
   }

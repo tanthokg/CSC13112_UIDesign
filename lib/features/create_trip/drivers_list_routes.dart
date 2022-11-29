@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
-import 'package:uniride/constants/routes.dart';
 
 class DriversListRoute extends StatefulWidget {
   final String departureText;
@@ -49,12 +48,10 @@ class _DriversListRouteState extends State<DriversListRoute> {
                                 padding: const EdgeInsets.all(16),
                                 child: Row(
                                   children: [
-                                    Container(
-                                      child: const CircleAvatar(
-                                          radius: 32,
-                                          backgroundImage: AssetImage(
-                                              'assets/avatar/avatar-01.png')),
-                                    ),
+                                    const CircleAvatar(
+                                        radius: 32,
+                                        backgroundImage: AssetImage(
+                                            'assets/avatar/avatar-01.png')),
                                     const SizedBox(width: 12),
                                     Expanded(
                                       child: Column(

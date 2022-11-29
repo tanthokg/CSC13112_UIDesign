@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uniride/constants/colors.dart';
-import 'package:uniride/features/auth/create_route.dart';
+import 'package:uniride/features/create_trip/create_route.dart';
 
 class FindLocationView extends StatefulWidget {
   const FindLocationView({Key? key}) : super(key: key);
