@@ -16,7 +16,7 @@ class _BookRideListViewState extends State<BookRideListView> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Danh sách chuyến xe'),
+          title: const Text('Tìm chuyến xe'),
           centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
