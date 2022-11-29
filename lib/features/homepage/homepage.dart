@@ -190,19 +190,19 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Card(
-                margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                elevation: 2.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(28),
-                ),
-                surfaceTintColor: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, Routes.findLocation);
-                    },
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.findLocation);
+                },
+                child: Card(
+                  margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                  elevation: 2.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(28),
+                  ),
+                  surfaceTintColor: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
