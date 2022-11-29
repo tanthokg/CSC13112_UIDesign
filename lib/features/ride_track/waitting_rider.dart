@@ -29,7 +29,9 @@ class _WatitingRiderViewState extends State<WaittingRiderView> {
                     Padding(
                       padding: const EdgeInsets.all(24),
                       child: FloatingActionButton.small(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         backgroundColor: Colors.white,
                         child: Icon(
                           Icons.arrow_back_rounded,

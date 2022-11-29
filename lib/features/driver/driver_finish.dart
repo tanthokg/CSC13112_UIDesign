@@ -49,7 +49,7 @@ class _DriverFinishViewState extends State<DriverFinishView> {
                             margin: const EdgeInsets.only(right: 15),
                             child: InkWell(
                               onTap: () {},
-                              child: Image.asset('assets/logo/facebook.png',
+                              child: Image.asset('assets/avatar/avatar-01.png',
                                   width: 48, height: 48),
                             ),
                           ),

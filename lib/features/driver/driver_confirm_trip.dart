@@ -43,8 +43,12 @@ class _DriverConfirmViewState extends State<DriverConfirmView> {
                             children: [
                               InkWell(
                                 onTap: () {},
-                                child: Image.asset('assets/logo/facebook.png',
-                                    width: 48, height: 48),
+                                child: const CircleAvatar(
+                                  backgroundImage: AssetImage(
+                                    'assets/avatar/avatar-01.png',
+                                  ),
+                                  radius: 24,
+                                ),
                               ),
                               const SizedBox(width: 16,),
                               Text(

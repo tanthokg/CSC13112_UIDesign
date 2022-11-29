@@ -201,10 +201,11 @@ class _RiderRoadInformationCardState extends State<RiderRoadInformationCard> {
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
                 child: Row(
                   children: [
-                    Image.asset(
-                      'assets/logo/facebook.png',
-                      width: 32,
-                      height: 32,
+                    const CircleAvatar(
+                      backgroundImage: AssetImage(
+                        'assets/avatar/avatar-01.png',
+                      ),
+                      radius: 24,
                     ),
                     const SizedBox(
                       width: 16,
