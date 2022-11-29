@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 
 import '../../constants/routes.dart';
-import '../../database/user_dao.dart';
 import '../book_ride/book_ride_list.dart';
 
 class CompletedRideView extends StatefulWidget {
@@ -323,7 +322,7 @@ class _CompletedRideViewState extends State<CompletedRideView> {
               const SizedBox(height: 16,),
               
               OutlinedButton(
-                onPressed: () async {
+                onPressed: () {
                   /*final user = await UserDAO.instance.readUserByEmail(email);
                   if (mounted) {
                     Navigator.pushReplacementNamed(context, Routes.home,

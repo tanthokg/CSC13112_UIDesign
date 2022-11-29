@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/features/map/simple_map.dart';
-import 'package:uniride/features/notification/notification_list.dart';
-import 'package:uniride/features/ride_track/dialog.dart';
 import 'package:uniride/features/ride_track/driver_arrived.dart';
 
 class WaittingRiderView extends StatefulWidget {
