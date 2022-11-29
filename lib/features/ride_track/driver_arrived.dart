@@ -13,6 +13,13 @@ class DriverArrivedView extends StatefulWidget {
 }
 
 class _DialogState extends State<DriverArrivedView> {
+  late final showNotification;
+
+  @override
+  void initState() {
+    showNotification = _showNotificationDialog();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +32,10 @@ class _DialogState extends State<DriverArrivedView> {
             return Stack(
               children: [
                 const CurrentLocationView(),
-                GestureDetector(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => const CustomDialog(
-                          img: 'assets/illustration/green_checked.png',
-                          title: 'Người lái đã đến vị trí đón!',
-                          content: 'Chuyến xe của bạn sẽ được bắt đầu ngay bây giờ',
-                        )
-                    );
+                FutureBuilder(
+                  future: showNotification,
+                  builder: (context, snapshot) {
+                    return Container();
                   },
                 ),
               ],
@@ -48,6 +49,19 @@ class _DialogState extends State<DriverArrivedView> {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return const BookerArrivedView();
       }));
+    });
+  }
+
+  Future<void> _showNotificationDialog() async {
+    await Future.delayed(const Duration(seconds: 0)).then((value) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => const CustomDialog(
+          img: 'assets/illustration/green_checked.png',
+          title: 'Người lái đã đến vị trí đón!',
+          content: 'Chuyến xe của bạn sẽ được bắt đầu ngay bây giờ',
+        ),
+      );
     });
   }
 }
