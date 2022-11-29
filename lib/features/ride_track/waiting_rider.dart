@@ -4,14 +4,14 @@ import 'package:uniride/constants/colors.dart';
 import 'package:uniride/features/map/simple_map.dart';
 import 'package:uniride/features/ride_track/driver_arrived.dart';
 
-class WaittingRiderView extends StatefulWidget {
-  const WaittingRiderView({Key? key}) : super(key: key);
+class WaitingRiderView extends StatefulWidget {
+  const WaitingRiderView({Key? key}) : super(key: key);
 
   @override
-  State<WaittingRiderView> createState() => _WatitingRiderViewState();
+  State<WaitingRiderView> createState() => _WaitingRiderViewState();
 }
 
-class _WatitingRiderViewState extends State<WaittingRiderView> {
+class _WaitingRiderViewState extends State<WaitingRiderView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

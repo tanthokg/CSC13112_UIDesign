@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uniride/constants/colors.dart';
-import 'package:uniride/features/auth/create_route.dart';
+import 'package:uniride/features/book_ride/book_ride_list.dart';
+import 'package:uniride/features/create_trip/create_trip.dart';
 
 class FindLocationView extends StatefulWidget {
   const FindLocationView({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class _FindLocationViewState extends State<FindLocationView> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: Text(
-            'Chọn địa điểm',
+            'Tìm kiếm địa điểm',
             style: TextStyle(
                 fontSize: 22, fontWeight: FontWeight.w500, color: blackBlue),
           ),
@@ -81,72 +82,91 @@ class _FindLocationViewState extends State<FindLocationView> {
                           elevation: 0, backgroundColor: Colors.white),
                       icon: Icon(Icons.my_location, color: blueSky)),
                   const SizedBox(height: 16),
-                  Material(
-                    borderRadius: BorderRadius.circular(16),
-                    elevation: 3.0,
-                    clipBehavior: Clip.hardEdge,
-                    shadowColor: Colors.grey[200],
-                    child: TextField(
-                      controller: _source,
-                      keyboardType: TextInputType.text,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                        hintText: '(vị trí hiện tại)',
-                        hintStyle: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.grey[400],
-                        ),
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.only(left: 16, right: 12),
-                          child: Icon(Icons.location_searching_rounded,
-                              color: blueSky, size: 24),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(vertical: 16),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.transparent, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: blueSky, width: 2),
-                            borderRadius: BorderRadius.circular(16)),
-                      ),
+                  Card(
+                    elevation: 3,
+                    surfaceTintColor: Colors.white,
+                    shape: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
+                      borderSide: BorderSide.none,
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Material(
-                    borderRadius: BorderRadius.circular(16),
-                    elevation: 3.0,
-                    clipBehavior: Clip.hardEdge,
-                    shadowColor: Colors.grey[200],
-                    child: TextField(
-                      controller: _dest,
-                      keyboardType: TextInputType.text,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                        hintStyle: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.grey[400],
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                          child: Row(
+                            children: [
+                              Icon(Icons.radio_button_on_rounded, color: blueSky),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                  child: TextField(
+                                controller: _source,
+                                keyboardType: TextInputType.text,
+                                autocorrect: true,
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                                  hintText: '(vị trí hiện tại)',
+                                  hintStyle: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w300,
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.grey[400],
+                                  ),
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.transparent),
+                                  ),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.transparent),
+                                  ),
+                                ),
+                              ))
+                            ],
+                          ),
                         ),
-                        hintText: 'Điểm đến',
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.only(left: 16, right: 12),
-                          child: Icon(Icons.location_on_rounded,
-                              color: blueSky, size: 24),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 28),
+                            child: CustomPaint(
+                              size: const Size(1, 16),
+                              painter: DashedLineVerticalPainter(blueSky),
+                            ),
+                          ),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(vertical: 16),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.transparent, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                          child: Row(
+                            children: [
+                              Icon(Icons.location_on, color: blueSky),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                  child: TextField(
+                                    controller: _dest,
+                                    keyboardType: TextInputType.text,
+                                    autocorrect: true,
+                                    decoration: InputDecoration(
+                                      contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                                      hintText: 'Điểm đến',
+                                      hintStyle: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.grey[400],
+                                      ),
+                                      enabledBorder: const OutlineInputBorder(
+                                        borderSide:
+                                        BorderSide(color: Colors.transparent),
+                                      ),
+                                      focusedBorder: const OutlineInputBorder(
+                                        borderSide:
+                                        BorderSide(color: Colors.transparent),
+                                      ),
+                                    ),
+                                  ))
+                            ],
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: blueSky, width: 2),
-                            borderRadius: BorderRadius.circular(16)),
-                      ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -155,7 +175,7 @@ class _FindLocationViewState extends State<FindLocationView> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const CreateRoute()));
+                              builder: (context) => const CreateTrip()));
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: blueSky,
