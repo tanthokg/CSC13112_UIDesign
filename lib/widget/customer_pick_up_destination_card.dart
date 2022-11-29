@@ -1,5 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:uniride/constants/colors.dart';
 
 class PickUpDestinationCard extends StatelessWidget {
   // field
@@ -27,20 +28,20 @@ class PickUpDestinationCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.my_location, color: Colors.purple),
+                    Icon(Icons.my_location, color: purple),
                     Container(
                         height: 60,
                         margin: const EdgeInsets.only(left: 9),
-                        child: const DottedLine(
+                        child: DottedLine(
                           direction: Axis.vertical,
                           lineLength: 60,
                           lineThickness: 2.0,
                           dashLength: 4.0,
-                          dashColor: Colors.purple,
+                          dashColor: purple,
                           dashGapLength: 1.5,
                         )),
-                    const Icon(Icons.location_on_outlined,
-                        color: Colors.purple),
+                    Icon(Icons.location_on_outlined,
+                        color: purple),
                   ]),
             ),
             // infomation of destination & pickup place
@@ -65,7 +66,6 @@ class PickUpDestinationCard extends StatelessWidget {
                           child: const Text(
                             'Điểm đón khách',
                             style: TextStyle(
-                              fontWeight: FontWeight.w100,
                               fontSize: 13,
                               color: Colors.grey,
                             ),
@@ -104,7 +104,6 @@ class PickUpDestinationCard extends StatelessWidget {
                             child: const Text(
                               'Điểm trả khách',
                               style: TextStyle(
-                                fontWeight: FontWeight.w100,
                                 fontSize: 13,
                                 color: Colors.grey,
                               ),

@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: blueSky,
       ),
-      home: const LoginView(),
+      home: const HomePage(),
       routes: {
         Routes.login: (context) => const LoginView(),
         Routes.register: (context) => const RegisterView(),
@@ -60,6 +60,8 @@ class MyApp extends StatelessWidget {
         Routes.chat: (context) => const ChatView(),
         Routes.chatDetail: (context) => const ChatDetailView(),
         Routes.rating: (context) => const BookerRatingView(),
+
+        Routes.homepage: (context) => const HomePage(),
       },
     );
   }
