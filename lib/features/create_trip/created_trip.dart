@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
-import 'package:uniride/constants/routes.dart';
 
-class DriversListRoute extends StatefulWidget {
+class CreatedTrip extends StatefulWidget {
   final String departureText;
   final String destinationText;
   final String additionalDescription;
 
-  const DriversListRoute(
+  const CreatedTrip(
       {Key? key,
       required this.departureText,
       required this.destinationText,
@@ -15,10 +14,10 @@ class DriversListRoute extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<DriversListRoute> createState() => _DriversListRouteState();
+  State<CreatedTrip> createState() => _CreatedTripState();
 }
 
-class _DriversListRouteState extends State<DriversListRoute> {
+class _CreatedTripState extends State<CreatedTrip> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,12 +48,10 @@ class _DriversListRouteState extends State<DriversListRoute> {
                                 padding: const EdgeInsets.all(16),
                                 child: Row(
                                   children: [
-                                    Container(
-                                      child: const CircleAvatar(
-                                          radius: 32,
-                                          backgroundImage: AssetImage(
-                                              'assets/avatar/avatar-01.png')),
-                                    ),
+                                    const CircleAvatar(
+                                        radius: 32,
+                                        backgroundImage: AssetImage(
+                                            'assets/avatar/avatar-01.png')),
                                     const SizedBox(width: 12),
                                     Expanded(
                                       child: Column(

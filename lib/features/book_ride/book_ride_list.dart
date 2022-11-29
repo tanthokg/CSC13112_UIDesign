@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/features/map/simple_map.dart';
-import 'package:uniride/features/ride_track/waitting_rider.dart';
+import 'package:uniride/features/ride_track/waiting_rider.dart';
 
 class BookRideListView extends StatefulWidget {
   const BookRideListView({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _BookRideListViewState extends State<BookRideListView> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Danh sách chuyến xe'),
+          title: const Text('Tìm chuyến xe'),
           centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -427,7 +427,7 @@ class _RiderRoadInformationCardState extends State<RiderRoadInformationCard> {
   Future<void> _riderAccepted() async {
     await Future.delayed(const Duration(seconds: 5)).then((value) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const WaittingRiderView();
+        return const WaitingRiderView();
       }));
     });
   }
