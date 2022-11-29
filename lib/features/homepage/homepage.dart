@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
-import 'package:uniride/features/create_trip/create_route.dart';
+import 'package:uniride/features/create_trip/create_trip.dart';
 import 'package:uniride/features/find_location/find_location.dart';
 
 class HomePage extends StatefulWidget {

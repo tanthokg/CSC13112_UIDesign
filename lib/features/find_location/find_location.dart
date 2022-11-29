@@ -3,7 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/features/book_ride/book_ride_list.dart';
-import 'package:uniride/features/create_trip/create_route.dart';
+import 'package:uniride/features/create_trip/create_trip.dart';
 
 class FindLocationView extends StatefulWidget {
   const FindLocationView({Key? key}) : super(key: key);
@@ -175,7 +175,7 @@ class _FindLocationViewState extends State<FindLocationView> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const CreateRoute()));
+                              builder: (context) => const CreateTrip()));
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: blueSky,
