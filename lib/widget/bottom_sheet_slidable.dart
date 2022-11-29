@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dotted_line/dotted_line.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:slidable_button/slidable_button.dart';
 import 'package:uniride/constants/routes.dart';
@@ -55,7 +54,7 @@ class BottomSheetSlidable extends StatelessWidget {
 
             HorizontalSlidableButton(
               width: 90,
-              height: 55,
+              height: 56,
               buttonWidth: 60.0,
               color: blueSky,
               buttonColor: blueSky,

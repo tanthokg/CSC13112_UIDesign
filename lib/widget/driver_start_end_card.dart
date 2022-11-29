@@ -33,20 +33,20 @@ class DriverStartEndCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.my_location, color: Colors.blue),
+                    Icon(Icons.my_location, color: blueSky),
                     Container(
                         height: 60,
                         margin: const EdgeInsets.only(left: 9),
-                        child: const DottedLine(
+                        child: DottedLine(
                           direction: Axis.vertical,
                           lineLength: 60,
                           lineThickness: 2.0,
                           dashLength: 4.0,
-                          dashColor: Colors.blue,
+                          dashColor: blueSky,
                           dashGapLength: 1.5,
                         )),
-                    const Icon(Icons.location_on_outlined,
-                        color: Colors.blue),
+                    Icon(Icons.location_on_outlined,
+                        color: blueSky),
                   ]),
             ),
             // infomation of destination & pickup place
@@ -70,10 +70,10 @@ class DriverStartEndCard extends StatelessWidget {
                           margin: const EdgeInsets.only(bottom: 3),
                           child: Text(
                             mainStartAddress,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
-                              color: Colors.black,
+                              color: blackBlue,
 
                             ),
                           ),
@@ -83,7 +83,6 @@ class DriverStartEndCard extends StatelessWidget {
                           child: Text(
                             additionalStartAddress,
                             style: const TextStyle(
-                              fontWeight: FontWeight.w100,
                               fontSize: 13,
                               color: Colors.grey,
                             ),
@@ -110,12 +109,10 @@ class DriverStartEndCard extends StatelessWidget {
                             margin: const EdgeInsets.only(bottom: 3),
                             child: Text(
                               mainEndAddress,
-                              style: const TextStyle(
-
-
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: blackBlue,
                               ),
                             ),
                           ),
@@ -124,8 +121,6 @@ class DriverStartEndCard extends StatelessWidget {
                             child: Text(
                               additionalEndAddress,
                               style: const TextStyle(
-
-                                fontWeight: FontWeight.w100,
                                 fontSize: 13,
                                 color: Colors.grey,
                               ),

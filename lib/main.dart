@@ -60,6 +60,8 @@ class MyApp extends StatelessWidget {
         Routes.chat: (context) => const ChatView(),
         Routes.chatDetail: (context) => const ChatDetailView(),
         Routes.rating: (context) => const BookerRatingView(),
+
+        Routes.homepage: (context) => const HomePage(),
       },
     );
   }

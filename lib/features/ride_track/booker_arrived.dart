@@ -25,7 +25,7 @@ class _DialogState extends State<BookerArrivedView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Demo Dialog')),
+        appBar: AppBar(),
         body: FutureBuilder(
           future: _riderAccepted(),
           builder: (context, snapshot) {

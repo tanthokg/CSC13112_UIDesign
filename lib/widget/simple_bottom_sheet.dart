@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dotted_line/dotted_line.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/widget/customer_info.dart';
@@ -21,7 +20,7 @@ class SimpleBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        height: 400,
+        height: 380,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
@@ -48,33 +47,23 @@ class SimpleBottomSheet extends StatelessWidget {
 
 
             // the button
-            InkWell(
-                child:Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: blueSky,
-                  ),
-                  height:50, width: 90,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-
-                    children: const [
-                      Text(
-                        'Đã đến địa điểm đón',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17,
-                          color: Colors.white
-                        ),),
-                    ],
-                  ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.driverStart);
+              },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all(const Size.fromHeight(56),),
+                backgroundColor: MaterialStateProperty.all(blueSky),
+                foregroundColor: MaterialStateProperty.all(Colors.white),
+              ),
+              child: const Text(
+                'Đã đến địa điểm đón',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
-                onTap: () { 
-                  Navigator.pushNamed(context, Routes.driverStart);
-                },
+              ),
             ),
-            
           ],
         ),
       );

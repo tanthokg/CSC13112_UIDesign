@@ -39,9 +39,13 @@ class CustomerInfoCard extends StatelessWidget {
                           margin: const EdgeInsets.only(right: 15),
                           child: InkWell(
                             onTap: () {},
-                            child: Image.asset('assets/logo/facebook.png',
-                                width: 60, height: 60),
-                          ),
+                            child: const CircleAvatar(
+                              backgroundImage: AssetImage(
+                                  'assets/avatar/avatar-01.png',
+                              ),
+                              radius: 24,
+                            ),
+                        ),
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
