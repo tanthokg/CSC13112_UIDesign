@@ -3,6 +3,7 @@ import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/auth/forgot_password.dart';
 import 'package:uniride/features/auth/login.dart';
+import 'package:uniride/features/cancel_trip/cancel_trip.dart';
 import 'package:uniride/features/driver/driver_start_trip.dart';
 import 'package:uniride/features/find_location/find_location.dart';
 import 'package:uniride/features/homepage/homepage.dart';
@@ -46,22 +47,19 @@ class MyApp extends StatelessWidget {
         Routes.forgotPassword: (context) => const ForgotPassword(),
         Routes.findLocation: (context) => const FindLocationView(),
         Routes.currentLocation: (context) => const CurrentLocationView(),
-
         Routes.driverRating: (context) => const DriverRateView(),
-
         Routes.driverReadyToStart: (context) => const DriverReadyToStartView(),
         Routes.driverStart: (context) => const DriverStartView(),
         Routes.driverEnd: (context) => const DriverEndView(),
         Routes.driverFinish: (context) => const DriverFinishView(),
         Routes.driverConfirm: (context) => const DriverConfirmView(),
-
         Routes.home: (context) => const HomeView(),
         Routes.rideList: (context) => const BookRideListView(),
         Routes.chat: (context) => const ChatView(),
         Routes.chatDetail: (context) => const ChatDetailView(),
         Routes.rating: (context) => const BookerRatingView(),
-
         Routes.homepage: (context) => const HomePage(),
+        Routes.cancelTrip: (context) => const CancelTripView(),
       },
     );
   }
