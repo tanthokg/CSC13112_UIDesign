@@ -3,6 +3,7 @@ import 'package:uniride/constants/colors.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:uniride/database/trip_dao.dart';
 
+import '../../constants/routes.dart';
 import '../../entity/trip.dart';
 
 class CreatedTripCard extends StatefulWidget {
@@ -20,7 +21,6 @@ class CreatedTripCard extends StatefulWidget {
 }
 
 class _CreatedTripCardState extends State<CreatedTripCard> {
-
   @override
   void initState() {
     timeago.setLocaleMessages('vi', timeago.ViMessages());
@@ -175,7 +175,13 @@ class Buttons extends StatelessWidget {
           Expanded(
             child: OutlinedButton(
               onPressed: () async {
-                
+                await TripDAO.instance.updateTrip(
+                  trip.clone(
+                    status: 'Còn trống',
+                    hitchhiker: '',
+                  ),
+                );
+                updateCallback;
               },
               style: OutlinedButton.styleFrom(
                 foregroundColor: red,
@@ -213,7 +219,9 @@ class Buttons extends StatelessWidget {
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.driverReadyToStart);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: blueSky,
                 foregroundColor: Colors.white,
@@ -249,7 +257,9 @@ class Buttons extends StatelessWidget {
         children: [
           Expanded(
             child: OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.currentLocation);
+              },
               style: OutlinedButton.styleFrom(
                 foregroundColor: blueSky,
                 side: BorderSide(
@@ -261,7 +271,9 @@ class Buttons extends StatelessWidget {
           ),
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.driverEnd);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: blueSky,
                 foregroundColor: Colors.white,
@@ -278,7 +290,9 @@ class Buttons extends StatelessWidget {
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.driverRating);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: blueSky,
                 foregroundColor: Colors.white,
