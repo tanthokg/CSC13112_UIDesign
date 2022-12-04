@@ -11,25 +11,22 @@ class SimpleMapView extends StatefulWidget {
 }
 
 class _SimpleMapViewState extends State<SimpleMapView> {
-
   Completer<GoogleMapController> _controller = Completer();
 
-  static const CameraPosition initialPosition = CameraPosition(target: LatLng(10.765, 106.664), zoom: 14.0);
+  static const CameraPosition initialPosition =
+      CameraPosition(target: LatLng(10.765, 106.664), zoom: 14.0);
 
-  static const CameraPosition targetPosition = CameraPosition(target: LatLng(10.755, 106.665), zoom: 14.0, bearing: 192.0, tilt: 60);
+  static const CameraPosition targetPosition = CameraPosition(
+      target: LatLng(10.755, 106.665), zoom: 14.0, bearing: 192.0, tilt: 60);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: GoogleMap(
-          initialCameraPosition: initialPosition,
-          mapType: MapType.normal,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
-        ),
-      ),
+    return GoogleMap(
+      initialCameraPosition: initialPosition,
+      mapType: MapType.normal,
+      onMapCreated: (GoogleMapController controller) {
+        _controller.complete(controller);
+      },
     );
   }
 }
