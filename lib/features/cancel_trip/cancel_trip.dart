@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/features/cancel_trip/cancel_dialog.dart';
 
 class CancelTripView extends StatefulWidget {
   const CancelTripView({Key? key}) : super(key: key);
@@ -21,27 +22,25 @@ class _CancelTripViewState extends State<CancelTripView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-          body: Align(
+        child: Scaffold(
+      appBar: AppBar(
+        elevation: 2,
+        surfaceTintColor: Colors.white,
+        shadowColor: Colors.grey[50],
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(24),
+            bottomRight: Radius.circular(24),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+          child: Align(
         alignment: Alignment.bottomCenter,
         child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: 6,
-                    width: 64,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
                 const Text(
                   "Hủy chuyến xe",
                   style: TextStyle(
@@ -78,31 +77,36 @@ class _CancelTripViewState extends State<CancelTripView> {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        TextField(
-                          autocorrect: true,
-                          maxLines: null,
-                          keyboardType: TextInputType.multiline,
-                          minLines: 4,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 12),
-                            hintStyle: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.grey[400],
-                            ),
-                            hintText: 'Mô tả lý do hủy chuyến',
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(24)),
-                            ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(24)),
+                        Material(
+                          borderRadius: BorderRadius.circular(24),
+                          elevation: 3.0,
+                          clipBehavior: Clip.hardEdge,
+                          shadowColor: Colors.grey[200],
+                          child: TextField(
+                            autocorrect: false,
+                            minLines: 3,
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintStyle: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.grey[400],
+                              ),
+                              hintText: 'Mô tả lý do hủy chuyến',
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(24)),
+                              ),
+                              focusedBorder: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(24)),
+                              ),
                             ),
                           ),
                         ),
@@ -110,7 +114,12 @@ class _CancelTripViewState extends State<CancelTripView> {
                           height: 16,
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext builder) =>
+                                    const CancelDialog());
+                          },
                           style: TextButton.styleFrom(
                             backgroundColor: red,
                             minimumSize: const Size.fromHeight(56),
@@ -129,6 +138,6 @@ class _CancelTripViewState extends State<CancelTripView> {
               ],
             )),
       )),
-    );
+    ));
   }
 }

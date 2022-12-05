@@ -12,6 +12,7 @@ class CancelSuccessDialog extends StatelessWidget {
           child: TextButton(
               onPressed: () {
                 Navigator.pop(context, true);
+                Navigator.pop(context);
               },
               child: const Icon(
                 Icons.clear,
@@ -41,6 +42,7 @@ class CancelSuccessDialog extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context, true);
+                    Navigator.pushNamed(context, '/homepage/');
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: blueSky,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/features/cancel_trip/cancel_success_dialog.dart';
 
 class CancelDialog extends StatelessWidget {
   const CancelDialog({
@@ -51,6 +52,10 @@ class CancelDialog extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context, true);
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext builder) =>
+                            const CancelSuccessDialog());
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: blueSky,
@@ -75,7 +80,7 @@ class CancelDialog extends StatelessWidget {
                   style: OutlinedButton.styleFrom(
                     backgroundColor: Colors.white,
                     minimumSize: const Size.fromHeight(56),
-                    side: const BorderSide(width: 1, color: Color(0xFF3E96FF)),
+                    side: const BorderSide(width: 2, color: Color(0xFF3E96FF)),
                   ),
                   child: const Text(
                     'Quay lại',
