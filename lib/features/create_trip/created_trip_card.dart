@@ -181,7 +181,7 @@ class _CreatedTripCardState extends State<CreatedTripCard> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.circle_outlined, color: purple),
+                          Icon(Icons.radio_button_on, color: purple),
                           Container(
                               height: 48,
                               margin: const EdgeInsets.only(left: 9),
@@ -293,7 +293,7 @@ class _CreatedTripCardState extends State<CreatedTripCard> {
                   // column of icons
                   Container(
                     width: 25,
-                    height: 110,
+                    height: 100,
                     margin: const EdgeInsets.only(right: 10),
                     padding: const EdgeInsets.all(5),
                     child: Column(
@@ -301,18 +301,19 @@ class _CreatedTripCardState extends State<CreatedTripCard> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.circle_outlined, color: blueSky),
+                          Icon(Icons.radio_button_on, color: blueSky),
                           Container(
-                              height: 48,
+                              height: 38,
                               margin: const EdgeInsets.only(left: 9),
                               child: DottedLine(
                                 direction: Axis.vertical,
-                                lineLength: 48,
+                                lineLength: 38,
                                 lineThickness: 1.5,
                                 dashLength: 4.0,
                                 dashColor: blueSky,
                                 dashGapLength: 1.5,
-                              )),
+                              )
+                            ),
                           Icon(Icons.location_on_outlined, color: blueSky),
                         ]),
                   ),
@@ -326,21 +327,19 @@ class _CreatedTripCardState extends State<CreatedTripCard> {
                       Text(
                         widget.trip.departure,
                         style: const TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w800,
                           fontSize: 13,
-                          color: Colors.grey,
                         ),
                       ),
                       // pick up
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 45),
                       // destination
 
                       Text(
                         widget.trip.dest,
                         style: const TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w800,
                           fontSize: 13,
-                          color: Colors.grey,
                         ),
                       ),
                     ],
