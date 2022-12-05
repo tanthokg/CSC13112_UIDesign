@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
@@ -15,6 +17,7 @@ class _CreateTripState extends State<CreateTrip> {
   DateTime? _pickedDate;
   TimeOfDay? _pickedTime;
   bool _earlyDepart = false;
+  String _earlyDepartTime = earlyDepartTimes.first;
 
   @override
   Widget build(BuildContext context) {
@@ -220,7 +223,7 @@ class _CreateTripState extends State<CreateTrip> {
                                   children: [
                                     Padding(
                                       padding:
-                                      const EdgeInsets.fromLTRB(12, 12, 8, 12),
+                                          const EdgeInsets.fromLTRB(12, 12, 8, 12),
                                       child: Icon(
                                         Icons.access_time_rounded,
                                         color: blueSky,
@@ -278,11 +281,12 @@ class _CreateTripState extends State<CreateTrip> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      padding: const EdgeInsets.only(right: 16),
                       child: Row(
                         children: [
                           Checkbox(
                             activeColor: blueSky,
+                            fillColor: MaterialStateProperty.all(blueSky),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4)),
                             value: _earlyDepart,
@@ -292,12 +296,42 @@ class _CreateTripState extends State<CreateTrip> {
                               });
                             },
                           ),
-                          Expanded(
-                            child: Text(
-                              'Khởi hành trước 10 phút',
-                              style: TextStyle(fontSize: 18, color: blackBlue),
-                            ),
+                          Text(
+                            'Thời gian khởi hành sớm',
+                            style: TextStyle(fontSize: 18, color: blueSky),
                           ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: DropdownButtonFormField<String>(
+                              value: _earlyDepartTime,
+                              items: earlyDepartTimes
+                                  .map((time) => DropdownMenuItem<String>(
+                                      value: time, child: Text(time)))
+                                  .toList(),
+                              onChanged: _earlyDepart ? (value) {
+                                setState(() {
+                                  _earlyDepartTime = value!;
+                                });
+                              } : null,
+                              icon: Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                color: _earlyDepart ? blueSky : Colors.grey,
+                              ),
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                                filled: true,
+                                fillColor: _earlyDepart ? blueSky.shade100 : Colors.grey[200],
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.all(Radius.circular(24)),
+                                ),
+                                focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.transparent),
+                                  borderRadius: BorderRadius.all(Radius.circular(24)),
+                                ),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -425,3 +459,5 @@ Future<TimeOfDay?> chooseStartTime(BuildContext context) async =>
       context: context,
       initialTime: TimeOfDay.now(),
     );
+
+const earlyDepartTimes = ['10 phút', '15 phút', '20 phút', '30 phút'];
