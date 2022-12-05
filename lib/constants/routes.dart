@@ -1,11 +1,15 @@
 class Routes {
+  // Authentication
   static const login = '/login/';
   static const register = '/register/';
   static const forgotPassword = '/forgot_password/';
   static const homepage = '/homepage/';
 
-  static const findLocation = '/find_location';
-  static const currentLocation = '/current_location';
+  // Create new trip
+  static const findLocation = '/find_location/';
+  static const currentLocation = '/current_location/';
+  static const createTrip = '/create_trip/';
+  static const createdTrip = '/created_trip/';
 
   static const driverRating = '/driver_rating/';
   static const driverReadyToStart = '/driver_ready/';

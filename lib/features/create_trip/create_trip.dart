@@ -12,10 +12,14 @@ class CreateTrip extends StatefulWidget {
 }
 
 class _CreateTripState extends State<CreateTrip> {
+  DateTime? _pickedDate;
+  TimeOfDay? _pickedTime;
   bool _earlyDepart = false;
 
   @override
   Widget build(BuildContext context) {
+    final data = ModalRoute.of(context)?.settings.arguments as Map;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: background,
@@ -97,7 +101,7 @@ class _CreateTripState extends State<CreateTrip> {
                           const SizedBox(width: 16),
                           Expanded(
                             child: Text(
-                              'KTX khu B, ĐHQG-HCM',
+                              data['src'],
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
@@ -127,7 +131,7 @@ class _CreateTripState extends State<CreateTrip> {
                           const SizedBox(width: 16),
                           Expanded(
                             child: Text(
-                              '227 Nguyễn Văn Cừ, P4, Q5',
+                              data['dest'],
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
@@ -161,38 +165,37 @@ class _CreateTripState extends State<CreateTrip> {
                               borderRadius: BorderRadius.circular(24),
                               elevation: 3,
                               clipBehavior: Clip.hardEdge,
+                              color: Colors.white,
                               shadowColor: Colors.grey[200],
-                              child: TextField(
-                                autocorrect: true,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                      const EdgeInsets.symmetric(vertical: 12),
-                                  hintStyle: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.grey[400],
-                                  ),
-                                  hintText: 'Ngày xuất phát',
-                                  prefixIcon: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 16, right: 12),
-                                    child: Icon(Icons.date_range_rounded,
-                                        color: blueSky, size: 28),
-                                  ),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(24)),
-                                  ),
-                                  focusedBorder: const OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(24)),
-                                  ),
+                              child: InkWell(
+                                onTap: () async {
+                                  final result = await chooseStartDate(context);
+                                  setState(() {
+                                    _pickedDate = result;
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(16, 12, 12, 12),
+                                      child: Icon(
+                                        Icons.date_range_rounded,
+                                        color: blueSky,
+                                        size: 28,
+                                      ),
+                                    ),
+                                    Text(
+                                      _pickedDate == null
+                                          ? 'Ngày xuất phát'
+                                          : _pickedDate.toString().substring(0, 10),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.grey[400],
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
@@ -204,38 +207,37 @@ class _CreateTripState extends State<CreateTrip> {
                               borderRadius: BorderRadius.circular(24),
                               elevation: 3.0,
                               clipBehavior: Clip.hardEdge,
+                              color: Colors.white,
                               shadowColor: Colors.grey[200],
-                              child: TextField(
-                                autocorrect: true,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                      const EdgeInsets.symmetric(vertical: 12),
-                                  hintStyle: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.grey[400],
-                                  ),
-                                  hintText: 'Thời gian',
-                                  prefixIcon: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 16, right: 12),
-                                    child: Icon(Icons.access_time_rounded,
-                                        color: blueSky, size: 28),
-                                  ),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(24)),
-                                  ),
-                                  focusedBorder: const OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(24)),
-                                  ),
+                              child: InkWell(
+                                onTap: () async {
+                                  final result = await chooseStartTime(context);
+                                  setState(() {
+                                    _pickedTime = result;
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.fromLTRB(12, 12, 8, 12),
+                                      child: Icon(
+                                        Icons.access_time_rounded,
+                                        color: blueSky,
+                                        size: 28,
+                                      ),
+                                    ),
+                                    Text(
+                                      _pickedTime == null
+                                          ? 'Thời gian'
+                                          : _pickedTime!.format(context),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.grey[400],
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
@@ -409,3 +411,17 @@ class _CreateTripState extends State<CreateTrip> {
     );
   }
 }
+
+Future<DateTime?> chooseStartDate(BuildContext context) async =>
+    await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2025),
+    );
+
+Future<TimeOfDay?> chooseStartTime(BuildContext context) async =>
+    await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
