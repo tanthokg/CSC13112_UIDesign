@@ -19,7 +19,8 @@ class _CreateTripState extends State<CreateTrip> {
   String _periodType = periodTypes.first;
   bool _earlyDepart = false;
   String _earlyDepartTime = earlyDepartTimes.first;
-  List<bool> weekdays = [false, false, false, false, false, false, false];
+  List<bool> _chosenWeekdays = [false, false, false, false, false, false, false];
+  List<String> _weekdays = ['Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy', 'Chủ nhật'];
 
   @override
   Widget build(BuildContext context) {
@@ -158,8 +159,8 @@ class _CreateTripState extends State<CreateTrip> {
                             shadowColor: Colors.grey[200],
                             child: InkWell(
                               onTap: () async {
-                                final result = await chooseDateQuery(context);
-                                if (result && mounted) {
+                                final createOnce = await chooseDateQuery(context);
+                                if (createOnce && mounted) {
                                   final picked = await chooseStartDate(context);
                                   setState(() {
                                     _pickedDate = picked.toString().substring(0, 10);
@@ -168,72 +169,144 @@ class _CreateTripState extends State<CreateTrip> {
                                   await showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: const Text('Chọn ngày định kỳ'),
+                                      title: const Text('Chọn loại định kỳ'),
                                       actions: [
                                         TextButton(onPressed: () => Navigator.pop(context), child: const Text('Thoát')),
                                         TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK')),
                                       ],
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          DropdownButtonFormField<String>(
-                                            value: _periodType,
-                                            items: periodTypes
-                                                .map((type) => DropdownMenuItem<String>(value: type, child: Text(type)))
-                                                .toList(),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _periodType = value!;
-                                              });
-                                            },
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down_rounded,
-                                              color: _earlyDepart ? blueSky : Colors.grey,
-                                            ),
-                                            decoration: InputDecoration(
-                                              contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                                              filled: true,
-                                              fillColor: blueSky.shade100,
-                                              enabledBorder: const OutlineInputBorder(
-                                                borderSide: BorderSide(color: Colors.transparent),
-                                                borderRadius: BorderRadius.all(Radius.circular(24)),
-                                              ),
-                                              focusedBorder: const OutlineInputBorder(
-                                                borderSide: BorderSide(color: Colors.transparent),
-                                                borderRadius: BorderRadius.all(Radius.circular(24)),
-                                              ),
-                                            ),
+                                      content: DropdownButtonFormField<String>(
+                                        value: _periodType,
+                                        items: periodTypes
+                                            .map((type) => DropdownMenuItem<String>(value: type, child: Text(type)))
+                                            .toList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _periodType = value!;
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down_rounded,
+                                          color: blueSky,
+                                        ),
+                                        decoration: InputDecoration(
+                                          contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                                          filled: true,
+                                          fillColor: blueSky.shade100,
+                                          enabledBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(color: Colors.transparent),
+                                            borderRadius: BorderRadius.all(Radius.circular(24)),
                                           ),
-                                          _periodType == 'Mỗi ngày'
-                                              ? const SizedBox.shrink()
-                                              : _periodType == 'Mỗi tháng'
-                                                  ? Row(
-                                                      children: [
-                                                        Padding(
-                                                          padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
-                                                          child: Icon(
-                                                            Icons.date_range_rounded,
-                                                            color: blueSky,
-                                                            size: 28,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          _pickedDate,
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                            fontWeight: _pickedDate == 'Ngày xuất phát'
-                                                                ? FontWeight.w300
-                                                                : FontWeight.w500,
-                                                            color: Colors.grey[400],
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )
-                                                  : const SizedBox.shrink(),
-                                        ],
+                                          focusedBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(color: Colors.transparent),
+                                            borderRadius: BorderRadius.all(Radius.circular(24)),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   );
+                                  switch (_periodType) {
+                                    case 'Mỗi ngày':
+                                      setState(() {
+                                        _pickedDate = 'Mỗi ngày';
+                                      });
+                                      break;
+                                    case 'Mỗi tuần':
+                                      await showDialog(
+                                        context: context,
+                                        builder: (context) => StatefulBuilder(
+                                          builder: (context, setState) {
+                                            return AlertDialog(
+                                              title: const Text('Chọn ngày trong tuần'),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () => Navigator.pop(context), child: const Text('Thoát')),
+                                                TextButton(
+                                                    onPressed: () {
+                                                      _pickedDate = 'T';
+                                                      if (_chosenWeekdays[0]) {
+                                                        _pickedDate += '2, ';
+                                                      }
+                                                      if (_chosenWeekdays[1]) {
+                                                        _pickedDate += '3, ';
+                                                      }
+                                                      if (_chosenWeekdays[2]) {
+                                                        _pickedDate += '4, ';
+                                                      }
+                                                      if (_chosenWeekdays[3]) {
+                                                        _pickedDate += '5, ';
+                                                      }
+                                                      if (_chosenWeekdays[4]) {
+                                                        _pickedDate += '6, ';
+                                                      }
+                                                      if (_chosenWeekdays[5]) {
+                                                        _pickedDate += '7, ';
+                                                      }
+                                                      if (_chosenWeekdays[6]) {
+                                                        _pickedDate += 'CN';
+                                                      }
+                                                      setState(() {
+                                                        if (_pickedDate.endsWith(' ')) {
+                                                          _pickedDate = _pickedDate.substring(0, _pickedDate.length - 2);
+                                                        }
+                                                        if (_chosenWeekdays.where((choice) => choice == true).length == 7) {
+                                                          _pickedDate = 'Mỗi ngày';
+                                                        }
+                                                      });
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: const Text('OK')),
+                                              ],
+                                              content: SizedBox(
+                                                height: 336,
+                                                width: 180,
+                                                child: ListView.builder(
+                                                  itemCount: 7,
+                                                  itemBuilder: (context, index) {
+                                                    return Row(
+                                                      children: [
+                                                        Checkbox(
+                                                          activeColor: blueSky,
+                                                          fillColor: MaterialStateProperty.all(blueSky),
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.circular(4)),
+                                                          value: _chosenWeekdays[index],
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              _chosenWeekdays[index] = value!;
+                                                            });
+                                                          },
+                                                        ),
+                                                        Text(
+                                                          _weekdays[index],
+                                                          style: TextStyle(fontSize: 18, color: blueSky),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      );
+                                      setState(() {
+
+                                      });
+                                      break;
+                                    case 'Mỗi tháng':
+                                      if (mounted) {
+                                        final result = await chooseStartDate(context);
+                                        setState(() {
+                                          _pickedDate = result.toString().substring(0, 10);
+                                        });
+                                      }
+                                      break;
+                                    default:
+                                      setState(() {
+                                        _pickedDate = 'không rõ';
+                                      });
+                                      break;
+                                  }
                                 }
                               },
                               child: Row(
