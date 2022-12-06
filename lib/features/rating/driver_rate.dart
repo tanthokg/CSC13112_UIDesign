@@ -66,7 +66,9 @@ class _DriverRateViewState extends State<DriverRateView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             firstTitle,
-            const SizedBox(height: 12,),
+            const SizedBox(
+              height: 12,
+            ),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
@@ -119,8 +121,9 @@ class _DriverRateViewState extends State<DriverRateView> {
                 ],
               ),
             ),
-            const SizedBox(height: 18,),
-
+            const SizedBox(
+              height: 18,
+            ),
             secondTitle,
             Center(
               child: Container(
@@ -143,11 +146,13 @@ class _DriverRateViewState extends State<DriverRateView> {
                 ),
               ),
             ),
-            const SizedBox(height: 18,),
-
-
+            const SizedBox(
+              height: 18,
+            ),
             thirdTitle,
-            const SizedBox(height: 12,),
+            const SizedBox(
+              height: 12,
+            ),
             Wrap(spacing: 8, runSpacing: 8, children: [
               FilterChip(
                 label: const Text('Đúng giờ'),
@@ -177,39 +182,43 @@ class _DriverRateViewState extends State<DriverRateView> {
             const SizedBox(
               height: 18,
             ),
-
             fourthTitle,
-            const SizedBox(height: 12,),
+            const SizedBox(
+              height: 12,
+            ),
             Column(
               children: const <Widget>[
                 Card(
                   color: Colors.white,
                   child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: TextField(
-                        minLines: 6, // any number you need (It works as the rows for the textarea)
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Nhắn nhủ của bạn đến người đi cùng',
-                          hintStyle: TextStyle(
-                            fontSize: 16,
-                          ),
+                    padding: EdgeInsets.all(8),
+                    child: TextField(
+                      minLines:
+                          6, // any number you need (It works as the rows for the textarea)
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Nhắn nhủ của bạn đến người đi cùng',
+                        hintStyle: TextStyle(
+                          fontSize: 16,
                         ),
                       ),
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 18,),
-
+            const SizedBox(
+              height: 18,
+            ),
             ElevatedButton(
               onPressed: () {},
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(blueSky),
                 foregroundColor: MaterialStateProperty.all(Colors.white),
-                minimumSize: MaterialStateProperty.all(const Size.fromHeight(56)),
+                minimumSize:
+                    MaterialStateProperty.all(const Size.fromHeight(56)),
               ),
               child: const Text(
                 'Gửi',
