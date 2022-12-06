@@ -19,8 +19,7 @@ class _CreateTripState extends State<CreateTrip> {
   String _periodType = periodTypes.first;
   bool _earlyDepart = false;
   String _earlyDepartTime = earlyDepartTimes.first;
-  List<bool> _chosenWeekdays = [false, false, false, false, false, false, false];
-  List<String> _weekdays = ['Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy', 'Chủ nhật'];
+  final List<bool> _chosenWeekdays = [false, false, false, false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -192,14 +191,8 @@ class _CreateTripState extends State<CreateTrip> {
                                           contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                                           filled: true,
                                           fillColor: blueSky.shade100,
-                                          enabledBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.transparent),
-                                            borderRadius: BorderRadius.all(Radius.circular(24)),
-                                          ),
-                                          focusedBorder: const OutlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.transparent),
-                                            borderRadius: BorderRadius.all(Radius.circular(24)),
-                                          ),
+                                          enabledBorder: transBorder24,
+                                          focusedBorder: transBorder24,
                                         ),
                                       ),
                                     ),
@@ -219,7 +212,8 @@ class _CreateTripState extends State<CreateTrip> {
                                               title: const Text('Chọn ngày trong tuần'),
                                               actions: [
                                                 TextButton(
-                                                    onPressed: () => Navigator.pop(context), child: const Text('Thoát')),
+                                                    onPressed: () => Navigator.pop(context),
+                                                    child: const Text('Thoát')),
                                                 TextButton(
                                                     onPressed: () {
                                                       _pickedDate = 'T';
@@ -246,9 +240,11 @@ class _CreateTripState extends State<CreateTrip> {
                                                       }
                                                       setState(() {
                                                         if (_pickedDate.endsWith(' ')) {
-                                                          _pickedDate = _pickedDate.substring(0, _pickedDate.length - 2);
+                                                          _pickedDate =
+                                                              _pickedDate.substring(0, _pickedDate.length - 2);
                                                         }
-                                                        if (_chosenWeekdays.where((choice) => choice == true).length == 7) {
+                                                        if (_chosenWeekdays.where((choice) => choice == true).length ==
+                                                            7) {
                                                           _pickedDate = 'Mỗi ngày';
                                                         }
                                                       });
@@ -277,7 +273,7 @@ class _CreateTripState extends State<CreateTrip> {
                                                           },
                                                         ),
                                                         Text(
-                                                          _weekdays[index],
+                                                          weekdays[index],
                                                           style: TextStyle(fontSize: 18, color: blueSky),
                                                         ),
                                                       ],
@@ -289,9 +285,7 @@ class _CreateTripState extends State<CreateTrip> {
                                           },
                                         ),
                                       );
-                                      setState(() {
-
-                                      });
+                                      setState(() {});
                                       break;
                                     case 'Mỗi tháng':
                                       if (mounted) {
@@ -394,14 +388,8 @@ class _CreateTripState extends State<CreateTrip> {
                             color: Colors.grey[400],
                           ),
                           hintText: 'Mô tả',
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                            borderRadius: BorderRadius.all(Radius.circular(24)),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                            borderRadius: BorderRadius.all(Radius.circular(24)),
-                          ),
+                          enabledBorder: transBorder24,
+                          focusedBorder: transBorder24,
                         ),
                       ),
                     ),
@@ -453,14 +441,8 @@ class _CreateTripState extends State<CreateTrip> {
                               contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                               filled: true,
                               fillColor: _earlyDepart ? blueSky.shade100 : Colors.grey[200],
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.transparent),
-                                borderRadius: BorderRadius.all(Radius.circular(24)),
-                              ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.transparent),
-                                borderRadius: BorderRadius.all(Radius.circular(24)),
-                              ),
+                              enabledBorder: transBorder24,
+                              focusedBorder: transBorder24,
                             ),
                           ),
                         )
@@ -610,3 +592,9 @@ Future<TimeOfDay?> chooseStartTime(BuildContext context) async => await showTime
 
 const earlyDepartTimes = ['10 phút', '15 phút', '20 phút', '30 phút'];
 const periodTypes = ['Mỗi ngày', 'Mỗi tuần', 'Mỗi tháng'];
+const weekdays = ['Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy', 'Chủ nhật'];
+
+const transBorder24 = OutlineInputBorder(
+  borderSide: BorderSide(color: Colors.transparent),
+  borderRadius: BorderRadius.all(Radius.circular(24)),
+);
