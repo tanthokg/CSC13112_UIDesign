@@ -234,7 +234,8 @@ class _BookerRatingViweState extends State<BookerRatingView> {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(purple),
                     foregroundColor: MaterialStateProperty.all(Colors.white),
-                    minimumSize: MaterialStateProperty.all(const Size.fromHeight(56)),
+                    minimumSize:
+                        MaterialStateProperty.all(const Size.fromHeight(56)),
                   ),
                   child: const Text(
                     'Gửi',

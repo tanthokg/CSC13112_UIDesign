@@ -5,6 +5,7 @@ import 'package:uniride/features/auth/forgot_password.dart';
 import 'package:uniride/features/auth/login.dart';
 import 'package:uniride/features/create_trip/create_trip.dart';
 import 'package:uniride/features/create_trip/created_trip.dart';
+import 'package:uniride/features/contact/incoming%20call.dart';
 import 'package:uniride/features/driver/driver_start_trip.dart';
 import 'package:uniride/features/find_location/find_location.dart';
 import 'package:uniride/features/homepage/homepage.dart';
@@ -40,9 +41,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         primarySwatch: blueSky,
+        fontFamily: 'Inter',
       ),
-      home: const FindLocationView(),
+      home: const HomePage(),
       routes: {
+        //
         Routes.login: (context) => const LoginView(),
         Routes.register: (context) => const RegisterView(),
         Routes.forgotPassword: (context) => const ForgotPassword(),
@@ -58,7 +61,7 @@ class MyApp extends StatelessWidget {
         Routes.driverEnd: (context) => const DriverEndView(),
         Routes.driverFinish: (context) => const DriverFinishView(),
         Routes.driverConfirm: (context) => const DriverConfirmView(),
-
+        //
         Routes.home: (context) => const HomeView(),
         Routes.rideList: (context) => const BookRideListView(),
         Routes.chat: (context) => const ChatView(),
