@@ -97,9 +97,9 @@ class _CreateTripState extends State<CreateTrip> {
                           child: Text(
                             data['src'],
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400,
-                              color: Colors.grey[400],
+                              color: blackBlue.shade300,
                             ),
                           ),
                         )
@@ -126,9 +126,9 @@ class _CreateTripState extends State<CreateTrip> {
                           child: Text(
                             data['dest'],
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400,
-                              color: Colors.grey[400],
+                              color: blackBlue.shade300,
                             ),
                           ),
                         )
@@ -317,8 +317,8 @@ class _CreateTripState extends State<CreateTrip> {
                                     _pickedDate,
                                     style: TextStyle(
                                       fontSize: 18,
-                                      fontWeight: _pickedDate == 'Ngày xuất phát' ? FontWeight.w300 : FontWeight.w500,
-                                      color: Colors.grey[400],
+                                      fontWeight: _pickedDate == 'Ngày xuất phát' ? FontWeight.w300 : FontWeight.w400,
+                                      color: blackBlue.shade300,
                                     ),
                                   )
                                 ],
@@ -356,8 +356,8 @@ class _CreateTripState extends State<CreateTrip> {
                                     _pickedTime == null ? 'Thời gian' : _pickedTime!.format(context),
                                     style: TextStyle(
                                       fontSize: 18,
-                                      fontWeight: _pickedTime == null ? FontWeight.w300 : FontWeight.w500,
-                                      color: Colors.grey[400],
+                                      fontWeight: _pickedTime == null ? FontWeight.w300 : FontWeight.w400,
+                                      color: blackBlue.shade300,
                                     ),
                                   )
                                 ],
@@ -385,7 +385,7 @@ class _CreateTripState extends State<CreateTrip> {
                           hintStyle: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w300,
-                            color: Colors.grey[400],
+                            color: blackBlue.shade300,
                           ),
                           hintText: 'Mô tả',
                           enabledBorder: transBorder24,
@@ -409,18 +409,21 @@ class _CreateTripState extends State<CreateTrip> {
                             });
                           },
                         ),
-                        Tooltip(
-                          message:
-                              'Tự động hủy chuyến xe nếu không có người đặt\ntrong khoảng thời gian trước giờ khởi hành',
-                          showDuration: const Duration(seconds: 5),
-                          triggerMode: TooltipTriggerMode.tap,
-                          child: Text(
-                            'Thời gian khởi hành sớm',
-                            style: TextStyle(fontSize: 18, color: blueSky),
+                        Expanded(
+                          child: Tooltip(
+                            message:
+                                'Tự động hủy chuyến xe nếu không có người đặt\ntrong khoảng thời gian trước giờ khởi hành',
+                            showDuration: const Duration(seconds: 5),
+                            triggerMode: TooltipTriggerMode.tap,
+                            child: Text(
+                              'Khởi hành sớm',
+                              style: TextStyle(fontSize: 18, color: blueSky),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 16),
-                        Expanded(
+                        SizedBox(
+                          width: 116,
                           child: DropdownButtonFormField<String>(
                             value: _earlyDepartTime,
                             items: earlyDepartTimes
