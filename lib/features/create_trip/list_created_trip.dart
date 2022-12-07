@@ -19,6 +19,53 @@ class _ListCreatedTripViewState extends State<ListCreatedTripView> {
   final Future<List<Trip>> dataFuture = TripDAO.instance.readAllTrips();
   List<Trip>? createdTrips;
 
+  final testTrips = [
+    Trip(
+      rider: 'Nguyen Van A',
+      hitchhiker: '',
+      createdTime: DateTime(2022, 11, 30),
+      startTime: DateTime(2022, 11, 30, 10, 20),
+      departure: 'Trường ĐH Khoa học tự nhiên',
+      dest: '440 Nguyễn Đình Chiểu',
+      price: 8000,
+      distance: 3,
+      status: 'Còn trống',
+    ),
+    Trip(
+      rider: 'Nguyen Van A',
+      hitchhiker: 'Nguyen Thi B',
+      createdTime: DateTime(2022, 11, 30),
+      startTime: DateTime(2022, 11, 30, 10, 20),
+      departure: 'Trường ĐH Khoa học tự nhiên',
+      dest: '440 Nguyễn Đình Chiểu',
+      price: 8000,
+      distance: 3,
+      status: 'Đang đợi bạn phản hồi',
+    ),
+    Trip(
+      rider: 'Nguyen Van A',
+      hitchhiker: 'Nguyen Thi B',
+      createdTime: DateTime(2022, 11, 30),
+      startTime: DateTime(2022, 11, 30, 10, 20),
+      departure: 'Trường ĐH Khoa học tự nhiên',
+      dest: '440 Nguyễn Đình Chiểu',
+      price: 8000,
+      distance: 3,
+      status: 'Đã nhận',
+    ),
+    Trip(
+      rider: 'Nguyen Van A',
+      hitchhiker: 'Nguyen Thi B',
+      createdTime: DateTime(2022, 11, 30),
+      startTime: DateTime(2022, 11, 30, 10, 20),
+      departure: 'Trường ĐH Khoa học tự nhiên',
+      dest: '440 Nguyễn Đình Chiểu',
+      price: 8000,
+      distance: 3,
+      status: 'Hoàn thành',
+    ),
+  ];
+
   void updateStatusTrip() async {
     setState(() {});
   }
@@ -77,23 +124,15 @@ class _ListCreatedTripViewState extends State<ListCreatedTripView> {
                         return Padding(
                           padding: const EdgeInsets.all(24.0),
                           child: Center(
-                            child: Wrap(
-                              children: [
-                                CreatedTripCard(
-                                  trip: Trip(
-                                    rider: 'Nguyen Van A',
-                                    hitchhiker: 'Nguyen Thi B',
-                                    createdTime: DateTime(2022, 11, 30),
-                                    startTime: DateTime(2022, 11, 30, 10, 20),
-                                    departure: 'Trường ĐH Khoa học tự nhiên',
-                                    dest: '440 Nguyễn Đình Chiểu',
-                                    price: 8000,
-                                    distance: 3,
-                                    status: 'Đang đợi bạn phản hồi',
+                            child: SingleChildScrollView(
+                              child: Wrap(
+                                children: [
+                                  CreatedTripCard(
+                                    trip: testTrips[index],
+                                    updateCallback: updateStatusTrip,
                                   ),
-                                  updateCallback: updateStatusTrip,
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         );
