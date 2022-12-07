@@ -193,7 +193,11 @@ class _FindLocationViewState extends State<FindLocationView> {
                                   'src': src,
                                   'dest': dest,
                                 })
-                          : Navigator.pushNamed(context, Routes.rideList);
+                          : Navigator.pushNamed(context, Routes.rideList,
+                              arguments: {
+                                  'src': src,
+                                  'dest': dest,
+                                });
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: blueSky,

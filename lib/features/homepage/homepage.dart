@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
-import 'package:uniride/features/create_trip/create_trip.dart';
-import 'package:uniride/features/find_location/find_location.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -132,10 +130,6 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(height: 16),
                         TextButton(
                           onPressed: () {
-                            /*_riderRole
-                                ? Navigator.pushNamed(
-                                    context, Routes.findLocation)
-                                : Navigator.pushNamed(context, Routes.rideList);*/
                             Navigator.pushNamed(context, Routes.findLocation, arguments: _riderRole);
                           },
                           style: TextButton.styleFrom(

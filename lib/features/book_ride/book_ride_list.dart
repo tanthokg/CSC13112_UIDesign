@@ -13,6 +13,8 @@ class BookRideListView extends StatefulWidget {
 class _BookRideListViewState extends State<BookRideListView> {
   @override
   Widget build(BuildContext context) {
+    final data = ModalRoute.of(context)?.settings.arguments as Map;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -26,7 +28,7 @@ class _BookRideListViewState extends State<BookRideListView> {
             const SimpleMapView(),
             Column(
               children: [
-                const BookerRoadInformationCard(),
+                BookerRoadInformationCard(data: data,),
                 const Spacer(),
                 SizedBox(
                   height: 453,
@@ -69,7 +71,9 @@ class DashedLineVerticalPainter extends CustomPainter {
 }
 
 class BookerRoadInformationCard extends StatelessWidget {
-  const BookerRoadInformationCard({Key? key}) : super(key: key);
+  const BookerRoadInformationCard({Key? key, required this.data}) : super(key: key);
+
+  final Map data;
 
   @override
   Widget build(BuildContext context) {
@@ -103,9 +107,10 @@ class BookerRoadInformationCard extends StatelessWidget {
                         color: Colors.grey[700],
                       ),
                     ),
-                    const Text(
-                      '480 Nguyễn Thị Minh Khai',
-                      style: TextStyle(
+                    Text(
+                      //'480 Nguyễn Thị Minh Khai',
+                      data['src'] ?? '',
+                      style: const TextStyle(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -145,9 +150,10 @@ class BookerRoadInformationCard extends StatelessWidget {
                         color: Colors.grey[700],
                       ),
                     ),
-                    const Text(
-                      '311 Nguyễn Thượng Hiền',
-                      style: TextStyle(
+                    Text(
+                      //'311 Nguyễn Thượng Hiền',
+                      data['dest'] ?? '',
+                      style: const TextStyle(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
