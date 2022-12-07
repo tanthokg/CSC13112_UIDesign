@@ -124,16 +124,17 @@ class _HomePageState extends State<HomePage> {
                         Text(
                           _riderRole ? 'Người lái xe' : 'Người đặt xe',
                           style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            color: blackBlue,
-                          ),
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              color: blackBlue,
+                              fontFamily: 'Inter'),
                         ),
                         const SizedBox(height: 16),
                         TextButton(
                           onPressed: () {
                             _riderRole
-                                ? Navigator.pushNamed(context, Routes.findLocation)
+                                ? Navigator.pushNamed(
+                                    context, Routes.findLocation)
                                 : Navigator.pushNamed(context, Routes.rideList);
                           },
                           style: TextButton.styleFrom(
@@ -195,7 +196,8 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pushNamed(context, Routes.findLocation);
                 },
                 child: Card(
-                  margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(28),
@@ -248,7 +250,8 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
                 child: Card(
-                  margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(28),
@@ -269,7 +272,9 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              _riderRole ? 'Xác nhận chuyến xe' : 'Tìm chuyến xe',
+                              _riderRole
+                                  ? 'Xác nhận chuyến xe'
+                                  : 'Tìm chuyến xe',
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
@@ -297,7 +302,8 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pushNamed(context, Routes.currentLocation);
                 },
                 child: Card(
-                  margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(28),
@@ -391,7 +397,8 @@ class _HomePageState extends State<HomePage> {
                         overlayColor: MaterialStateColor.resolveWith(
                             (states) => Colors.transparent),
                       ),
-                      onPressed: () => Navigator.pushNamed(context, Routes.chat),
+                      onPressed: () =>
+                          Navigator.pushNamed(context, Routes.chat),
                       child: Column(
                         children: [
                           Card(
@@ -428,7 +435,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
                 child: SizedBox(
                   width: double.maxFinite,
                   child: Text(
