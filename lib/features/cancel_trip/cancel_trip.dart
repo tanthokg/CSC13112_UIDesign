@@ -33,6 +33,10 @@ class _CancelTripViewState extends State<CancelTripView> {
             bottomRight: Radius.circular(24),
           ),
         ),
+        title: const Text(
+          "Hủy chuyến xe",
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
           child: Align(
@@ -41,38 +45,46 @@ class _CancelTripViewState extends State<CancelTripView> {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                const Text(
-                  "Hủy chuyến xe",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 24, height: 1.5),
-                ),
                 SizedBox(
-                    child: Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        "Vui lòng cho chúng tôi biết lý do",
-                        style: TextStyle(fontSize: 16, height: 2),
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "Vui lòng cho chúng tôi biết lý do",
+                          style: TextStyle(
+                            fontSize: 16,
+                            height: 2,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                    ListView.builder(
+                      ListView.builder(
                         shrinkWrap: true,
                         itemCount: radioList.length,
                         itemBuilder: (BuildContext lContext, int index) {
                           return RadioListTile(
-                            title: Text(radioList[index]),
+                            title: Text(
+                              radioList[index],
+                              style: const TextStyle(
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
                             value: radioList[index],
                             groupValue: radioValue,
                             onChanged: (String? value) {
-                              setState(() {
-                                radioValue = value!;
-                              });
+                              setState(
+                                () {
+                                  radioValue = value!;
+                                },
+                              );
                             },
                           );
-                        }),
-                  ],
-                )),
+                        },
+                      ),
+                    ],
+                  ),
+                ),
                 Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
