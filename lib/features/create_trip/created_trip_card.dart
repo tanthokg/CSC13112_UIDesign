@@ -34,7 +34,7 @@ class _CreatedTripCardState extends State<CreatedTripCard> {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        width: 350,
+        width: 375,
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
         child: Column(
           children: [
@@ -289,7 +289,7 @@ class _CreatedTripCardState extends State<CreatedTripCard> {
                     children: [
                       // departure
                       const Text(
-                        'Điểm đón khách',
+                        'Điểm đi',
                         style: TextStyle(
                           color: Colors.grey,
                         ),
@@ -305,7 +305,7 @@ class _CreatedTripCardState extends State<CreatedTripCard> {
                       // destination
 
                       const Text(
-                        'Điểm trả khách',
+                        'Điểm đến',
                         style: TextStyle(
                           color: Colors.grey,
                         ),
