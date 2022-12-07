@@ -23,5 +23,6 @@ class Routes {
   static const chat = '/chat/';
   static const chatDetail = '/chat/detail/';
   static const rating = '/rating/';
-}
 
+  static const cancelTrip = '/cancel_trip/';
+}

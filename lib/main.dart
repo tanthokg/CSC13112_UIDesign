@@ -15,6 +15,7 @@ import 'package:uniride/features/auth/register.dart';
 import 'package:uniride/features/rating/driver_rate.dart';
 import 'package:uniride/features/driver/driver_ready_to_start.dart';
 
+import 'features/cancel_trip/cancel_trip.dart';
 import 'features/create_trip/created_trip.dart';
 import 'features/driver/driver_confirm_trip.dart';
 import 'features/driver/driver_end_trip.dart';
@@ -54,7 +55,6 @@ class MyApp extends StatelessWidget {
 
         Routes.findLocation: (context) => const FindLocationView(),
         Routes.currentLocation: (context) => const CurrentLocationView(),
-        Routes.createTrip: (context) => const CreateTrip(),
 
         Routes.driverRating: (context) => const DriverRateView(),
         Routes.driverReadyToStart: (context) => const DriverReadyToStartView(),
@@ -68,6 +68,7 @@ class MyApp extends StatelessWidget {
         Routes.chat: (context) => const ChatView(),
         Routes.chatDetail: (context) => const ChatDetailView(),
         Routes.rating: (context) => const BookerRatingView(),
+        Routes.cancelTrip: (context) => const CancelTripView(),
       },
     );
   }
