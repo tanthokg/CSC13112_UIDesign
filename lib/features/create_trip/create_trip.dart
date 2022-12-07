@@ -290,7 +290,7 @@ class _CreateTripState extends State<CreateTrip> {
                                 if (mounted) {
                                   final result = await chooseStartDate(context);
                                   setState(() {
-                                    _pickedDate = result.toString().substring(0, 10);
+                                    _pickedDate = 'Ngày ${result.toString().substring(8, 10)} hằng tháng';
                                   });
                                 }
                                 break;

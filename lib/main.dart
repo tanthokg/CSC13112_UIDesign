@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: blueSky,
         fontFamily: 'Inter',
       ),
-      home: const HomePage(),
+      home: const HomeView(),
       routes: {
         Routes.login: (context) => const LoginView(),
         Routes.register: (context) => const RegisterView(),
@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
 
         Routes.findLocation: (context) => const FindLocationView(),
         Routes.currentLocation: (context) => const CurrentLocationView(),
+        Routes.createTrip: (context) => const CreateTrip(),
 
         Routes.driverRating: (context) => const DriverRateView(),
         Routes.driverReadyToStart: (context) => const DriverReadyToStartView(),

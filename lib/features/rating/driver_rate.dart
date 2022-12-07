@@ -55,10 +55,11 @@ class _DriverRateViewState extends State<DriverRateView> {
         leading: IconButton(
           onPressed: () {
             //Navigator.popUntil(context, ModalRoute.withName(Routes.home));
-            Navigator.pushNamed(context, Routes.homepage);
+            Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false,);
           },
           icon: const Icon(Icons.arrow_back),
         ),
+
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -213,7 +214,9 @@ class _DriverRateViewState extends State<DriverRateView> {
               height: 18,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false,);
+              },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(blueSky),
                 foregroundColor: MaterialStateProperty.all(Colors.white),
