@@ -4,10 +4,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/book_ride/book_ride_list.dart';
-import 'package:uniride/features/create_trip/create_trip.dart';
 
 class FindLocationView extends StatefulWidget {
-  const FindLocationView({Key? key}) : super(key: key);
+  const FindLocationView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<FindLocationView> createState() => _FindLocationViewState();
@@ -26,6 +27,8 @@ class _FindLocationViewState extends State<FindLocationView> {
 
   @override
   Widget build(BuildContext context) {
+    final bool riderRole = ModalRoute.of(context)?.settings.arguments as bool;
+
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -63,7 +66,8 @@ class _FindLocationViewState extends State<FindLocationView> {
                         googleMapController.animateCamera(
                           CameraUpdate.newCameraPosition(
                             CameraPosition(
-                              target: LatLng(position.latitude, position.longitude),
+                              target:
+                                  LatLng(position.latitude, position.longitude),
                               zoom: 14,
                             ),
                           ),
@@ -73,7 +77,8 @@ class _FindLocationViewState extends State<FindLocationView> {
                         markers.add(
                           Marker(
                             markerId: const MarkerId('currentLocation'),
-                            position: LatLng(position.latitude, position.longitude),
+                            position:
+                                LatLng(position.latitude, position.longitude),
                           ),
                         );
 
@@ -96,7 +101,8 @@ class _FindLocationViewState extends State<FindLocationView> {
                           padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                           child: Row(
                             children: [
-                              Icon(Icons.radio_button_on_rounded, color: blueSky),
+                              Icon(Icons.radio_button_on_rounded,
+                                  color: blueSky),
                               const SizedBox(width: 16),
                               Expanded(
                                   child: TextField(
@@ -181,10 +187,13 @@ class _FindLocationViewState extends State<FindLocationView> {
                         return;
                       }
 
-                      Navigator.pushNamed(context, Routes.createTrip, arguments: {
-                        'src': src,
-                        'dest': dest,
-                      });
+                      riderRole
+                          ? Navigator.pushNamed(context, Routes.createTrip,
+                              arguments: {
+                                  'src': src,
+                                  'dest': dest,
+                                })
+                          : Navigator.pushNamed(context, Routes.rideList);
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: blueSky,

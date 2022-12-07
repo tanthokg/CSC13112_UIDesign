@@ -132,10 +132,11 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(height: 16),
                         TextButton(
                           onPressed: () {
-                            _riderRole
+                            /*_riderRole
                                 ? Navigator.pushNamed(
                                     context, Routes.findLocation)
-                                : Navigator.pushNamed(context, Routes.rideList);
+                                : Navigator.pushNamed(context, Routes.rideList);*/
+                            Navigator.pushNamed(context, Routes.findLocation, arguments: _riderRole);
                           },
                           style: TextButton.styleFrom(
                             backgroundColor: _riderRole ? blueSky : purple,
