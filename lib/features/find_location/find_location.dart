@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/book_ride/book_ride_list.dart';
 import 'package:uniride/features/create_trip/create_trip.dart';
 
@@ -103,7 +104,8 @@ class _FindLocationViewState extends State<FindLocationView> {
                                 keyboardType: TextInputType.text,
                                 autocorrect: true,
                                 decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                                  contentPadding:
+                                      const EdgeInsets.symmetric(vertical: 16),
                                   hintText: '(vị trí hiện tại)',
                                   hintStyle: TextStyle(
                                     fontSize: 18,
@@ -142,27 +144,28 @@ class _FindLocationViewState extends State<FindLocationView> {
                               const SizedBox(width: 16),
                               Expanded(
                                   child: TextField(
-                                    controller: _dest,
-                                    keyboardType: TextInputType.text,
-                                    autocorrect: true,
-                                    decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.symmetric(vertical: 16),
-                                      hintText: 'Điểm đến',
-                                      hintStyle: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.grey[400],
-                                      ),
-                                      enabledBorder: const OutlineInputBorder(
-                                        borderSide:
+                                controller: _dest,
+                                keyboardType: TextInputType.text,
+                                autocorrect: true,
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      const EdgeInsets.symmetric(vertical: 16),
+                                  hintText: 'Điểm đến',
+                                  hintStyle: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.grey[400],
+                                  ),
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderSide:
                                         BorderSide(color: Colors.transparent),
-                                      ),
-                                      focusedBorder: const OutlineInputBorder(
-                                        borderSide:
+                                  ),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide:
                                         BorderSide(color: Colors.transparent),
-                                      ),
-                                    ),
-                                  ))
+                                  ),
+                                ),
+                              ))
                             ],
                           ),
                         ),
@@ -172,10 +175,16 @@ class _FindLocationViewState extends State<FindLocationView> {
                   const SizedBox(height: 16),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CreateTrip()));
+                      final src = _source.text;
+                      final dest = _dest.text;
+                      if (src.isEmpty || dest.isEmpty) {
+                        return;
+                      }
+
+                      Navigator.pushNamed(context, Routes.createTrip, arguments: {
+                        'src': src,
+                        'dest': dest,
+                      });
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: blueSky,
