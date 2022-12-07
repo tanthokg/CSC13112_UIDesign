@@ -20,9 +20,6 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-
-    final data = ModalRoute.of(context)?.settings.arguments as Map;
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -49,7 +46,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   Text(
-                    data['name'],
+                    'Nguyễn Văn A',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:uniride/constants/routes.dart';
 
 class BookerRatingView extends StatefulWidget {
   const BookerRatingView({Key? key}) : super(key: key);
@@ -230,7 +231,9 @@ class _BookerRatingViweState extends State<BookerRatingView> {
                 ),
 
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false,);
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(purple),
                     foregroundColor: MaterialStateProperty.all(Colors.white),
