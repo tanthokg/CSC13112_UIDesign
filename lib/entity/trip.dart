@@ -1,13 +1,14 @@
 class Trip {
   final int? id;
   final String rider;
-  final String person;
+  final String hitchhiker;
+  final DateTime createdTime;
   final DateTime startTime;
-  final String source;
+  final String departure;
   final String dest;
-  final String? pick;
+  final String? pickupPoint;
   final DateTime? pickTime;
-  final String? drop;
+  final String? dropPoint;
   final DateTime? dropTime;
   final DateTime? endTime;
   final int price;
@@ -18,13 +19,14 @@ class Trip {
   Trip({
     this.id,
     required this.rider,
-    required this.person,
+    required this.hitchhiker,
+    required this.createdTime,
     required this.startTime,
-    required this.source,
+    required this.departure,
     required this.dest,
-    this.pick,
+    this.pickupPoint,
     this.pickTime,
-    this.drop,
+    this.dropPoint,
     this.dropTime,
     this.endTime,
     required this.price,
@@ -36,13 +38,14 @@ class Trip {
   Trip clone(
           {int? id,
           String? rider,
-          String? person,
+          String? hitchhiker,
+          DateTime? createdTime,
           DateTime? startTime,
-          String? source,
+          String? departure,
           String? dest,
-          String? pick,
+          String? pickupPoint,
           DateTime? pickTime,
-          String? drop,
+          String? dropPoint,
           DateTime? dropTime,
           DateTime? endTime,
           int? price,
@@ -52,13 +55,14 @@ class Trip {
       Trip(
           id: id ?? this.id,
           rider: rider ?? this.rider,
-          person: person ?? this.person,
+          hitchhiker: hitchhiker ?? this.hitchhiker,
+          createdTime: createdTime ?? this.createdTime,
           startTime: startTime ?? this.startTime,
-          source: source ?? this.source,
+          departure: departure ?? this.departure,
           dest: dest ?? this.dest,
-          pick: pick ?? this.pick,
+          pickupPoint: pickupPoint ?? this.pickupPoint,
           pickTime: pickTime ?? this.pickTime,
-          drop: drop ?? this.drop,
+          dropPoint: dropPoint ?? this.dropPoint,
           dropTime: dropTime ?? this.dropTime,
           endTime: endTime ?? this.endTime,
           price: price ?? this.price,
@@ -69,13 +73,14 @@ class Trip {
   Map<String, Object?> toJson() => {
         TripFields.id: id,
         TripFields.rider: rider,
-        TripFields.person: person,
+        TripFields.hitchhiker: hitchhiker,
+        TripFields.createdTime : createdTime.toIso8601String(),
         TripFields.startTime: startTime.toIso8601String(),
-        TripFields.source: source,
+        TripFields.departure: departure,
         TripFields.dest: dest,
-        TripFields.pick: pick,
+        TripFields.pickupPoint: pickupPoint,
         TripFields.pickTime: pickTime?.toIso8601String(),
-        TripFields.drop: drop,
+        TripFields.dropPoint: dropPoint,
         TripFields.dropTime: dropTime?.toIso8601String(),
         TripFields.endTime: endTime?.toIso8601String(),
         TripFields.price: price,
@@ -86,9 +91,10 @@ class Trip {
 
   static Trip fromJson(Map<String, Object?> json) => Trip(
         rider: json[TripFields.rider] as String,
-        person: json[TripFields.person] as String,
+        hitchhiker: json[TripFields.hitchhiker] as String,
+        createdTime: json[TripFields.createdTime] as DateTime,
         startTime: json[TripFields.startTime] as DateTime,
-        source: json[TripFields.source] as String,
+        departure: json[TripFields.departure] as String,
         dest: json[TripFields.dest] as String,
         price: json[TripFields.price] as int,
         distance: json[TripFields.distance] as double,
@@ -100,13 +106,14 @@ class TripFields {
   static const all = [
     id,
     rider,
-    person,
+    hitchhiker,
+    createdTime,
     startTime,
-    source,
+    departure,
     dest,
-    pick,
+    pickupPoint,
     pickTime,
-    drop,
+    dropPoint,
     dropTime,
     endTime,
     price,
@@ -117,13 +124,14 @@ class TripFields {
 
   static const id = 'id';
   static const rider = 'rider';
-  static const person = 'person';
+  static const hitchhiker = 'hitchhiker';
+  static const createdTime = 'createdTime';
   static const startTime = 'startTime';
-  static const source = 'source';
+  static const departure = 'departure';
   static const dest = 'dest';
-  static const pick = 'pick';
+  static const pickupPoint = 'pickupPoint';
   static const pickTime = 'pickTime';
-  static const drop = 'drop';
+  static const dropPoint = 'dropPoint';
   static const dropTime = 'dropTime';
   static const endTime = 'endTime';
   static const price = 'price';
