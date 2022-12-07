@@ -5,6 +5,7 @@ import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/book_ride/book_ride_list.dart';
 import 'package:uniride/features/create_trip/created_trip.dart';
+import 'package:uniride/features/create_trip/list_created_trip.dart';
 
 class CreateTrip extends StatefulWidget {
   const CreateTrip({Key? key}) : super(key: key);
@@ -405,6 +406,7 @@ class _CreateTripState extends State<CreateTrip> {
                           },
                         ),
                         Expanded(
+                          flex: 1,
                           child: Tooltip(
                             message:
                                 'Tự động hủy chuyến xe nếu không có người đặt\ntrong khoảng thời gian trước giờ khởi hành',
@@ -416,9 +418,9 @@ class _CreateTripState extends State<CreateTrip> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        SizedBox(
-                          width: 116,
+                        const SizedBox(width: 12),
+                        Expanded(
+                          //width: 122,
                           child: DropdownButtonFormField<String>(
                             value: _earlyDepartTime,
                             items: earlyDepartTimes
@@ -522,11 +524,7 @@ class _CreateTripState extends State<CreateTrip> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const CreatedTrip(
-                          departureText: 'KTX khu B, ĐHQG-HCM',
-                          destinationText: '227 Nguyễn Văn Cừ, P4, Q5',
-                          additionalDescription: '',
-                        ),
+                        builder: (context) => const ListCreatedTripView(),
                       ));
                 },
                 style: TextButton.styleFrom(
