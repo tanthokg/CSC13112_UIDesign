@@ -56,10 +56,10 @@ class DashedLineVerticalPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    double dashHeight = 6, dashSpace = 1, startY = 0;
+    double dashHeight = 8, dashSpace = 4, startY = 0;
     final paint = Paint()
       ..color = colorLine
-      ..strokeWidth = 1;
+      ..strokeWidth = 2;
     while (startY < size.height) {
       canvas.drawLine(Offset(0, startY), Offset(0, startY + dashHeight), paint);
       startY += dashHeight + dashSpace;
