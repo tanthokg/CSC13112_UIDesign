@@ -18,6 +18,7 @@ class _CreateTripState extends State<CreateTrip> {
   String _pickedDate = 'Ngày xuất phát';
   TimeOfDay? _pickedTime;
   String _periodType = periodTypes.first;
+  bool _noteToggle = false;
   bool _earlyDepart = false;
   String _earlyDepartTime = earlyDepartTimes.first;
   final List<bool> _chosenWeekdays = [false, false, false, false, false, false, false];
@@ -37,7 +38,6 @@ class _CreateTripState extends State<CreateTrip> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
                 clipBehavior: Clip.hardEdge,
@@ -319,20 +319,69 @@ class _CreateTripState extends State<CreateTrip> {
                 ),
               ),
             ),
+            const SizedBox(height: 16),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.edit_note_rounded,
-                    size: 40,
-                    color: blueSky,
+                alignment: Alignment.centerLeft,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    backgroundColor: _noteToggle ? blueSky : Colors.white,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _noteToggle = !_noteToggle;
+                    });
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.edit_note_rounded,
+                        color: _noteToggle ? Colors.white : blueSky,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Thêm lời nhắn',
+                        style: TextStyle(fontSize: 16, color: _noteToggle ? Colors.white : blueSky),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
+            _noteToggle
+                ? Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
+                    child: Material(
+                      borderRadius: BorderRadius.circular(24),
+                      elevation: 3.0,
+                      clipBehavior: Clip.hardEdge,
+                      shadowColor: Colors.grey[200],
+                      child: TextField(
+                        autocorrect: false,
+                        minLines: 1,
+                        maxLines: 2,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                            fontSize: 18,
+                            color: blackBlue.shade400,
+                          ),
+                          hintText: 'Lời nhắn',
+                          enabledBorder: transBorder24,
+                          focusedBorder: transBorder24,
+                        ),
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Row(
@@ -470,8 +519,7 @@ class _CreateTripState extends State<CreateTrip> {
                 child: const Text(
                   'Xác nhận',
                   style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 18,
                     color: Colors.white,
                   ),
                 ),
