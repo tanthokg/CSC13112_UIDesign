@@ -25,4 +25,5 @@ class Routes {
   static const rating = '/rating/';
 
   static const cancelTrip = '/cancel_trip/';
+  static const contact = '/contact';
 }
