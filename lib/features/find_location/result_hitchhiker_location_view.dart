@@ -105,8 +105,7 @@ class _RoadInformation extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, Routes.rideList, arguments: {
-          'src': 'Vị trí hiện tại',
-          'dest': 'Điểm đến',
+          'information': ride
         });
       },
       child: Container(
