@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/book_ride/book_ride_list.dart';
+import 'package:uniride/features/find_location/insert_location_view.dart';
 
 class FindLocationView extends StatefulWidget {
   const FindLocationView({
@@ -20,14 +21,13 @@ class _FindLocationViewState extends State<FindLocationView> {
 
   late GoogleMapController googleMapController;
 
-  static const _initialCameraPosition =
-      CameraPosition(target: LatLng(10.765, 106.664), zoom: 14);
+  static const _initialCameraPosition = CameraPosition(target: LatLng(10.765, 106.664), zoom: 14);
 
   Set<Marker> markers = {};
 
   @override
   Widget build(BuildContext context) {
-    final bool riderRole = ModalRoute.of(context)?.settings.arguments as bool;
+    final bool userRole = ModalRoute.of(context)?.settings.arguments as bool;
 
     return SafeArea(
       child: Scaffold(
@@ -35,8 +35,7 @@ class _FindLocationViewState extends State<FindLocationView> {
         appBar: AppBar(
           title: Text(
             'Tìm kiếm địa điểm',
-            style: TextStyle(
-                fontSize: 22, fontWeight: FontWeight.w500, color: blackBlue),
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: blackBlue),
           ),
           centerTitle: true,
           elevation: 0,
@@ -66,8 +65,7 @@ class _FindLocationViewState extends State<FindLocationView> {
                         googleMapController.animateCamera(
                           CameraUpdate.newCameraPosition(
                             CameraPosition(
-                              target:
-                                  LatLng(position.latitude, position.longitude),
+                              target: LatLng(position.latitude, position.longitude),
                               zoom: 14,
                             ),
                           ),
@@ -77,15 +75,13 @@ class _FindLocationViewState extends State<FindLocationView> {
                         markers.add(
                           Marker(
                             markerId: const MarkerId('currentLocation'),
-                            position:
-                                LatLng(position.latitude, position.longitude),
+                            position: LatLng(position.latitude, position.longitude),
                           ),
                         );
 
                         setState(() {});
                       },
-                      style: IconButton.styleFrom(
-                          elevation: 0, backgroundColor: Colors.white),
+                      style: IconButton.styleFrom(elevation: 0, backgroundColor: Colors.white),
                       icon: Icon(Icons.my_location, color: blueSky)),
                   const SizedBox(height: 16),
                   Card(
@@ -101,34 +97,41 @@ class _FindLocationViewState extends State<FindLocationView> {
                           padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                           child: Row(
                             children: [
-                              Icon(Icons.radio_button_on_rounded,
-                                  color: blueSky),
+                              Icon(Icons.radio_button_on_rounded, color: blueSky),
                               const SizedBox(width: 16),
                               Expanded(
-                                  child: TextField(
-                                controller: _source,
-                                keyboardType: TextInputType.text,
-                                autocorrect: true,
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      const EdgeInsets.symmetric(vertical: 16),
-                                  hintText: '(vị trí hiện tại)',
-                                  hintStyle: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w300,
-                                    fontStyle: FontStyle.italic,
-                                    color: Colors.grey[400],
+                                child: TextField(
+                                  controller: _source,
+                                  keyboardType: TextInputType.text,
+                                  autocorrect: true,
+                                  readOnly: true,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                                    hintText: '(vị trí hiện tại)',
+                                    hintStyle: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.grey[400],
+                                    ),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.transparent),
+                                    ),
+                                    focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.transparent),
+                                    ),
                                   ),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                  ),
-                                  focusedBorder: const OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                  ),
+                                  onTap: () async {
+                                    _source.text = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const InsertLocationView(
+                                            title: 'Chọn điểm đi',
+                                          ),
+                                        ));
+                                  },
                                 ),
-                              ))
+                              )
                             ],
                           ),
                         ),
@@ -149,29 +152,37 @@ class _FindLocationViewState extends State<FindLocationView> {
                               Icon(Icons.location_on, color: blueSky),
                               const SizedBox(width: 16),
                               Expanded(
-                                  child: TextField(
-                                controller: _dest,
-                                keyboardType: TextInputType.text,
-                                autocorrect: true,
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      const EdgeInsets.symmetric(vertical: 16),
-                                  hintText: 'Điểm đến',
-                                  hintStyle: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.grey[400],
+                                child: TextField(
+                                  controller: _dest,
+                                  keyboardType: TextInputType.text,
+                                  autocorrect: true,
+                                  readOnly: true,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                                    hintText: 'Điểm đến',
+                                    hintStyle: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.grey[400],
+                                    ),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.transparent),
+                                    ),
+                                    focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.transparent),
+                                    ),
                                   ),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                  ),
-                                  focusedBorder: const OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent),
-                                  ),
+                                  onTap: () async {
+                                    _dest.text = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const InsertLocationView(
+                                            title: 'Chọn điểm đến',
+                                          ),
+                                        ));
+                                  },
                                 ),
-                              ))
+                              )
                             ],
                           ),
                         ),
@@ -187,17 +198,15 @@ class _FindLocationViewState extends State<FindLocationView> {
                         return;
                       }
 
-                      riderRole
-                          ? Navigator.pushNamed(context, Routes.createTrip,
-                              arguments: {
-                                  'src': src,
-                                  'dest': dest,
-                                })
-                          : Navigator.pushNamed(context, Routes.rideList,
-                              arguments: {
-                                  'src': src,
-                                  'dest': dest,
-                                });
+                      userRole
+                          ? Navigator.pushNamed(context, Routes.createTrip, arguments: {
+                              'src': src,
+                              'dest': dest,
+                            })
+                          : Navigator.pushNamed(context, Routes.rideList, arguments: {
+                              'src': src,
+                              'dest': dest,
+                            });
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: blueSky,
