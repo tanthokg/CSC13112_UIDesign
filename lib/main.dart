@@ -5,6 +5,7 @@ import 'package:uniride/features/auth/forgot_password.dart';
 import 'package:uniride/features/auth/login.dart';
 import 'package:uniride/features/create_trip/create_trip.dart';
 import 'package:uniride/features/create_trip/list_created_trip.dart';
+import 'package:uniride/features/create_trip/pick_trip_time.dart';
 import 'package:uniride/features/driver/driver_start_trip.dart';
 import 'package:uniride/features/find_location/find_location_view.dart';
 import 'package:uniride/features/homepage/homepage.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: blueSky,
         fontFamily: 'Inter',
       ),
-      home: const HomeView(),
+      home: const PickTripTimeView(),
       routes: {
         Routes.login: (context) => const LoginView(),
         Routes.register: (context) => const RegisterView(),
