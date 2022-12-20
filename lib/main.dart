@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: blueSky,
         fontFamily: 'Inter',
       ),
-      home: const PickTripTimeView(),
+      home: const HomeView(),
       routes: {
         Routes.login: (context) => const LoginView(),
         Routes.register: (context) => const RegisterView(),

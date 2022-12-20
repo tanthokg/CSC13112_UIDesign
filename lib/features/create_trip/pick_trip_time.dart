@@ -20,6 +20,139 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
 
   bool _isOnce = true;
 
+  String _to24HourTime() {
+    final hour = _pickedTime!.hour.toString().padLeft(2, '0');
+    final minute = _pickedTime!.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
+
+  void _returnValue() async {
+    if (_pickedTime == null) {
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Lỗi'),
+          content: const Text('Vui lòng chọn giờ xuất phát cho chuyến xe'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                'OK',
+              ),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    if (_isOnce) {
+      if (_pickedDate == 'Ngày xuất phát' || _pickedDate.isEmpty) {
+        await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Lỗi'),
+            content: const Text('Vui lòng chọn ngày xuất phát cho chuyến xe'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text(
+                  'OK',
+                ),
+              ),
+            ],
+          ),
+        );
+        return;
+      } else {
+        Navigator.pop(context, '$_pickedDate lúc $_to24HourTime()');
+        return;
+      }
+    }
+
+    if (!_isOnce && _chosenPeriodType == 'Mỗi ngày') {
+      if (mounted) Navigator.pop(context, '$_pickedDate lúc $_to24HourTime()');
+      return;
+    }
+
+    if (!_isOnce && _chosenPeriodType == 'Mỗi tháng') {
+      if (_pickedDate == 'Ngày xuất phát' || _pickedDate.isEmpty) {
+        await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Lỗi'),
+            content: const Text('Vui lòng chọn ngày xuất phát cho chuyến xe'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text(
+                  'OK',
+                ),
+              ),
+            ],
+          ),
+        );
+        return;
+      } else {
+        _pickedDate = 'Ngày ${_pickedDate.substring(0, 2)} hằng tháng';
+        if (mounted )Navigator.pop(context, '$_pickedDate lúc $_to24HourTime()');
+        return;
+      }
+    }
+
+    if (_chosenWeekdays.where((choice) => choice == false).length == 7) {
+      await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Lỗi'),
+          content: const Text('Vui lòng chọn ít nhất MỘT ngày trong tuần'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                'OK',
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      _pickedDate = 'T';
+      if (_chosenWeekdays[0]) {
+        _pickedDate += '2, ';
+      }
+      if (_chosenWeekdays[1]) {
+        _pickedDate += '3, ';
+      }
+      if (_chosenWeekdays[2]) {
+        _pickedDate += '4, ';
+      }
+      if (_chosenWeekdays[3]) {
+        _pickedDate += '5, ';
+      }
+      if (_chosenWeekdays[4]) {
+        _pickedDate += '6, ';
+      }
+      if (_chosenWeekdays[5]) {
+        _pickedDate += '7, ';
+      }
+      if (_chosenWeekdays[6]) {
+        _pickedDate += 'CN';
+      }
+      if (_pickedDate.endsWith(' ')) {
+        _pickedDate = _pickedDate.substring(0, _pickedDate.length - 2);
+      }
+      if (_chosenWeekdays.where((choice) => choice == true).length == 7) {
+        _pickedDate = 'Mỗi ngày';
+      }
+
+      if (mounted) {
+        Navigator.pop(context, '$_pickedDate lúc $_to24HourTime()');
+      }
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +202,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                     ),
                     Expanded(
                       child: Text(
-                        _pickedTime == null ? 'Thời gian' : _pickedTime!.format(context),
+                        _pickedTime == null ? 'Thời gian' : _to24HourTime(),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18,
@@ -100,6 +233,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                     onPressed: () {
                       setState(() {
                         _isOnce = true;
+                        _pickedDate = 'Ngày xuất phát';
                       });
                     },
                     child: Row(
@@ -125,6 +259,9 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                     onPressed: () {
                       setState(() {
                         _isOnce = false;
+                        if (_chosenPeriodType == 'Mỗi ngày') {
+                          _pickedDate = 'Mỗi ngày';
+                        }
                       });
                     },
                     child: Row(
@@ -166,6 +303,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                             onPressed: () {
                               setState(() {
                                 _chosenPeriodType = 'Mỗi ngày';
+                                _pickedDate = 'Mỗi ngày';
                               });
                             },
                             child: const Text(
@@ -184,6 +322,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                             onPressed: () {
                               setState(() {
                                 _chosenPeriodType = 'Mỗi tuần';
+                                _pickedDate = '';
                               });
                             },
                             child: const Text(
@@ -202,6 +341,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                             onPressed: () {
                               setState(() {
                                 _chosenPeriodType = 'Mỗi tháng';
+                                _pickedDate = 'Ngày xuất phát';
                               });
                             },
                             child: const Text(
@@ -223,7 +363,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                     ),
                   )
                 : const SizedBox.shrink(),
-            _isOnce || (!_isOnce && (_chosenPeriodType == 'Mỗi ngày' || _chosenPeriodType == 'Mỗi tháng'))
+            _isOnce || (!_isOnce && _chosenPeriodType == 'Mỗi tháng')
                 ? Material(
                     borderRadius: BorderRadius.circular(24),
                     elevation: 3.0,
@@ -270,7 +410,9 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                       ),
                     ),
                   )
-                : Row(
+                : const SizedBox.shrink(),
+            !_isOnce && _chosenPeriodType == 'Mỗi tuần'
+                ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: List<Widget>.generate(
                       7,
@@ -289,12 +431,13 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                         child: Text(weekdayShorts[index]),
                       ),
                     ),
-                  ),
+                  )
+                : const SizedBox.shrink(),
             !_isOnce
                 ? Padding(
                     padding: const EdgeInsets.only(top: 24),
                     child: Text(
-                      'Chỗ này ghi gì',
+                      'Mốc thời gian',
                       style: TextStyle(fontSize: 18, color: blackBlue),
                     ),
                   )
@@ -404,7 +547,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                 : const SizedBox.shrink(),
             const SizedBox(height: 48),
             TextButton(
-              onPressed: () {},
+              onPressed: _returnValue,
               style: TextButton.styleFrom(
                 backgroundColor: blueSky,
                 minimumSize: const Size.fromHeight(56),
