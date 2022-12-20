@@ -67,6 +67,9 @@ class _ChatState extends State<ChatView> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text('Trò chuyện'),
+          elevation: 3,
+          surfaceTintColor: Colors.white,
+          shadowColor: Colors.grey[50],
         ),
         body: SingleChildScrollView(
           child: ListView.builder(

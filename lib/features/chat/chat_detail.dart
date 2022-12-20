@@ -10,7 +10,6 @@ class ChatDetailView extends StatefulWidget {
 }
 
 class _ChatDetailViewState extends State<ChatDetailView> {
-  String name = '';
   List<Message> messages = [
     const Message(
         messageContent: "Chào bạn, mình muốn đi nhờ xe", messageType: "sender"),
@@ -27,13 +26,63 @@ class _ChatDetailViewState extends State<ChatDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments;
-    name = args != null ? args.toString() : 'Chat Detail';
+    final data = ModalRoute.of(context)?.settings.arguments as Map;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(name),
+          title: Row(children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(data['url']),
+              maxRadius: 24,
+            ),
+            const SizedBox(
+              width: 16,
+            ),
+            Expanded(
+              child: Container(
+                color: Colors.transparent,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      data['name'],
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    const Text(
+                      'Yamaha Sirius, 59B-192.12',
+                      style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w300,
+                          color: Color(0x7B7993FF)),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.phone,
+                size: 24,
+                color: blueSky,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.grid_view_rounded,
+                size: 24,
+                color: blueSky,
+              ),
+            ),
+          ]),
+          elevation: 3,
+          surfaceTintColor: Colors.white,
+          shadowColor: Colors.grey[50],
         ),
         body: Stack(
           children: <Widget>[
