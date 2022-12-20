@@ -13,7 +13,7 @@ class DriverArrivedView extends StatefulWidget {
 }
 
 class _DialogState extends State<DriverArrivedView> {
-  late final showNotification;
+  late final Future<void> showNotification;
 
   @override
   void initState() {
@@ -23,25 +23,25 @@ class _DialogState extends State<DriverArrivedView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        appBar: AppBar(),
-        body: FutureBuilder(
-          future: _riderAccepted(),
-          builder: (context, snapshot) {
-            return Stack(
-              children: [
-                const CurrentLocationView(),
-                FutureBuilder(
-                  future: showNotification,
-                  builder: (context, snapshot) {
-                    return Container();
-                  },
-                ),
-              ],
-            );
-          },
-        ));
+      appBar: AppBar(),
+      body: FutureBuilder(
+        future: _riderAccepted(),
+        builder: (context, snapshot) {
+          return Stack(
+            children: [
+              const CurrentLocationView(),
+              FutureBuilder(
+                future: showNotification,
+                builder: (context, snapshot) {
+                  return Container();
+                },
+              ),
+            ],
+          );
+        },
+      ),
+    );
   }
 
   Future<void> _riderAccepted() async {

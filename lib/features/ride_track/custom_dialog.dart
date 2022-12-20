@@ -14,72 +14,62 @@ class CustomDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Align(
-          alignment: Alignment.topRight,
-          child: TextButton(
-              onPressed: () {
-                Navigator.pop(context, true);
-              },
-              child: const Icon(
-                Icons.clear,
-                color: Color.fromARGB(122, 89, 89, 90),
-                size: 24,
-              ))),
-      content: Container(
-        height: 320,
-        width: 300,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset(
-              // 'assets/illustration/green_checked.png',
+      content: Wrap(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Image.asset(
               img,
-              width: 120,
-              height: 120,
+              width: 100,
+              height: 100,
             ),
-            Column(
-              children: [
-                Text(
-                  // 'Người lái đã đến vị trí đón',
-                  title,
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(
+            height: 18,
+          ),
+          Column(
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  color: blackBlue,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(
-                  height: 10,
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Text(
+                content,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: blackBlue.shade400,
+                  fontSize: 16,
                 ),
-                Text(
-                    //  'Chuyến xe của bạn sẽ được bắt đầu ngay bây giờ',
-                    content,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color.fromARGB(122, 89, 89, 90),
-                      fontSize: 18,
-                    )),
-                const SizedBox(
-                  height: 10,
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: purple,
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size.fromHeight(56),
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context, true);
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: blueSky,
-                    minimumSize: const Size.fromHeight(56),
+                child: const Text(
+                  'OK',
+                  style: TextStyle(
+                    fontSize: 18,
                   ),
-                  child: const Text(
-                    'OK!',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                    ),
-                  ),
                 ),
-              ],
-            )
-          ],
-        ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

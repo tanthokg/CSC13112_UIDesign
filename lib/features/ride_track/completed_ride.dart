@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/widget/driver_information.dart';
 
 import '../book_ride/book_ride_list.dart';
 
@@ -27,7 +28,7 @@ class _CompletedRideViewState extends State<CompletedRideView> {
           child: Column(
             children: const [
               // Thông tin của người lái xe
-              _RiderInformation(),
+              DriverInformation(),
               SizedBox(
                 height: 18,
               ),
@@ -688,70 +689,6 @@ class _RoadHitchhikerInformation extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-class _RiderInformation extends StatelessWidget {
-  const _RiderInformation({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: blueSkySwatch[900]?.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      padding: const EdgeInsets.all(12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const CircleAvatar(
-            backgroundImage: AssetImage(
-              'assets/avatar/avatar-01.png',
-            ),
-            radius: 32,
-          ),
-          const SizedBox(
-            width: 18,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Đỗ Gia Hưng',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: blackBlue,
-                ),
-              ),
-              Text(
-                'Yamaha Sirius, 59B-192.12',
-                style: TextStyle(
-                  color: blackBlue.shade400,
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          Column(
-            children: [
-              const Icon(
-                Icons.star,
-                color: Colors.yellow,
-              ),
-              Text(
-                '(4.8)',
-                style: TextStyle(
-                  color: blackBlue.shade400,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }
