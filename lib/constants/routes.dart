@@ -20,6 +20,7 @@ class Routes {
 
   static const home = '/home/';
   static const rideList = '/ride_list/';
+  static const resultHitchhikerLocation = '/result_hitchhiker_location';
   static const chat = '/chat/';
   static const chatDetail = '/chat/detail/';
   static const rating = '/rating/';

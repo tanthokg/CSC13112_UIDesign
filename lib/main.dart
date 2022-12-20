@@ -7,12 +7,12 @@ import 'package:uniride/features/create_trip/create_trip.dart';
 import 'package:uniride/features/create_trip/list_created_trip.dart';
 import 'package:uniride/features/driver/driver_start_trip.dart';
 import 'package:uniride/features/find_location/find_location_view.dart';
+import 'package:uniride/features/find_location/result_hitchhiker_location_view.dart';
 import 'package:uniride/features/homepage/homepage.dart';
 import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/features/auth/register.dart';
 import 'package:uniride/features/rating/driver_rate.dart';
 import 'package:uniride/features/driver/driver_ready_to_start.dart';
-import 'package:uniride/features/ride_track/waiting_rider.dart';
 
 import 'features/cancel_trip/cancel_trip.dart';
 import 'features/contact/incoming call.dart';
@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Inter',
       ),
       home: const HomeView(),
-      //home: const WaitingRiderView(),
       routes: {
         Routes.login: (context) => const LoginView(),
         Routes.register: (context) => const RegisterView(),
@@ -67,6 +66,7 @@ class MyApp extends StatelessWidget {
 
         Routes.home: (context) => const HomeView(),
         Routes.rideList: (context) => const BookRideListView(),
+        Routes.resultHitchhikerLocation: (context) => const ResultHitchhikerLocationView(),
         Routes.chat: (context) => const ChatView(),
         Routes.chatDetail: (context) => const ChatDetailView(),
         Routes.rating: (context) => const BookerRatingView(),

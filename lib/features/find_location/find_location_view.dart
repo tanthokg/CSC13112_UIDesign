@@ -203,7 +203,7 @@ class _FindLocationViewState extends State<FindLocationView> {
                               'src': src,
                               'dest': dest,
                             })
-                          : Navigator.pushNamed(context, Routes.rideList, arguments: {
+                          : Navigator.pushNamed(context, Routes.resultHitchhikerLocation, arguments: {
                               'src': src,
                               'dest': dest,
                             });

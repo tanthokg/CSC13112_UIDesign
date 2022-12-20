@@ -30,7 +30,12 @@ class _DialogState extends State<DriverArrivedView> {
         builder: (context, snapshot) {
           return Stack(
             children: [
-              const CurrentLocationView(),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Go to Google Map'),
+                ),
+              ),
               FutureBuilder(
                 future: showNotification,
                 builder: (context, snapshot) {
