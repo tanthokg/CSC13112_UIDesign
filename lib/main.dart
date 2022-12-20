@@ -13,6 +13,7 @@ import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/features/auth/register.dart';
 import 'package:uniride/features/rating/driver_rate.dart';
 import 'package:uniride/features/driver/driver_ready_to_start.dart';
+import 'package:uniride/features/ride_track/waiting_rider.dart';
 
 import 'features/cancel_trip/cancel_trip.dart';
 import 'features/contact/incoming call.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Inter',
       ),
       home: const HomeView(),
+      //home: const WaitingRiderView(),
       routes: {
         Routes.login: (context) => const LoginView(),
         Routes.register: (context) => const RegisterView(),
