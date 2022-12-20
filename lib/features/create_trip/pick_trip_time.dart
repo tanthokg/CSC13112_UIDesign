@@ -11,6 +11,8 @@ class PickTripTimeView extends StatefulWidget {
 
 class _PickTripTimeViewState extends State<PickTripTimeView> {
   String _pickedDate = 'Ngày xuất phát';
+  String _startDate = 'Ngày bắt đầu';
+  String _endDate = 'Ngày kết thúc';
   TimeOfDay? _pickedTime;
 
   String _chosenPeriodType = 'Mỗi ngày';
@@ -32,7 +34,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Giờ xuất phát',
@@ -258,8 +260,8 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 18,
-                                fontWeight: _pickedTime == null ? FontWeight.w300 : FontWeight.w400,
-                                color: _pickedTime == null ? blackBlue.shade300 : blackBlue.shade600,
+                                fontWeight: _pickedDate == 'Ngày xuất phát' ? FontWeight.w300 : FontWeight.w400,
+                                color: _pickedDate == 'Ngày xuất phát' ? blackBlue.shade300 : blackBlue.shade600,
                               ),
                             ),
                           ),
@@ -269,14 +271,13 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                     ),
                   )
                 : Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: List<Widget>.generate(
                       7,
                       (index) => TextButton(
                         style: TextButton.styleFrom(
                           shape: CircleBorder(
-                            side: BorderSide(color: _chosenWeekdays[index] ? blueSky.shade200 : blueSky.shade600)
-                          ),
+                              side: BorderSide(color: _chosenWeekdays[index] ? blueSky.shade200 : blueSky.shade600)),
                           minimumSize: Size.zero,
                           backgroundColor: _chosenWeekdays[index] ? blueSky.shade200 : Colors.white,
                         ),
@@ -289,7 +290,119 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                       ),
                     ),
                   ),
-            const SizedBox(height: 32),
+            !_isOnce
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 24),
+                    child: Text(
+                      'Chỗ này ghi gì',
+                      style: TextStyle(fontSize: 18, color: blackBlue),
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            !_isOnce
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Material(
+                      borderRadius: BorderRadius.circular(24),
+                      elevation: 3.0,
+                      clipBehavior: Clip.hardEdge,
+                      color: Colors.white,
+                      shadowColor: Colors.grey[200],
+                      child: InkWell(
+                        onTap: () async {
+                          final result = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2025),
+                          );
+                          setState(() {
+                            if (result != null) {
+                              _startDate = DateFormat('dd/MM/yyyy').format(result);
+                            }
+                          });
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
+                              child: Icon(
+                                Icons.start,
+                                color: blueSky,
+                                size: 28,
+                              ),
+                            ),
+                            Text(
+                              _startDate,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: _startDate == 'Ngày bắt đầu' ? FontWeight.w300 : FontWeight.w400,
+                                color: _startDate == 'Ngày bắt đầu' ? blackBlue.shade300 : blackBlue.shade600,
+                              ),
+                            ),
+                            const SizedBox(width: 56)
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            !_isOnce
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Material(
+                      borderRadius: BorderRadius.circular(24),
+                      elevation: 3.0,
+                      clipBehavior: Clip.hardEdge,
+                      color: Colors.white,
+                      shadowColor: Colors.grey[200],
+                      child: InkWell(
+                        onTap: () async {
+                          final result = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2025),
+                          );
+                          setState(() {
+                            if (result != null) {
+                              _endDate = DateFormat('dd/MM/yyyy').format(result);
+                            }
+                          });
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
+                              child: RotatedBox(
+                                quarterTurns: 2,
+                                child: Icon(
+                                  Icons.start,
+                                  color: blueSky,
+                                  size: 28,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              _endDate,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: _endDate == 'Ngày kết thúc' ? FontWeight.w300 : FontWeight.w400,
+                                color: _endDate == 'Ngày kết thúc' ? blackBlue.shade300 : blackBlue.shade600,
+                              ),
+                            ),
+                            const SizedBox(width: 56)
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            const SizedBox(height: 48),
             TextButton(
               onPressed: () {},
               style: TextButton.styleFrom(
