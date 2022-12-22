@@ -216,8 +216,7 @@ class _FindLocationViewState extends State<FindLocationView> {
                     child: const Text(
                       'Tiếp tục',
                       style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 18,
                         color: Colors.white,
                       ),
                     ),
