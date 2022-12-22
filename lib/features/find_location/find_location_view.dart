@@ -3,8 +3,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/constants/routes.dart';
-import 'package:uniride/features/book_ride/book_ride_list.dart';
 import 'package:uniride/features/find_location/insert_location_view.dart';
+
+import '../../widget/dash_line_vertical.dart';
 
 class FindLocationView extends StatefulWidget {
   const FindLocationView({
@@ -203,7 +204,7 @@ class _FindLocationViewState extends State<FindLocationView> {
                               'src': src,
                               'dest': dest,
                             })
-                          : Navigator.pushNamed(context, Routes.rideList, arguments: {
+                          : Navigator.pushNamed(context, Routes.resultHitchhikerLocation, arguments: {
                               'src': src,
                               'dest': dest,
                             });

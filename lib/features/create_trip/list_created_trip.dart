@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/constants/status.dart';
 import 'package:uniride/database/trip_dao.dart';
 import 'package:uniride/features/create_trip/created_trip_card.dart';
 
@@ -29,7 +30,7 @@ class _ListCreatedTripViewState extends State<ListCreatedTripView> {
       dest: '440 Nguyễn Đình Chiểu',
       price: 8000,
       distance: 3,
-      status: 'Còn trống',
+      status: TripStatus.empty,
     ),
     Trip(
       rider: 'Nguyen Van A',
@@ -40,7 +41,7 @@ class _ListCreatedTripViewState extends State<ListCreatedTripView> {
       dest: '440 Nguyễn Đình Chiểu',
       price: 8000,
       distance: 3,
-      status: 'Đang đợi bạn phản hồi',
+      status: TripStatus.waiting,
     ),
     Trip(
       rider: 'Nguyen Van A',
@@ -51,7 +52,7 @@ class _ListCreatedTripViewState extends State<ListCreatedTripView> {
       dest: '440 Nguyễn Đình Chiểu',
       price: 8000,
       distance: 3,
-      status: 'Đã nhận',
+      status: TripStatus.accepted,
     ),
     Trip(
       rider: 'Nguyen Van A',
@@ -62,7 +63,7 @@ class _ListCreatedTripViewState extends State<ListCreatedTripView> {
       dest: '440 Nguyễn Đình Chiểu',
       price: 8000,
       distance: 3,
-      status: 'Hoàn thành',
+      status: TripStatus.completed,
     ),
   ];
 
@@ -74,79 +75,72 @@ class _ListCreatedTripViewState extends State<ListCreatedTripView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'Danh sách chuyến xe của tôi',
-              style: TextStyle(
-                color: blackBlue,
-              ),
+        appBar: AppBar(
+          title: Text(
+            'Danh sách chuyến xe của tôi',
+            style: TextStyle(
+              color: blackBlue,
             ),
-            centerTitle: true,
           ),
-          body: Stack(
-            children: [
-              const SimpleMapView(),
-              Container(
-                color: Colors.black.withOpacity(0.2),
-              ),
-              FutureBuilder(
-                future: dataFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: blueSky,
-                      ),
-                    );
-                  }
+          centerTitle: true,
+        ),
+        body: FutureBuilder(
+          future: dataFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: blueSky,
+                ),
+              );
+            }
 
-                  if (snapshot.hasError) {
-                    return Center(
-                      child: AlertDialog(
-                        title: const Text('Error loading'),
-                        icon: Icon(
-                          Icons.error_outline_rounded,
-                          color: red,
-                        ),
-                        content: Text(snapshot.error.toString()),
-                      ),
-                    );
-                  }
+            if (snapshot.hasError) {
+              return Center(
+                child: AlertDialog(
+                  title: const Text('Error loading'),
+                  icon: Icon(
+                    Icons.error_outline_rounded,
+                    color: red,
+                  ),
+                  content: Text(snapshot.error.toString()),
+                ),
+              );
+            }
 
-                  if (snapshot.hasData) {
-                    createdTrips = snapshot.data;
-                    return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      //itemCount: createdTrips?.length,
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(24.0),
-                          child: Center(
-                            child: SingleChildScrollView(
-                              child: Wrap(
-                                children: [
-                                  CreatedTripCard(
-                                    trip: testTrips[index],
-                                    updateCallback: updateStatusTrip,
-                                  ),
-                                ],
-                              ),
+            if (snapshot.hasData) {
+              createdTrips = snapshot.data;
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                //itemCount: createdTrips?.length,
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Wrap(
+                          children: [
+                            CreatedTripCard(
+                              trip: testTrips[index],
+                              updateCallback: updateStatusTrip,
                             ),
-                          ),
-                        );
-                      },
-                    );
-                  }
-
-                  return const Center(
-                    child: Text('Not has anything'),
+                          ],
+                        ),
+                      ),
+                    ),
                   );
                 },
-              ),
-            ],
-          )),
+              );
+            }
+
+            return const Center(
+              child: Text('Not has anything'),
+            );
+          },
+        ),
+      ),
     );
   }
 }

@@ -1,7 +1,8 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/features/create_trip/created_trip_list_view.dart';
+import 'package:uniride/widget/dash_line_vertical.dart';
 import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/book_ride/book_ride_list.dart';
 import 'package:uniride/features/create_trip/created_trip.dart';
@@ -342,7 +343,7 @@ class _CreateTripState extends State<CreateTrip> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ListCreatedTripView(),
+                        builder: (context) => const CreatedTripListView(),
                       ));
                 },
                 style: TextButton.styleFrom(

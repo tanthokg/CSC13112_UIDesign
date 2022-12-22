@@ -1,3 +1,5 @@
+import 'package:uniride/constants/status.dart';
+
 class Trip {
   final int? id;
   final String rider;
@@ -13,7 +15,7 @@ class Trip {
   final DateTime? endTime;
   final int price;
   final double distance;
-  final String status;
+  final TripStatus status;
   final String? notes;
 
   Trip({
@@ -50,7 +52,7 @@ class Trip {
           DateTime? endTime,
           int? price,
           double? distance,
-          String? status,
+          TripStatus? status,
           String? notes}) =>
       Trip(
           id: id ?? this.id,
@@ -98,7 +100,7 @@ class Trip {
         dest: json[TripFields.dest] as String,
         price: json[TripFields.price] as int,
         distance: json[TripFields.distance] as double,
-        status: json[TripFields.status] as String,
+        status: json[TripFields.status] as TripStatus,
       );
 }
 

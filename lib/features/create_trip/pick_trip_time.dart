@@ -65,13 +65,13 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
         );
         return;
       } else {
-        Navigator.pop(context, '$_pickedDate lúc $_to24HourTime()');
+        Navigator.pop(context, '$_pickedDate lúc ${_to24HourTime()}');
         return;
       }
     }
 
     if (!_isOnce && _chosenPeriodType == 'Mỗi ngày') {
-      if (mounted) Navigator.pop(context, '$_pickedDate lúc $_to24HourTime()');
+      if (mounted) Navigator.pop(context, '$_pickedDate lúc ${_to24HourTime()}');
       return;
     }
 
@@ -95,7 +95,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
         return;
       } else {
         _pickedDate = 'Ngày ${_pickedDate.substring(0, 2)} hằng tháng';
-        if (mounted )Navigator.pop(context, '$_pickedDate lúc $_to24HourTime()');
+        if (mounted )Navigator.pop(context, '$_pickedDate lúc ${_to24HourTime()}');
         return;
       }
     }
@@ -147,7 +147,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
       }
 
       if (mounted) {
-        Navigator.pop(context, '$_pickedDate lúc $_to24HourTime()');
+        Navigator.pop(context, '$_pickedDate lúc ${_to24HourTime()}');
       }
       return;
     }
