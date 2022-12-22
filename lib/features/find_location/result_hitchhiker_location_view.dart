@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:uniride/constants/status.dart';
+import 'package:uniride/entity/trip.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/routes.dart';
-import '../book_ride/book_ride_list.dart';
+import '../../widget/dash_line_vertical.dart';
 
 class ResultHitchhikerLocationView extends StatefulWidget {
   const ResultHitchhikerLocationView({Key? key}) : super(key: key);
@@ -14,15 +17,54 @@ class ResultHitchhikerLocationView extends StatefulWidget {
 
 class _ResultHitchhikerLocationViewState
     extends State<ResultHitchhikerLocationView> {
-  var results = {
-    0: ['Nguyễn Thị B', '7,000đ', '17:30, 19/11/2022'],
-    1: ['Lê Văn C', '8,000đ', '12:30, 19/11/2022'],
-    2: ['Quế Bạch D', '5,000đ', '17:30, 20/11/2022'],
-    3: ['Nguyễn Thị B', '17,000đ', '10:00, 20/11/2022'],
-  };
+  final trip = <Trip>[
+    Trip(
+        rider: 'Nguyễn Thị B',
+        hitchhiker: '',
+        createdTime: DateTime(2022, 11, 19, 10, 30),
+        startTime: DateTime(2022, 11, 19, 17, 30),
+        departure: '',
+        dest: '',
+        price: 5000,
+        distance: 5,
+        status: TripStatus.empty),
+    Trip(
+        rider: 'Lê Văn C',
+        hitchhiker: '',
+        createdTime: DateTime(2022, 11, 18, 8),
+        startTime: DateTime(2022, 11, 19, 12, 30),
+        departure: '',
+        dest: '',
+        price: 8000,
+        distance: 8,
+        status: TripStatus.empty),
+    Trip(
+        rider: 'Quế Bạch D',
+        hitchhiker: '',
+        createdTime: DateTime(2022, 11, 19, 12, 30),
+        startTime: DateTime(2022, 11, 20, 17, 30),
+        departure: '',
+        dest: '',
+        price: 5000,
+        distance: 5,
+        status: TripStatus.empty),
+    Trip(
+        rider: 'Nguyễn Thị B',
+        hitchhiker: '',
+        createdTime: DateTime(2022, 11, 20, 18, 30),
+        startTime: DateTime(2022, 11, 21, 8, 30),
+        departure: '',
+        dest: '',
+        price: 15000,
+        distance: 15,
+        status: TripStatus.empty),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    final departureAndDestTrip =
+        ModalRoute.of(context)?.settings.arguments as Map;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -36,7 +78,9 @@ class _ResultHitchhikerLocationViewState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const _HitchhikerLocation(),
+              _HitchhikerLocation(
+                departureAndDest: departureAndDestTrip,
+              ),
               const SizedBox(
                 height: 18,
               ),
@@ -81,9 +125,19 @@ class _ResultHitchhikerLocationViewState
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: results.length,
+                  itemCount: trip.length,
                   itemBuilder: (context, index) {
-                    return _RoadInformation(ride: results[index]!,);
+                    final detailTrip = trip[index].clone(
+                      pickTime:
+                          trip[index].startTime.add(const Duration(minutes: 5)),
+                      pickupPoint: departureAndDestTrip['src'],
+                      dropTime: trip[index].startTime.add(Duration(
+                          minutes: (trip[index].distance * 3 + 5).toInt())),
+                      dropPoint: departureAndDestTrip['dest'],
+                    );
+                    return _RoadInformation(
+                      trip: detailTrip,
+                    );
                   },
                 ),
               ),
@@ -96,17 +150,16 @@ class _ResultHitchhikerLocationViewState
 }
 
 class _RoadInformation extends StatelessWidget {
-  const _RoadInformation({Key? key, required this.ride}) : super(key: key);
+  const _RoadInformation({Key? key, required this.trip}) : super(key: key);
 
-  final List<String> ride;
+  final Trip trip;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, Routes.rideList, arguments: {
-          'information': ride
-        });
+        Navigator.pushNamed(context, Routes.rideList,
+            arguments: {'information': trip});
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
@@ -138,7 +191,7 @@ class _RoadInformation extends StatelessWidget {
                       children: [
                         const TextSpan(text: 'Chuyến đi xe đồng hành cùng '),
                         TextSpan(
-                          text: ride[0],
+                          text: trip.rider,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -151,7 +204,7 @@ class _RoadInformation extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    ride[2],
+                    '${trip.startTime.hour}:${trip.startTime.minute}, ${trip.startTime.day}/${trip.startTime.month}/${trip.startTime.year}',
                     style: TextStyle(
                       color: blackBlue.shade400,
                       fontSize: 16,
@@ -164,7 +217,7 @@ class _RoadInformation extends StatelessWidget {
               width: 12,
             ),
             Text(
-              ride[1],
+              NumberFormat('#,##0').format(trip.price),
               style: TextStyle(
                 color: blackBlue,
                 fontWeight: FontWeight.bold,
@@ -181,7 +234,10 @@ class _RoadInformation extends StatelessWidget {
 class _HitchhikerLocation extends StatelessWidget {
   const _HitchhikerLocation({
     Key? key,
+    required this.departureAndDest,
   }) : super(key: key);
+
+  final Map departureAndDest;
 
   @override
   Widget build(BuildContext context) {
@@ -217,25 +273,27 @@ class _HitchhikerLocation extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Điểm đón khách',
-                        style: TextStyle(
-                          color: blackBlue.shade400,
-                          fontSize: 16,
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Điểm đón khách',
+                          style: TextStyle(
+                            color: blackBlue.shade400,
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '480 Nguyễn Thị Minh Khai',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: blackBlue,
-                          fontSize: 16,
+                        Text(
+                          departureAndDest['src'] ?? '',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: blackBlue,
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -246,25 +304,27 @@ class _HitchhikerLocation extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Điểm trả khách',
-                        style: TextStyle(
-                          color: blackBlue.shade400,
-                          fontSize: 16,
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Điểm trả khách',
+                          style: TextStyle(
+                            color: blackBlue.shade400,
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '311 Nguyễn Thượng Hiền',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: blackBlue,
-                          fontSize: 16,
+                        Text(
+                          departureAndDest['dest'] ?? '',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: blackBlue,
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

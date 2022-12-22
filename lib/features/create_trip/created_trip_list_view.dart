@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:uniride/constants/colors.dart';
 
+import '../../constants/routes.dart';
 import '../../constants/status.dart';
 
 class CreatedTripListView extends StatefulWidget {
@@ -24,7 +25,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
     'Hoàn thành'
   ];
   int? selectedStatusIndex;
-  StatusRide? selectedStatusFilter;
+  TripStatus? selectedStatusFilter;
   final createdList = {
     0: {
       'avatar': 'assets/avatar/avatar-02.jpg',
@@ -33,7 +34,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
       'date': DateTime(2022, 11, 19, 12, 30),
       'price': '7,000đ',
       'new': true,
-      'status': StatusRide.waiting
+      'status': TripStatus.waiting
     },
     1: {
       'avatar': 'assets/avatar/default-avatar.png',
@@ -42,7 +43,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
       'date': DateTime(2022, 11, 18, 16, 30),
       'price': '7,000đ',
       'new': true,
-      'status': StatusRide.empty
+      'status': TripStatus.empty
     },
     2: {
       'avatar': 'assets/avatar/default-avatar.png',
@@ -51,7 +52,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
       'date': DateTime(2022, 11, 18, 10, 00),
       'price': '7,000đ',
       'new': false,
-      'status': StatusRide.empty
+      'status': TripStatus.empty
     },
   };
   Map<int, Map<String, dynamic>> filteredTrip = {};
@@ -60,14 +61,14 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
   Widget build(BuildContext context) {
     filteredTrip.clear();
     createdList.forEach((key, value) {
-      var compareDay =
-          (value['date'] as DateTime).year == _selectedDateTime?.year &&
+      var compareDay = _selectedDateTime == null
+          ? true
+          : (value['date'] as DateTime).year == _selectedDateTime?.year &&
               (value['date'] as DateTime).month == _selectedDateTime?.month &&
               (value['date'] as DateTime).day == _selectedDateTime?.day;
       if (selectedStatusFilter == null && compareDay) {
         filteredTrip[filteredTrip.length] = value;
-      }
-      else if (value['status'] == selectedStatusFilter && compareDay) {
+      } else if (value['status'] == selectedStatusFilter && compareDay) {
         filteredTrip[filteredTrip.length] = value;
       }
     });
@@ -124,7 +125,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
                       onSelected: (value) {
                         setState(() {
                           selectedStatusIndex = index;
-                          selectedStatusFilter = StatusRide.values[index];
+                          selectedStatusFilter = TripStatus.values[index];
                         });
                       },
                       onDeleted: () {
@@ -148,8 +149,13 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return _CardInformation(
-                      trip: filteredTrip[index]!,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.detailCreatedTrip);
+                      },
+                      child: _CardInformation(
+                        trip: filteredTrip[index]!,
+                      ),
                     );
                   },
                   separatorBuilder: (context, index) => const SizedBox(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:uniride/constants/colors.dart';
-import 'package:uniride/features/map/simple_map.dart';
 import 'package:uniride/features/ride_track/waiting_rider.dart';
 import 'package:uniride/widget/driver_information.dart';
 
 import '../../constants/routes.dart';
+import '../../entity/trip.dart';
+import '../../widget/dash_line_vertical.dart';
 
 class BookRideListView extends StatefulWidget {
   const BookRideListView({Key? key}) : super(key: key);
@@ -19,6 +21,7 @@ class _BookRideListViewState extends State<BookRideListView> {
   @override
   Widget build(BuildContext context) {
     final data = ModalRoute.of(context)?.settings.arguments as Map;
+    final trip = data['information'] as Trip;
 
     return SafeArea(
       child: Scaffold(
@@ -26,14 +29,16 @@ class _BookRideListViewState extends State<BookRideListView> {
           title: const Text('Xác nhận chuyến xe'),
           centerTitle: true,
           backgroundColor: Colors.transparent,
-          surfaceTintColor: purple.shade100,
+          surfaceTintColor: Colors.white,
           elevation: 3,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             children: [
-              const DriverInformation(),
+              DriverInformation(
+                nameOfDriver: trip.rider,
+              ),
               const SizedBox(
                 height: 18,
               ),
@@ -47,19 +52,25 @@ class _BookRideListViewState extends State<BookRideListView> {
               const SizedBox(
                 height: 12,
               ),
-              const _EstimateCards(),
+              _EstimateCards(
+                trip: trip,
+              ),
               const SizedBox(
                 height: 18,
               ),
-              const _RoadInformation(),
+              _RoadInformation(
+                trip: trip,
+              ),
               const SizedBox(
                 height: 18,
               ),
-              _TimeInformation(time: data['information'][2],),
+              _TimeInformation(
+                time: trip.startTime,
+              ),
               const SizedBox(
                 height: 6,
               ),
-              _PayMethod(price: data['information'][1]),
+              _PayMethod(price: trip.price),
               const SizedBox(
                 height: 18,
               ),
@@ -67,7 +78,7 @@ class _BookRideListViewState extends State<BookRideListView> {
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: isBook
                     ? FutureBuilder(
-                        future: _riderAccepted(),
+                        future: _riderAccepted(trip),
                         builder: (context, snapshot) {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -108,10 +119,12 @@ class _BookRideListViewState extends State<BookRideListView> {
     );
   }
 
-  Future<void> _riderAccepted() async {
+  Future<void> _riderAccepted(Trip trip) async {
     await Future.delayed(const Duration(seconds: 5)).then((value) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const WaitingRiderView();
+        return WaitingRiderView(
+          trip: trip,
+        );
       }));
     });
   }
@@ -120,63 +133,12 @@ class _BookRideListViewState extends State<BookRideListView> {
 class _PayMethod extends StatelessWidget {
   const _PayMethod({Key? key, required this.price}) : super(key: key);
 
-  final String price;
+  final int price;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Text(
-              'Hình thức thanh toán',
-              style: TextStyle(
-                color: blackBlue,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Expanded(
-              child: Divider(
-                color: Colors.grey.shade300,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 12.0),
-          child: Row(
-            children: [
-              Icon(
-                Icons.money_outlined,
-                color: purple,
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Text(
-                'Tiền mặt',
-                style: TextStyle(fontSize: 16, color: blackBlue),
-              ),
-              const Spacer(),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey,
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 18,
-        ),
         Align(
           alignment: Alignment.centerRight,
           child: Text(
@@ -190,7 +152,7 @@ class _PayMethod extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: Text(
-            price,
+            NumberFormat('#,##0').format(price),
             style: TextStyle(
               color: blackBlue,
               fontSize: 20,
@@ -206,7 +168,7 @@ class _PayMethod extends StatelessWidget {
 class _TimeInformation extends StatelessWidget {
   const _TimeInformation({Key? key, required this.time}) : super(key: key);
 
-  final String time;
+  final DateTime time;
 
   @override
   Widget build(BuildContext context) {
@@ -239,13 +201,13 @@ class _TimeInformation extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.calendar_today_rounded,
-                    color: purple,
+                    color: blueSky,
                   ),
                   const SizedBox(
                     width: 8,
                   ),
                   Text(
-                    time,
+                    '${time.hour}:${time.minute}, ${time.day}/${time.month}/${time.year}',
                     style: TextStyle(
                       color: blackBlue.shade400,
                       fontSize: 16,
@@ -260,7 +222,7 @@ class _TimeInformation extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.fast_forward_outlined,
-                    color: purple,
+                    color: blueSky,
                   ),
                   const SizedBox(
                     width: 8,
@@ -283,7 +245,9 @@ class _TimeInformation extends StatelessWidget {
 }
 
 class _RoadInformation extends StatelessWidget {
-  const _RoadInformation({Key? key}) : super(key: key);
+  const _RoadInformation({Key? key, required this.trip}) : super(key: key);
+
+  final Trip trip;
 
   @override
   Widget build(BuildContext context) {
@@ -310,7 +274,7 @@ class _RoadInformation extends StatelessWidget {
               width: 8,
             ),
             Text(
-              '5km',
+              '${trip.distance.toInt()}km',
               style: TextStyle(
                 color: blackBlue,
                 fontSize: 16,
@@ -327,7 +291,7 @@ class _RoadInformation extends StatelessWidget {
               width: 4,
             ),
             Text(
-              '15 phút',
+              '${(trip.distance * 3).toInt()} phút',
               style: TextStyle(
                 color: blackBlue,
                 fontSize: 16,
@@ -364,43 +328,45 @@ class _RoadInformation extends StatelessWidget {
                 ),
               ],
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Đón khách tại',
-                  style: TextStyle(
-                    color: blackBlue.shade400,
-                    fontSize: 16,
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Đón khách tại',
+                    style: TextStyle(
+                      color: blackBlue.shade400,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                Text(
-                  '480 Nguyễn Thị Minh Khai',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: blackBlue,
-                    fontSize: 16,
+                  Text(
+                    trip.pickupPoint ?? '',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: blackBlue,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 18,
-                ),
-                Text(
-                  'Trả khách tại',
-                  style: TextStyle(
-                    color: blackBlue.shade400,
-                    fontSize: 16,
+                  const SizedBox(
+                    height: 18,
                   ),
-                ),
-                Text(
-                  '311 Nguyễn Thượng Hiền',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: blackBlue,
-                    fontSize: 16,
+                  Text(
+                    'Trả khách tại',
+                    style: TextStyle(
+                      color: blackBlue.shade400,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-              ],
+                  Text(
+                    trip.dropPoint ?? '',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: blackBlue,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -410,7 +376,9 @@ class _RoadInformation extends StatelessWidget {
 }
 
 class _EstimateCards extends StatelessWidget {
-  const _EstimateCards({Key? key}) : super(key: key);
+  const _EstimateCards({Key? key, required this.trip}) : super(key: key);
+
+  final Trip trip;
 
   @override
   Widget build(BuildContext context) {
@@ -478,7 +446,7 @@ class _EstimateCards extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '17:30',
+                    '${trip.startTime.add(const Duration(minutes: 5)).hour}:${trip.startTime.add(const Duration(minutes: 5)).minute}',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -515,7 +483,7 @@ class _EstimateCards extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '15 phút',
+                    '${(trip.distance * 3).toInt()} phút',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -543,11 +511,11 @@ class _ContactWithDriver extends StatelessWidget {
       children: [
         Expanded(
           child: TextField(
-            cursorColor: purple,
+            cursorColor: blueSky,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: purple,
+                  color: blueSky,
                 ),
                 borderRadius: BorderRadius.circular(24),
               ),
@@ -562,11 +530,11 @@ class _ContactWithDriver extends StatelessWidget {
                 icon: const Icon(
                   Icons.send_rounded,
                 ),
-                color: purple,
+                color: blueSky,
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: purple,
+                  color: blueSky,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(24),
@@ -598,25 +566,4 @@ class _ContactWithDriver extends StatelessWidget {
       ],
     );
   }
-}
-
-class DashedLineVerticalPainter extends CustomPainter {
-  final Color colorLine;
-
-  DashedLineVerticalPainter(this.colorLine);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    double dashHeight = 6, dashSpace = 1, startY = 0;
-    final paint = Paint()
-      ..color = colorLine
-      ..strokeWidth = 1;
-    while (startY < size.height) {
-      canvas.drawLine(Offset(0, startY), Offset(0, startY + dashHeight), paint);
-      startY += dashHeight + dashSpace;
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

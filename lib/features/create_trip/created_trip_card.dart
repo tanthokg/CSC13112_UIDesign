@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:uniride/constants/status.dart';
 import 'package:uniride/database/trip_dao.dart';
 
 import '../../constants/routes.dart';
 import '../../entity/trip.dart';
-import '../../widget/customer_pick_up_destination_card.dart';
 
 class CreatedTripCard extends StatefulWidget {
   const CreatedTripCard({
@@ -47,10 +47,10 @@ class _CreatedTripCardState extends State<CreatedTripCard> {
                     elevation: 0,
                     foregroundColor: Colors.white,
                     backgroundColor: _statusBackgroundColor(
-                        widget.trip.status.toLowerCase()),
+                        widget.trip.status.toString()),
                   ),
                   child: Text(
-                    widget.trip.status.toUpperCase(),
+                    widget.trip.status.toString(),
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                     ),
@@ -456,7 +456,7 @@ class Buttons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (trip.status.toLowerCase() == 'còn trống') {
+    if (trip.status == TripStatus.empty) {
       return Row(
         children: const [
           Expanded(
@@ -470,7 +470,7 @@ class Buttons extends StatelessWidget {
       );
     }
 
-    if (trip.status.toLowerCase() == 'đang đợi bạn phản hồi') {
+    if (trip.status == TripStatus.waiting) {
       return Row(
         children: [
           Expanded(
@@ -478,7 +478,7 @@ class Buttons extends StatelessWidget {
               onPressed: () async {
                 await TripDAO.instance.updateTrip(
                   trip.clone(
-                    status: 'Còn trống',
+                    status: TripStatus.empty,
                     hitchhiker: '',
                   ),
                 );
@@ -500,7 +500,7 @@ class Buttons extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () async {
                 await TripDAO.instance.updateTrip(
-                  trip.clone(status: 'Đã nhận'),
+                  trip.clone(status: TripStatus.accepted),
                 );
                 updateCallback;
               },
@@ -515,7 +515,7 @@ class Buttons extends StatelessWidget {
       );
     }
 
-    if (trip.status.toLowerCase() == 'đã nhận') {
+    if (trip.status == TripStatus.accepted) {
       return Row(
         children: [
           Expanded(
@@ -534,7 +534,7 @@ class Buttons extends StatelessWidget {
       );
     }
 
-    if (trip.status.toLowerCase() == 'đã huỷ') {
+    if (trip.status == TripStatus.cancelled) {
       return Row(
         children: [
           Expanded(
@@ -553,7 +553,7 @@ class Buttons extends StatelessWidget {
       );
     }
 
-    if (trip.status.toLowerCase() == 'đang chở') {
+    if (trip.status == TripStatus.driving) {
       return Column(
         children: [
           Expanded(
@@ -586,7 +586,7 @@ class Buttons extends StatelessWidget {
       );
     }
 
-    if (trip.status.toLowerCase() == 'hoàn thành') {
+    if (trip.status == TripStatus.completed) {
       return Row(
         children: [
           Expanded(

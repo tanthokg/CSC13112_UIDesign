@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 
 class DriverInformation extends StatelessWidget {
-  const DriverInformation({Key? key}) : super(key: key);
+  const DriverInformation({Key? key, required this.nameOfDriver}) : super(key: key);
+
+  final String nameOfDriver;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class DriverInformation extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Đỗ Gia Hưng',
+                nameOfDriver,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: blackBlue,

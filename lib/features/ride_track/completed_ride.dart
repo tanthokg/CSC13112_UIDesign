@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/entity/trip.dart';
 import 'package:uniride/widget/driver_information.dart';
 
-import '../book_ride/book_ride_list.dart';
+import '../../widget/dash_line_vertical.dart';
 
 class CompletedRideView extends StatefulWidget {
-  const CompletedRideView({Key? key}) : super(key: key);
+  const CompletedRideView({Key? key, required this.trip}) : super(key: key);
+
+  final Trip trip;
 
   @override
   State<CompletedRideView> createState() => _CompletedRideViewState();
@@ -26,28 +30,32 @@ class _CompletedRideViewState extends State<CompletedRideView> {
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Column(
-            children: const [
+            children: [
               // Thông tin của người lái xe
-              DriverInformation(),
-              SizedBox(
+              DriverInformation(
+                nameOfDriver: widget.trip.rider,
+              ),
+              const SizedBox(
                 height: 18,
               ),
 
               // Thông tin tuyến đường đi của người đi nhờ
-              _RoadHitchhikerInformation(),
-              SizedBox(
+              _RoadHitchhikerInformation(trip: widget.trip,),
+              const SizedBox(
                 height: 12,
               ),
 
               // Thời gian, giá tiền của chuyến xe
-              _TimeInformation(),
+              _TimeInformation(trip: widget.trip,),
 
-              _RatingRider(),
-              SizedBox(
+              _RatingRider(
+                trip: widget.trip,
+              ),
+              const SizedBox(
                 height: 18,
               ),
 
-              _RatingButtons(),
+              const _RatingButtons(),
             ],
           ),
         ),
@@ -114,7 +122,8 @@ class _RatingButtons extends StatelessWidget {
 }
 
 class _RatingRider extends StatefulWidget {
-  const _RatingRider({Key? key}) : super(key: key);
+  const _RatingRider({Key? key, required this.trip}) : super(key: key);
+  final Trip trip;
 
   @override
   State<_RatingRider> createState() => _RatingRiderState();
@@ -165,7 +174,7 @@ class _RatingRiderState extends State<_RatingRider> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Bạn cảm thấy chuyến xe với Đỗ Gia Hưng thế nào?',
+              'Bạn cảm thấy chuyến xe với ${widget.trip.rider} thế nào?',
               style: TextStyle(
                 color: blackBlue.shade400,
                 fontSize: 16,
@@ -315,7 +324,10 @@ class _RatingRiderState extends State<_RatingRider> {
 class _TimeInformation extends StatelessWidget {
   const _TimeInformation({
     Key? key,
+    required this.trip,
   }) : super(key: key);
+
+  final Trip trip;
 
   @override
   Widget build(BuildContext context) {
@@ -348,13 +360,13 @@ class _TimeInformation extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.calendar_today_rounded,
-                    color: purple,
+                    color: blueSky,
                   ),
                   const SizedBox(
                     width: 8,
                   ),
                   Text(
-                    '17:31, 19/11/2022',
+                    '${trip.startTime.hour}:${trip.startTime.minute}, ${trip.startTime.day}/${trip.startTime.month}/${trip.startTime.year}',
                     style: TextStyle(
                       color: blackBlue.shade400,
                       fontSize: 16,
@@ -369,7 +381,7 @@ class _TimeInformation extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.fast_forward_outlined,
-                    color: purple,
+                    color: blueSky,
                   ),
                   const SizedBox(
                     width: 8,
@@ -396,7 +408,7 @@ class _TimeInformation extends StatelessWidget {
                     width: 8,
                   ),
                   Text(
-                    '17:36 - 17:51',
+                    '${trip.pickTime?.hour}:${trip.pickTime?.minute} - ${trip.dropTime?.hour}:${trip.dropTime?.minute}',
                     style: TextStyle(
                       color: blackBlue.shade400,
                       fontSize: 16,
@@ -420,7 +432,7 @@ class _TimeInformation extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  '7,000đ',
+                  NumberFormat('#,##0').format(trip.price),
                   style: TextStyle(
                     color: blackBlue,
                     fontSize: 20,
@@ -438,8 +450,10 @@ class _TimeInformation extends StatelessWidget {
 
 class _RoadHitchhikerInformation extends StatelessWidget {
   const _RoadHitchhikerInformation({
-    Key? key,
+    Key? key, required this.trip,
   }) : super(key: key);
+
+  final Trip trip;
 
   @override
   Widget build(BuildContext context) {
@@ -466,7 +480,7 @@ class _RoadHitchhikerInformation extends StatelessWidget {
               width: 8,
             ),
             Text(
-              '5km',
+              '${trip.distance.toInt()}km',
               style: TextStyle(
                 color: blackBlue,
                 fontSize: 16,
@@ -483,7 +497,7 @@ class _RoadHitchhikerInformation extends StatelessWidget {
               width: 4,
             ),
             Text(
-              '15 phút',
+              '${(trip.distance * 3).toInt()} phút',
               style: TextStyle(
                 color: blackBlue,
                 fontSize: 16,
@@ -556,28 +570,30 @@ class _RoadHitchhikerInformation extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Vị trí đi',
-                            style: TextStyle(
-                              color: blackBlue.shade400,
-                              fontSize: 16,
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Vị trí đi',
+                              style: TextStyle(
+                                color: blackBlue.shade400,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Cách điểm đón 5 phút',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: blackBlue,
-                              fontSize: 16,
+                            Text(
+                              'Cách điểm đón ${(trip.pickTime?.difference(trip.startTime))?.inMinutes ?? 0} phút',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: blackBlue,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Text(
-                        '17: 31',
+                        '${(trip.startTime.hour)}:${(trip.startTime.minute)}',
                         style: TextStyle(
                           color: blackBlue,
                           fontSize: 16,
@@ -592,28 +608,30 @@ class _RoadHitchhikerInformation extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Điểm đón khách',
-                            style: TextStyle(
-                              color: blackBlue.shade400,
-                              fontSize: 16,
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Điểm đón khách',
+                              style: TextStyle(
+                                color: blackBlue.shade400,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          Text(
-                            '480 Nguyễn Thị Minh Khai',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: blackBlue,
-                              fontSize: 16,
+                            Text(
+                              trip.pickupPoint ?? '',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: blackBlue,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Text(
-                        '17: 36',
+                        '${(trip.pickTime?.hour)}:${(trip.pickTime?.minute)}',
                         style: TextStyle(
                           color: blackBlue,
                           fontSize: 16,
@@ -628,28 +646,30 @@ class _RoadHitchhikerInformation extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Điểm trả khách',
-                            style: TextStyle(
-                              color: blackBlue.shade400,
-                              fontSize: 16,
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Điểm trả khách',
+                              style: TextStyle(
+                                color: blackBlue.shade400,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          Text(
-                            '311 Nguyễn Thượng Hiền',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: blackBlue,
-                              fontSize: 16,
+                            Text(
+                              trip.dropPoint ?? '',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: blackBlue,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Text(
-                        '17: 51',
+                        '${(trip.dropTime?.hour)}:${(trip.dropTime?.minute)}',
                         style: TextStyle(
                           color: blackBlue,
                           fontSize: 16,
@@ -664,21 +684,23 @@ class _RoadHitchhikerInformation extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Vị trí đến',
-                            style: TextStyle(
-                              color: blackBlue.shade400,
-                              fontSize: 16,
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Vị trí đến',
+                              style: TextStyle(
+                                color: blackBlue.shade400,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          const Text(
-                            '',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                            const Text(
+                              '',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
                       const Text(''),
                     ],

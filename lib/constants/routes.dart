@@ -10,6 +10,7 @@ class Routes {
   static const currentLocation = '/current_location/';
   static const createTrip = '/create_trip/';
   static const createdTrip = '/created_trip/';
+  static const detailCreatedTrip = '/detail_created_trip';
 
   static const driverRating = '/driver_rating/';
   static const driverReadyToStart = '/driver_ready/';

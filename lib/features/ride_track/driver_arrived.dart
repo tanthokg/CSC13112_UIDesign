@@ -5,8 +5,12 @@ import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/features/ride_track/booker_arrived.dart';
 import 'package:uniride/features/ride_track/custom_dialog.dart';
 
+import '../../entity/trip.dart';
+
 class DriverArrivedView extends StatefulWidget {
-  const DriverArrivedView({super.key});
+  const DriverArrivedView({super.key, required this.trip});
+
+  final Trip trip;
 
   @override
   State<StatefulWidget> createState() => _DialogState();
@@ -26,7 +30,7 @@ class _DialogState extends State<DriverArrivedView> {
     return Scaffold(
       appBar: AppBar(),
       body: FutureBuilder(
-        future: _riderAccepted(),
+        future: _riderAccepted(widget.trip),
         builder: (context, snapshot) {
           return Stack(
             children: [
@@ -49,10 +53,10 @@ class _DialogState extends State<DriverArrivedView> {
     );
   }
 
-  Future<void> _riderAccepted() async {
+  Future<void> _riderAccepted(Trip trip) async {
     await Future.delayed(const Duration(seconds: 5)).then((value) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const BookerArrivedView();
+        return BookerArrivedView(trip: trip,);
       }));
     });
   }

@@ -4,8 +4,12 @@ import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/ride_track/driver_arrived.dart';
 import 'package:uniride/widget/driver_information.dart';
 
+import '../../entity/trip.dart';
+
 class WaitingRiderView extends StatefulWidget {
-  const WaitingRiderView({Key? key}) : super(key: key);
+  const WaitingRiderView({Key? key, required this.trip}) : super(key: key);
+
+  final Trip trip;
 
   @override
   State<WaitingRiderView> createState() => _WaitingRiderViewState();
@@ -14,11 +18,12 @@ class WaitingRiderView extends StatefulWidget {
 class _WaitingRiderViewState extends State<WaitingRiderView> {
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(),
         body: FutureBuilder(
-          future: _riderArrived(),
+          future: _riderArrived(widget.trip),
           builder: (context, snapshot) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,25 +47,27 @@ class _WaitingRiderViewState extends State<WaitingRiderView> {
                           const SizedBox(
                             width: 16,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Vị trí chờ',
-                                style: TextStyle(
-                                  color: blackBlue.shade400,
-                                  fontSize: 16,
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Vị trí chờ',
+                                  style: TextStyle(
+                                    color: blackBlue.shade400,
+                                    fontSize: 16,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '480 Nguyễn Thị Minh Khai',
-                                style: TextStyle(
-                                  color: blackBlue,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                                Text(
+                                  widget.trip.pickupPoint ?? '',
+                                  style: TextStyle(
+                                    color: blackBlue,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -85,7 +92,7 @@ class _WaitingRiderViewState extends State<WaitingRiderView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const DriverInformation(),
+                            DriverInformation(nameOfDriver: widget.trip.rider,),
                             const SizedBox(
                               height: 12,
                             ),
@@ -246,10 +253,10 @@ class _WaitingRiderViewState extends State<WaitingRiderView> {
     );
   }
 
-  Future<void> _riderArrived() async {
+  Future<void> _riderArrived(Trip trip) async {
     await Future.delayed(const Duration(seconds: 5)).then((value) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const DriverArrivedView();
+        return DriverArrivedView(trip: trip);
       }));
     });
   }

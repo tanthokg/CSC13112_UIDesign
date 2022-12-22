@@ -1,12 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:uniride/entity/trip.dart';
 import 'package:uniride/features/map/current_location_screen.dart';
 import 'package:uniride/features/ride_track/completed_ride.dart';
 import 'package:uniride/features/ride_track/custom_dialog.dart';
 
 class BookerArrivedView extends StatefulWidget {
-  const BookerArrivedView({super.key});
+  const BookerArrivedView({super.key, required this.trip});
+
+  final Trip trip;
 
   @override
   State<StatefulWidget> createState() => _DialogState();
@@ -26,7 +29,7 @@ class _DialogState extends State<BookerArrivedView> {
     return Scaffold(
       appBar: AppBar(),
       body: FutureBuilder(
-        future: _riderAccepted(),
+        future: _riderAccepted(widget.trip),
         builder: (context, snapshot) {
           return Stack(
             children: [
@@ -49,10 +52,10 @@ class _DialogState extends State<BookerArrivedView> {
     );
   }
 
-  Future<void> _riderAccepted() async {
+  Future<void> _riderAccepted(Trip trip) async {
     await Future.delayed(const Duration(seconds: 5)).then((value) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const CompletedRideView();
+        return CompletedRideView(trip: trip);
       }));
     });
   }

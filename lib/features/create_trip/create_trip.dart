@@ -1,12 +1,8 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
-import 'package:uniride/constants/routes.dart';
-import 'package:uniride/features/book_ride/book_ride_list.dart';
-import 'package:uniride/features/create_trip/created_trip.dart';
 import 'package:uniride/features/create_trip/created_trip_list_view.dart';
-import 'package:uniride/features/create_trip/list_created_trip.dart';
+import 'package:uniride/widget/dash_line_vertical.dart';
 
 class CreateTrip extends StatefulWidget {
   const CreateTrip({Key? key}) : super(key: key);

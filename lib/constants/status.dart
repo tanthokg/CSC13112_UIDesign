@@ -1,4 +1,4 @@
-enum StatusRide {
+enum TripStatus {
   empty,
   waiting,
   accepted,

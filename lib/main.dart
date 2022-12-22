@@ -4,6 +4,7 @@ import 'package:uniride/constants/routes.dart';
 import 'package:uniride/features/auth/forgot_password.dart';
 import 'package:uniride/features/auth/login.dart';
 import 'package:uniride/features/create_trip/create_trip.dart';
+import 'package:uniride/features/create_trip/created_trip_list_view.dart';
 import 'package:uniride/features/create_trip/detail_created_trip_view.dart';
 import 'package:uniride/features/create_trip/list_created_trip.dart';
 import 'package:uniride/features/driver/driver_start_trip.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Inter',
       ),
       //home: const HomeView(),
-      home: const DetailCreatedTripView(),
+      home: const CreatedTripListView(),
       routes: {
         Routes.login: (context) => const LoginView(),
         Routes.register: (context) => const RegisterView(),
@@ -57,7 +58,8 @@ class MyApp extends StatelessWidget {
         Routes.findLocation: (context) => const FindLocationView(),
         Routes.currentLocation: (context) => const CurrentLocationView(),
         Routes.createTrip: (context) => const CreateTrip(),
-        Routes.createdTrip: (context) => const ListCreatedTripView(),
+        Routes.createdTrip: (context) => const CreatedTripListView(),
+        Routes.detailCreatedTrip: (context) => const DetailCreatedTripView(),
 
         Routes.driverRating: (context) => const DriverRateView(),
         Routes.driverReadyToStart: (context) => const DriverReadyToStartView(),
