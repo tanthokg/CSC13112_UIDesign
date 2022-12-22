@@ -89,15 +89,21 @@ class _InsertLocationViewState extends State<InsertLocationView> {
                 ? _controller.text.isEmpty
                     ? Expanded(
                         child: ListView.builder(
-                        itemCount: locations.length,
-                        itemBuilder: (context, index) => ListTile(
-                          title: Text(locations[index].name),
-                          subtitle: Text(locations[index].detail),
-                          onTap: () {
-                            Navigator.pop(context, locations[index].name);
-                          },
+                          itemCount: locations.length,
+                          itemBuilder: (context, index) => ListTile(
+                            leading: Icon(
+                              Icons.school_rounded,
+                              color: blueSky,
+                              size: 28,
+                            ),
+                            title: Text(locations[index].name),
+                            subtitle: Text(locations[index].detail),
+                            onTap: () {
+                              Navigator.pop(context, locations[index].name);
+                            },
+                          ),
                         ),
-                      ))
+                      )
                     : const Center(
                         child: Text('Không tìm thấy địa điểm bạn nhập'),
                       )
@@ -113,47 +119,6 @@ class _InsertLocationViewState extends State<InsertLocationView> {
                       ),
                     ),
                   ),
-            // _valid.isEmpty && _controller.text.isNotEmpty
-            //     ? const Center(
-            //         child: Text('Không tìm thấy địa điểm bạn nhập'),
-            //       )
-            //     : Expanded(
-            //         child: ListView.builder(
-            //           itemCount: _valid.length,
-            //           itemBuilder: (context, index) => ListTile(
-            //             title: Text(_valid[index].name),
-            //             subtitle: Text(_valid[index].detail),
-            //             onTap: () {
-            //               Navigator.pop(context, _valid[index].name);
-            //             },
-            //           ),
-            //         ),
-            //       ),
-            // _valid.isEmpty && _controller.text.isEmpty
-            //     ? Expanded(
-            //         child: ListView.builder(
-            //         itemCount: locations.length,
-            //         itemBuilder: (context, index) => ListTile(
-            //           title: Text(locations[index].name),
-            //           subtitle: Text(locations[index].detail),
-            //           onTap: () {
-            //             Navigator.pop(context, locations[index].name);
-            //           },
-            //         ),
-            //       ))
-            //     : const SizedBox.shrink(),
-            // TextButton(
-            //   onPressed: () {
-            //   },
-            //   child: const Text(
-            //     '',
-            //     style: TextStyle(
-            //       fontSize: 22,
-            //       fontWeight: FontWeight.w400,
-            //       color: Colors.white,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),
