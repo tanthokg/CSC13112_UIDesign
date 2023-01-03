@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/constants/status.dart';
 import 'package:uniride/widget/dash_line_vertical.dart';
 import 'package:uniride/features/create_trip/pick_trip_time.dart';
 
@@ -17,6 +18,20 @@ class _CreateTripState extends State<CreateTrip> {
   bool _noteToggle = false;
   bool _earlyDepart = false;
   String _earlyDepartTime = earlyDepartTimes.first;
+  Map<String, dynamic> metadata = {};
+
+  Map<String, dynamic> _encapsulateData(String src, String dest) => {
+        'avatar': 'assets/avatar/default-avatar.png',
+        'name': '',
+        'content': 'Chuyến xe chưa tìm được người đi cùng',
+        'src': src,     // Điểm xuất phát, là String
+        'dest': dest,   // Đích đến, là String
+        'date': metadata['dateTime'],
+        'periodicType': metadata['periodicType'],
+        'price': '14,000đ',
+        'new': true,
+        'status': TripStatus.empty,
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +52,7 @@ class _CreateTripState extends State<CreateTrip> {
             Container(
                 clipBehavior: Clip.hardEdge,
                 decoration: const BoxDecoration(
-                  borderRadius:
-                      BorderRadius.vertical(bottom: Radius.circular(16)),
+                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
                 ),
                 child: Image.asset('assets/images/trip-path.jpg')),
             const SizedBox(height: 24),
@@ -64,8 +78,7 @@ class _CreateTripState extends State<CreateTrip> {
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 36),
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 36),
                 child: CustomPaint(
                   size: const Size(1, 32),
                   painter: DashedLineVerticalPainter(blueSky),
@@ -114,14 +127,14 @@ class _CreateTripState extends State<CreateTrip> {
                 shadowColor: Colors.grey[200],
                 child: InkWell(
                   onTap: () async {
-                    final result = await Navigator.push(
+                    metadata = await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const PickTripTimeView(),
                       ),
                     );
                     setState(() {
-                      _pickedMoment = result;
+                      _pickedMoment = metadata['str'];
                     });
                   },
                   child: Row(
@@ -138,12 +151,8 @@ class _CreateTripState extends State<CreateTrip> {
                         _pickedMoment,
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: _pickedMoment == 'Chọn thời gian'
-                              ? FontWeight.w300
-                              : FontWeight.w400,
-                          color: _pickedMoment == 'Chọn thời gian'
-                              ? blackBlue.shade300
-                              : blackBlue.shade600,
+                          fontWeight: _pickedMoment == 'Chọn thời gian' ? FontWeight.w300 : FontWeight.w400,
+                          color: _pickedMoment == 'Chọn thời gian' ? blackBlue.shade300 : blackBlue.shade600,
                         ),
                       )
                     ],
@@ -179,9 +188,7 @@ class _CreateTripState extends State<CreateTrip> {
                       const SizedBox(width: 8),
                       Text(
                         'Thêm lời nhắn',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: _noteToggle ? Colors.white : blueSky),
+                        style: TextStyle(fontSize: 16, color: _noteToggle ? Colors.white : blueSky),
                       ),
                     ],
                   ),
@@ -198,16 +205,16 @@ class _CreateTripState extends State<CreateTrip> {
                       shadowColor: Colors.grey[200],
                       child: TextField(
                         autocorrect: false,
-                        minLines: 1,
-                        maxLines: 3,
+                        minLines: 2,
+                        maxLines: 4,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
                           hintStyle: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             color: blackBlue.shade400,
                           ),
-                          hintText: 'Lời nhắn',
+                          hintText: 'Nhắn nhủ đến người đi nhờ xe',
                           enabledBorder: transBorder24,
                           focusedBorder: transBorder24,
                         ),
@@ -223,8 +230,7 @@ class _CreateTripState extends State<CreateTrip> {
                   Checkbox(
                     activeColor: blueSky,
                     fillColor: MaterialStateProperty.all(blueSky),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                     value: _earlyDepart,
                     onChanged: (value) {
                       setState(() {
@@ -233,8 +239,7 @@ class _CreateTripState extends State<CreateTrip> {
                     },
                   ),
                   Tooltip(
-                    message:
-                        'Tự động hủy chuyến xe nếu không có người đặt\ntrong khoảng thời gian trước giờ khởi hành',
+                    message: 'Tự động hủy chuyến xe nếu không có người đặt\ntrong khoảng thời gian trước giờ khởi hành',
                     showDuration: const Duration(seconds: 5),
                     triggerMode: TooltipTriggerMode.tap,
                     child: Text(
@@ -248,8 +253,7 @@ class _CreateTripState extends State<CreateTrip> {
                     child: DropdownButtonFormField<String>(
                       value: _earlyDepartTime,
                       items: earlyDepartTimes
-                          .map((time) => DropdownMenuItem<String>(
-                              value: time, child: Text(time)))
+                          .map((time) => DropdownMenuItem<String>(value: time, child: Text(time)))
                           .toList(),
                       onChanged: _earlyDepart
                           ? (value) {
@@ -263,11 +267,9 @@ class _CreateTripState extends State<CreateTrip> {
                         color: _earlyDepart ? blueSky : Colors.grey,
                       ),
                       decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 16),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                         filled: true,
-                        fillColor:
-                            _earlyDepart ? blueSky.shade100 : Colors.grey[200],
+                        fillColor: _earlyDepart ? blueSky.shade100 : Colors.grey[200],
                         enabledBorder: transBorder24,
                         focusedBorder: transBorder24,
                       ),
@@ -289,8 +291,7 @@ class _CreateTripState extends State<CreateTrip> {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.motorcycle_rounded,
-                              size: 28, color: blueSky),
+                          Icon(Icons.motorcycle_rounded, size: 28, color: blueSky),
                           const SizedBox(width: 16),
                           Text(
                             '5.0 km',
@@ -354,7 +355,7 @@ class _CreateTripState extends State<CreateTrip> {
                   Navigator.pushNamed(
                     context,
                     Routes.createdTrip,
-                    arguments: data,
+                    arguments: _encapsulateData(data['src'], data['dest']),
                   );
                 },
                 style: TextButton.styleFrom(
@@ -381,8 +382,7 @@ Future<bool> chooseDateQuery(BuildContext context) async => await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Chọn ngày xuất phát'),
-        content:
-            const Text('Bạn muốn tạo chuyến một lần hay tạo chuyến định kỳ?'),
+        content: const Text('Bạn muốn tạo chuyến một lần hay tạo chuyến định kỳ?'),
         actions: [
           TextButton(
             onPressed: () {

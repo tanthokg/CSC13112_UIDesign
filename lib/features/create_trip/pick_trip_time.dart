@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/entity/periodic_type.dart';
 
 class PickTripTimeView extends StatefulWidget {
   const PickTripTimeView({Key? key}) : super(key: key);
@@ -10,10 +11,14 @@ class PickTripTimeView extends StatefulWidget {
 }
 
 class _PickTripTimeViewState extends State<PickTripTimeView> {
-  String _pickedDate = 'Ngày xuất phát';
-  String _startDate = 'Ngày bắt đầu';
-  String _endDate = 'Ngày kết thúc';
+  DateTime _pickedDate = DateTime.now();
+  DateTime? _startDate;
+  DateTime? _endDate;
   TimeOfDay? _pickedTime;
+
+  String _pickedDateStr = 'Ngày xuất phát';
+  String _startDateStr = 'Ngày bắt đầu';
+  String _endDateStr = 'Ngày kết thúc';
 
   String _chosenPeriodType = 'Mỗi ngày';
   final _chosenWeekdays = [false, false, false, false, false, false, false];
@@ -26,7 +31,47 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
     return '$hour:$minute';
   }
 
+  DateTime _convertDateTimeStringToDateTime() {
+    String day = _pickedDateStr.substring(0, 2);
+    String month = _pickedDateStr.substring(3, 5);
+    String year = _pickedDateStr.substring(6);
+    final dateTimeStr = '$year-$month-$day ${_to24HourTime()}:00';
+    return DateTime.parse(dateTimeStr);
+  }
+
+  Map<String, dynamic> _encapsulateData() {
+    final Map<String, dynamic> data = {};
+    final dateTime = _convertDateTimeStringToDateTime();
+    final str = '$_pickedDateStr lúc ${_to24HourTime()}';
+
+    data['dateTime'] = dateTime;
+    data['str'] = str;
+    print(data);
+    return data;
+  }
+
+  DateTime _getNearestWeekDay() {
+    final targetWeekday = _chosenWeekdays.indexWhere((element) => element) + 1;
+    final now = DateTime.now();
+    final picked = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      _pickedTime?.hour ?? 0,
+      _pickedTime?.minute ?? 0,
+    );
+    final currentWeekday = picked.weekday;
+
+    DateTime result = targetWeekday == currentWeekday
+        ? picked.add(const Duration(days: 7))
+        : picked.add(Duration(days: (targetWeekday - currentWeekday) % 7));
+
+    return result;
+  }
+
   void _returnValue() async {
+    final Map<String, dynamic> data = {};
+
     if (_pickedTime == null) {
       await showDialog(
         context: context,
@@ -46,8 +91,9 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
       return;
     }
 
+    // Một lần
     if (_isOnce) {
-      if (_pickedDate == 'Ngày xuất phát' || _pickedDate.isEmpty) {
+      if (_pickedDateStr == 'Ngày xuất phát' || _pickedDateStr.isEmpty) {
         await showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -65,18 +111,49 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
         );
         return;
       } else {
-        Navigator.pop(context, '$_pickedDate lúc ${_to24HourTime()}');
+        final dateTime = _pickedDate.add(Duration(
+          hours: _pickedTime?.hour ?? 0,
+          minutes: _pickedTime?.minute ?? 0,
+        ));
+        final str = '$_pickedDateStr lúc ${_to24HourTime()}';
+
+        data['dateTime'] = dateTime;
+        data['str'] = str;
+        data['periodicType'] = PeriodicTypesEnum.once;
+        print(data);
+        Navigator.pop(context, data);
         return;
       }
     }
 
+    // Mỗi ngày
     if (!_isOnce && _chosenPeriodType == 'Mỗi ngày') {
-      if (mounted) Navigator.pop(context, '$_pickedDate lúc ${_to24HourTime()}');
+      final now = DateTime.now();
+      final dateTime = _startDate?.add(Duration(
+            hours: _pickedTime?.hour ?? 0,
+            minutes: _pickedTime?.minute ?? 0,
+          )) ??
+          DateTime(
+            now.year,
+            now.month,
+            now.day,
+            _pickedTime?.hour ?? 0,
+            _pickedTime?.minute ?? 0,
+          );
+      final str = '$_pickedDateStr lúc ${_to24HourTime()}';
+
+      data['dateTime'] = dateTime;
+      data['str'] = str;
+      data['periodicType'] = PeriodicTypesEnum.everyday;
+      print(data);
+
+      if (mounted) Navigator.pop(context, data);
       return;
     }
 
+    // Mỗi tháng
     if (!_isOnce && _chosenPeriodType == 'Mỗi tháng') {
-      if (_pickedDate == 'Ngày xuất phát' || _pickedDate.isEmpty) {
+      if (_pickedDateStr == 'Ngày xuất phát' || _pickedDateStr.isEmpty) {
         await showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -94,12 +171,43 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
         );
         return;
       } else {
-        _pickedDate = 'Ngày ${_pickedDate.substring(0, 2)} hằng tháng';
-        if (mounted )Navigator.pop(context, '$_pickedDate lúc ${_to24HourTime()}');
+        if (_startDate != null) {
+          if (_pickedDate.isBefore(_startDate!)) {
+            await showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Lỗi'),
+                content: const Text('Vui lòng chọn ngày xuất phát SAU ngày bắt đầu.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text(
+                      'OK',
+                    ),
+                  ),
+                ],
+              ),
+            );
+            return;
+          }
+        }
+
+        final dateTime = _pickedDate.add(Duration(
+          hours: _pickedTime?.hour ?? 0,
+          minutes: _pickedTime?.minute ?? 0,
+        ));
+        final str = 'Ngày ${_pickedDateStr.substring(0, 2)} hằng tháng';
+
+        data['dateTime'] = dateTime;
+        data['str'] = str;
+        data['periodicType'] = PeriodicTypesEnum.everyMonth;
+        print(data);
+        if (mounted) Navigator.pop(context, data);
         return;
       }
     }
 
+    // Mỗi tuần
     if (_chosenWeekdays.where((choice) => choice == false).length == 7) {
       await showDialog(
         context: context,
@@ -117,37 +225,81 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
         ),
       );
     } else {
-      _pickedDate = 'T';
+      _pickedDateStr = 'T';
       if (_chosenWeekdays[0]) {
-        _pickedDate += '2, ';
+        _pickedDateStr += '2, ';
       }
       if (_chosenWeekdays[1]) {
-        _pickedDate += '3, ';
+        _pickedDateStr += '3, ';
       }
       if (_chosenWeekdays[2]) {
-        _pickedDate += '4, ';
+        _pickedDateStr += '4, ';
       }
       if (_chosenWeekdays[3]) {
-        _pickedDate += '5, ';
+        _pickedDateStr += '5, ';
       }
       if (_chosenWeekdays[4]) {
-        _pickedDate += '6, ';
+        _pickedDateStr += '6, ';
       }
       if (_chosenWeekdays[5]) {
-        _pickedDate += '7, ';
+        _pickedDateStr += '7, ';
       }
       if (_chosenWeekdays[6]) {
-        _pickedDate += 'CN';
+        _pickedDateStr += 'CN';
       }
-      if (_pickedDate.endsWith(' ')) {
-        _pickedDate = _pickedDate.substring(0, _pickedDate.length - 2);
+      if (_pickedDateStr.endsWith(' ')) {
+        _pickedDateStr = _pickedDateStr.substring(0, _pickedDateStr.length - 2);
       }
       if (_chosenWeekdays.where((choice) => choice == true).length == 7) {
-        _pickedDate = 'Mỗi ngày';
+        _pickedDateStr = 'Mỗi ngày';
       }
 
-      if (mounted) {
-        Navigator.pop(context, '$_pickedDate lúc ${_to24HourTime()}');
+      if (_pickedDateStr == 'Mỗi ngày' && mounted) {
+        final now = DateTime.now();
+        final dateTime = _startDate?.add(Duration(
+              hours: _pickedTime?.hour ?? 0,
+              minutes: _pickedTime?.minute ?? 0,
+            )) ??
+            DateTime(
+              now.year,
+              now.month,
+              now.day,
+              _pickedTime?.hour ?? 0,
+              _pickedTime?.minute ?? 0,
+            );
+        final str = '$_pickedDateStr lúc ${_to24HourTime()}';
+        data['dateTime'] = dateTime;
+        data['str'] = str;
+        data['periodicType'] = PeriodicTypesEnum.everyday;
+        print(data);
+        Navigator.pop(context, data);
+      } else {
+        if (_startDate != null) {
+          if (_getNearestWeekDay().isBefore(_startDate!)) {
+            await showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Lỗi'),
+                content: const Text('Vui lòng chọn ngày xuất phát SAU ngày bắt đầu.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text(
+                      'OK',
+                    ),
+                  ),
+                ],
+              ),
+            );
+            return;
+          }
+        }
+        final str = '$_pickedDateStr lúc ${_to24HourTime()}';
+        data['dateTime'] = _getNearestWeekDay();
+        data['str'] = str;
+        data['periodicType'] = PeriodicTypesEnum.everyWeek;
+        print(data);
+        if (mounted) Navigator.pop(context, data);
       }
       return;
     }
@@ -233,7 +385,8 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                     onPressed: () {
                       setState(() {
                         _isOnce = true;
-                        _pickedDate = 'Ngày xuất phát';
+                        _pickedDate = DateTime.now();
+                        _pickedDateStr = 'Ngày xuất phát';
                       });
                     },
                     child: Row(
@@ -260,7 +413,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                       setState(() {
                         _isOnce = false;
                         if (_chosenPeriodType == 'Mỗi ngày') {
-                          _pickedDate = 'Mỗi ngày';
+                          _pickedDateStr = 'Mỗi ngày';
                         }
                       });
                     },
@@ -303,7 +456,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                             onPressed: () {
                               setState(() {
                                 _chosenPeriodType = 'Mỗi ngày';
-                                _pickedDate = 'Mỗi ngày';
+                                _pickedDateStr = 'Mỗi ngày';
                               });
                             },
                             child: const Text(
@@ -322,7 +475,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                             onPressed: () {
                               setState(() {
                                 _chosenPeriodType = 'Mỗi tuần';
-                                _pickedDate = '';
+                                _pickedDateStr = '';
                               });
                             },
                             child: const Text(
@@ -341,7 +494,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                             onPressed: () {
                               setState(() {
                                 _chosenPeriodType = 'Mỗi tháng';
-                                _pickedDate = 'Ngày xuất phát';
+                                _pickedDateStr = 'Ngày xuất phát';
                               });
                             },
                             child: const Text(
@@ -380,7 +533,8 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                         );
                         setState(() {
                           if (result != null) {
-                            _pickedDate = DateFormat('dd/MM/yyyy').format(result);
+                            _pickedDate = result;
+                            _pickedDateStr = DateFormat('dd/MM/yyyy').format(result);
                           }
                         });
                       },
@@ -396,12 +550,12 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                           ),
                           Expanded(
                             child: Text(
-                              _pickedDate,
+                              _pickedDateStr,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 18,
-                                fontWeight: _pickedDate == 'Ngày xuất phát' ? FontWeight.w300 : FontWeight.w400,
-                                color: _pickedDate == 'Ngày xuất phát' ? blackBlue.shade300 : blackBlue.shade600,
+                                fontWeight: _pickedDateStr == 'Ngày xuất phát' ? FontWeight.w300 : FontWeight.w400,
+                                color: _pickedDateStr == 'Ngày xuất phát' ? blackBlue.shade300 : blackBlue.shade600,
                               ),
                             ),
                           ),
@@ -461,7 +615,8 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                           );
                           setState(() {
                             if (result != null) {
-                              _startDate = DateFormat('dd/MM/yyyy').format(result);
+                              _startDate = result;
+                              _startDateStr = DateFormat('dd/MM/yyyy').format(result);
                             }
                           });
                         },
@@ -477,12 +632,12 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                               ),
                             ),
                             Text(
-                              _startDate,
+                              _startDateStr,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 18,
-                                fontWeight: _startDate == 'Ngày bắt đầu' ? FontWeight.w300 : FontWeight.w400,
-                                color: _startDate == 'Ngày bắt đầu' ? blackBlue.shade300 : blackBlue.shade600,
+                                fontWeight: _startDateStr == 'Ngày bắt đầu' ? FontWeight.w300 : FontWeight.w400,
+                                color: _startDateStr == 'Ngày bắt đầu' ? blackBlue.shade300 : blackBlue.shade600,
                               ),
                             ),
                             const SizedBox(width: 56)
@@ -511,7 +666,8 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                           );
                           setState(() {
                             if (result != null) {
-                              _endDate = DateFormat('dd/MM/yyyy').format(result);
+                              _endDate = result;
+                              _endDateStr = DateFormat('dd/MM/yyyy').format(result);
                             }
                           });
                         },
@@ -530,12 +686,12 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                               ),
                             ),
                             Text(
-                              _endDate,
+                              _endDateStr,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 18,
-                                fontWeight: _endDate == 'Ngày kết thúc' ? FontWeight.w300 : FontWeight.w400,
-                                color: _endDate == 'Ngày kết thúc' ? blackBlue.shade300 : blackBlue.shade600,
+                                fontWeight: _endDateStr == 'Ngày kết thúc' ? FontWeight.w300 : FontWeight.w400,
+                                color: _endDateStr == 'Ngày kết thúc' ? blackBlue.shade300 : blackBlue.shade600,
                               ),
                             ),
                             const SizedBox(width: 56)
