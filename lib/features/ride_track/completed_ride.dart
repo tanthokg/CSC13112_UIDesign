@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/constants/routes.dart';
 import 'package:uniride/entity/trip.dart';
 import 'package:uniride/widget/driver_information.dart';
 
@@ -40,13 +41,17 @@ class _CompletedRideViewState extends State<CompletedRideView> {
               ),
 
               // Thông tin tuyến đường đi của người đi nhờ
-              _RoadHitchhikerInformation(trip: widget.trip,),
+              _RoadHitchhikerInformation(
+                trip: widget.trip,
+              ),
               const SizedBox(
                 height: 12,
               ),
 
               // Thời gian, giá tiền của chuyến xe
-              _TimeInformation(trip: widget.trip,),
+              _TimeInformation(
+                trip: widget.trip,
+              ),
 
               _RatingRider(
                 trip: widget.trip,
@@ -75,11 +80,11 @@ class _RatingButtons extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.home,
+                  (route) => false,
+            );
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(purple),
@@ -100,11 +105,11 @@ class _RatingButtons extends StatelessWidget {
         ),
         OutlinedButton(
           onPressed: () {
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.home,
+              (route) => false,
+            );
           },
           style: ButtonStyle(
             side: MaterialStateProperty.all(
@@ -140,14 +145,7 @@ class _RatingRider extends StatefulWidget {
 }
 
 class _RatingRiderState extends State<_RatingRider> {
-  var detailRatingText = <String>[
-    'Đúng giờ',
-    'Chạy cẩn thận',
-    'Vui vẻ',
-    'Lịch sự',
-    'Xe đẹp',
-    'Có nón sẵn'
-  ];
+  var detailRatingText = <String>['Đúng giờ', 'Chạy cẩn thận', 'Vui vẻ', 'Lịch sự', 'Xe đẹp', 'Có nón sẵn'];
   var tipText = <String>['5,000đ', '10,000đ', '15,000đ', '20,000đ'];
 
   var detailRating = <bool>[false, false, false, false, false, false];
@@ -292,8 +290,6 @@ class _RatingRiderState extends State<_RatingRider> {
             const SizedBox(
               height: 12,
             ),
-
-            // Tiền bo cho người lái xe
             Text(
               'Tiền bo cho người lái xe',
               style: TextStyle(
@@ -325,8 +321,7 @@ class _RatingRiderState extends State<_RatingRider> {
                       setState(() {
                         selectedTipIndex = null;
                       });
-                    }
-                    else {
+                    } else {
                       setState(() {
                         selectedTipIndex = index;
                       });
@@ -476,7 +471,8 @@ class _TimeInformation extends StatelessWidget {
 
 class _RoadHitchhikerInformation extends StatelessWidget {
   const _RoadHitchhikerInformation({
-    Key? key, required this.trip,
+    Key? key,
+    required this.trip,
   }) : super(key: key);
 
   final Trip trip;

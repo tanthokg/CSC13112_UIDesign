@@ -14,7 +14,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
   int _currentIndex = 0;
   var pages = [const HomePage(), const NotificationView(), const DevelopingView(), const DevelopingView()];
 
