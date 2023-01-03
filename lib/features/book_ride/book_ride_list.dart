@@ -152,10 +152,10 @@ class _PayMethod extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: Text(
-            NumberFormat('#,##0').format(price),
+            '${NumberFormat('#,##0').format(price)}đ',
             style: TextStyle(
               color: blackBlue,
-              fontSize: 20,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -546,8 +546,8 @@ class _ContactWithDriver extends StatelessWidget {
           width: 12,
         ),
         Container(
-          height: 56,
-          width: 56,
+          height: 60,
+          width: 60,
           decoration: BoxDecoration(
             border: const Border(),
             borderRadius: BorderRadius.circular(24),
