@@ -29,9 +29,9 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
   final createdList = {
     0: {
       'avatar': 'assets/avatar/avatar-02.jpg',
-      'name': 'Nguyễn Văn A',
+      'name': 'Nguyễn Văn B',
       'content': ' đang chờ phản hồi chuyến đi lái xe cùng bạn.',
-      'date': DateTime(2022, 11, 19, 12, 30),
+      'date': DateTime(2023, 01, 01, 12, 30),
       'price': '7,000đ',
       'new': true,
       'status': TripStatus.waiting
@@ -40,7 +40,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
       'avatar': 'assets/avatar/default-avatar.png',
       'name': '',
       'content': 'Chuyến đi lái xe chưa tìm được người đi cùng.',
-      'date': DateTime(2022, 11, 18, 16, 30),
+      'date': DateTime(2022, 12, 30, 16, 30),
       'price': '7,000đ',
       'new': true,
       'status': TripStatus.empty
@@ -49,7 +49,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
       'avatar': 'assets/avatar/default-avatar.png',
       'name': '',
       'content': 'Chuyến đi lái xe chưa tìm được người đi cùng.',
-      'date': DateTime(2022, 11, 18, 10, 00),
+      'date': DateTime(2022, 12, 29, 10, 00),
       'price': '7,000đ',
       'new': false,
       'status': TripStatus.empty
@@ -73,6 +73,8 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
       }
     });
 
+    final createdTrip = ModalRoute.of(context)?.settings.arguments as Map;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -95,6 +97,12 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
                   if (!isSameDay(_selectedDateTime, selectedDay)) {
                     setState(() {
                       _selectedDateTime = selectedDay;
+                      _focusedDate = focusedDay;
+                    });
+                  }
+                  else if (isSameDay(_selectedDateTime, selectedDay)) {
+                    setState(() {
+                      _selectedDateTime = null;
                       _focusedDate = focusedDay;
                     });
                   }
@@ -151,7 +159,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, Routes.detailCreatedTrip);
+                        Navigator.pushNamed(context, Routes.detailCreatedTrip, arguments: {'trip': filteredTrip[index], 'location': createdTrip});
                       },
                       child: _CardInformation(
                         trip: filteredTrip[index]!,

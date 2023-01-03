@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/widget/dash_line_vertical.dart';
 
+import '../../constants/status.dart';
+
 class DetailCreatedTripView extends StatefulWidget {
   const DetailCreatedTripView({Key? key}) : super(key: key);
 
@@ -16,6 +18,10 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
 
   @override
   Widget build(BuildContext context) {
+    final data = ModalRoute.of(context)?.settings.arguments as Map;
+    final trip = data['trip'];
+    final location = data['location'];
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -59,20 +65,26 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                   ),
                 ),
               ),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 12,
+              ),
 
               // Status chip
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Chip(
-                    label: const Text('CÒN TRỐNG'),
+                    label: Text(trip['status'] == TripStatus.empty
+                        ? 'CÒN TRỐNG'
+                        : 'ĐANG ĐỢI PHẢN HỒI'),
                     labelStyle: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
-                    backgroundColor: Colors.grey.shade400,
+                    backgroundColor: (trip['status'] == TripStatus.empty)
+                        ? Colors.grey.shade400
+                        : const Color(0xFF9DD1BB),
                   ),
                 ],
               ),
@@ -104,7 +116,7 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                         children: [
                           const CircleAvatar(
                             backgroundImage:
-                                AssetImage('assets/avatar/avatar-02.jpg'),
+                                AssetImage('assets/avatar/avatar-01.png'),
                             radius: 16,
                           ),
                           const SizedBox(
@@ -155,16 +167,17 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                       ),
                       child: Row(
                         children: [
-                          const CircleAvatar(
-                            backgroundImage:
-                                AssetImage('assets/avatar/default-avatar.png'),
+                          CircleAvatar(
+                            backgroundImage: AssetImage(trip['avatar']),
                             radius: 16,
                           ),
                           const SizedBox(
                             width: 16,
                           ),
                           Text(
-                            'Đang đợi ...',
+                            trip['status'] == TripStatus.empty
+                                ? 'Đang đợi ...'
+                                : trip['name'],
                             style: TextStyle(
                               color: blackBlue,
                               fontSize: 16,
@@ -187,7 +200,6 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
               ),
 
               // Road
-              //Image.asset('assets/images/empty_trip.png'),
               ElevatedButton(
                 onPressed: () {},
                 child: const Text(
@@ -295,7 +307,11 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                         width: 8,
                       ),
                       Text(
-                        '5km',
+                        trip['status'] == TripStatus.waiting
+                            ? '5km'
+                            : isRiderRoleSelected
+                                ? '5km'
+                                : '0km',
                         style: TextStyle(
                           color: blackBlue,
                           fontSize: 16,
@@ -312,7 +328,12 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                         width: 4,
                       ),
                       Text(
-                        '15 phút',
+                        trip['status'] == TripStatus.waiting &&
+                                !isRiderRoleSelected
+                            ? '15 phút'
+                            : isRiderRoleSelected
+                                ? '25 phút'
+                                : '0 phút',
                         style: TextStyle(
                           color: blackBlue,
                           fontSize: 16,
@@ -329,7 +350,7 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                         children: [
                           Icon(
                             Icons.radio_button_on_rounded,
-                            color: purple[900],
+                            color: isRiderRoleSelected ? blueSky : purple[900],
                           ),
                           Align(
                             alignment: Alignment.centerLeft,
@@ -338,14 +359,16 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                                   const EdgeInsets.symmetric(horizontal: 24.0),
                               child: CustomPaint(
                                 size: const Size(1, 32),
-                                painter:
-                                    DashedLineVerticalPainter(purple[900]!),
+                                painter: DashedLineVerticalPainter(
+                                    isRiderRoleSelected
+                                        ? blueSky
+                                        : purple[900]!),
                               ),
                             ),
                           ),
                           Icon(
                             Icons.location_on,
-                            color: purple[900],
+                            color: isRiderRoleSelected ? blueSky : purple[900],
                           ),
                         ],
                       ),
@@ -356,25 +379,40 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Điểm đón khách',
-                                      style: TextStyle(
-                                        color: blackBlue.shade400,
-                                        fontSize: 16,
+                                Flexible(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        isRiderRoleSelected
+                                            ? 'Điểm đi'
+                                            : 'Điểm đón khách',
+                                        style: TextStyle(
+                                          color: blackBlue.shade400,
+                                          fontSize: 16,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      '480 Nguyễn Thị Minh Khai',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: blackBlue,
-                                        fontSize: 16,
+                                      Text(
+                                        trip['status'] == TripStatus.empty &&
+                                                isRiderRoleSelected
+                                            ? location['src']
+                                            : trip['status'] == TripStatus.empty
+                                                ? ''
+                                                : trip['status'] ==
+                                                            TripStatus
+                                                                .waiting &&
+                                                        isRiderRoleSelected
+                                                    ? location['src']
+                                                    : '480 Nguyễn Thị Minh Khai',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: blackBlue,
+                                          fontSize: 16,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -385,25 +423,40 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Điểm trả khách',
-                                      style: TextStyle(
-                                        color: blackBlue.shade400,
-                                        fontSize: 16,
+                                Flexible(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        isRiderRoleSelected
+                                            ? 'Điểm đến'
+                                            : 'Điểm trả khách',
+                                        style: TextStyle(
+                                          color: blackBlue.shade400,
+                                          fontSize: 16,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      '311 Nguyễn Thượng Hiền',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: blackBlue,
-                                        fontSize: 16,
+                                      Text(
+                                        trip['status'] == TripStatus.empty &&
+                                                isRiderRoleSelected
+                                            ? location['dest']
+                                            : trip['status'] == TripStatus.empty
+                                                ? ''
+                                                : trip['status'] ==
+                                                            TripStatus
+                                                                .waiting &&
+                                                        isRiderRoleSelected
+                                                    ? location['dest']
+                                                    : '311 Nguyễn Thượng Hiền',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: blackBlue,
+                                          fontSize: 16,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -448,13 +501,14 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                           children: [
                             Icon(
                               Icons.calendar_today_rounded,
-                              color: purple,
+                              color: isRiderRoleSelected ? blueSky : purple,
                             ),
                             const SizedBox(
                               width: 8,
                             ),
                             Text(
-                              '19/11/2022 - 17:35',
+                              //'19/11/2022 - 17:35',
+                              '${(trip['date'] as DateTime).day}/${(trip['date'] as DateTime).month}/${(trip['date'] as DateTime).year} ${(trip['date'] as DateTime).hour}:${(trip['date'] as DateTime).minute}',
                               style: TextStyle(
                                 color: blackBlue,
                                 fontSize: 16,
@@ -476,7 +530,9 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                   Row(
                     children: [
                       Text(
-                        'Đánh giá dành cho bạn',
+                        isRiderRoleSelected
+                            ? 'Đánh giá dành cho bạn'
+                            : 'Đánh giá dành cho người đi nhờ',
                         style: TextStyle(
                           fontSize: 16,
                           color: blackBlue,
@@ -508,7 +564,7 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                         width: 16,
                       ),
                       Text(
-                        '7,000đ',
+                        trip['status'] == TripStatus.waiting ? '7,000đ' : '',
                         style: TextStyle(
                           fontSize: 16,
                           color: blackBlue,
@@ -516,7 +572,7 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                       ),
                       const Spacer(),
                       RatingBar.builder(
-                        initialRating: 4.5,
+                        initialRating: 0,
                         minRating: 0,
                         direction: Axis.horizontal,
                         allowHalfRating: true,
@@ -546,9 +602,9 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        hintText: 'Chạy đúng giờ, lịch sự, thân thiện',
+                        hintText: '',
                       ),
-                      maxLines: 4,
+                      maxLines: 3,
                     ),
                   ),
                 ],
@@ -572,7 +628,7 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      '7,000đ',
+                      trip['status'] == TripStatus.waiting ? '7,000đ' : '',
                       style: TextStyle(
                         color: blackBlue,
                         fontSize: 20,
@@ -587,13 +643,15 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
               ),
 
               // Buttons
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Đang đợi xác nhận'),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(56),
-                ),
-              ),
+              trip['status'] == TripStatus.waiting
+                  ? ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(56),
+                      ),
+                      child: const Text('Đang đợi xác nhận'),
+                    )
+                  : Container(),
               const SizedBox(
                 height: 18,
               ),

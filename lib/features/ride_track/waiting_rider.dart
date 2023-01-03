@@ -102,7 +102,7 @@ class _WaitingRiderViewState extends State<WaitingRiderView> {
                               children: [
                                 Icon(
                                   Icons.motorcycle_rounded,
-                                  color: purple,
+                                  color: blueSky,
                                 ),
                                 const SizedBox(
                                   width: 16,
@@ -160,7 +160,7 @@ class _WaitingRiderViewState extends State<WaitingRiderView> {
                                         icon: const Icon(
                                           Icons.send_rounded,
                                         ),
-                                        color: purple,
+                                        color: blueSky,
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -176,8 +176,8 @@ class _WaitingRiderViewState extends State<WaitingRiderView> {
                                   width: 12,
                                 ),
                                 Container(
-                                  height: 56,
-                                  width: 56,
+                                  height: 60,
+                                  width: 60,
                                   decoration: BoxDecoration(
                                     border: const Border(),
                                     borderRadius: BorderRadius.circular(24),
@@ -222,20 +222,22 @@ class _WaitingRiderViewState extends State<WaitingRiderView> {
                               height: 18,
                             ),
 
-                            OutlinedButton(
+                            ElevatedButton(
                               onPressed: () {
                                 Navigator.pushNamed(context, '/cancel_trip/');
                               },
-                              style: OutlinedButton.styleFrom(
+                              style: ElevatedButton.styleFrom(
                                 minimumSize: const Size.fromHeight(56),
-                                side: BorderSide(width: 2, color: red),
+                                //side: BorderSide(width: 2, color: red),
+                                backgroundColor: red,
+                                foregroundColor: Colors.white,
                               ),
-                              child: Text(
+                              child: const Text(
                                 'Hủy chuyến xe',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: red,
+                                  //color: red,
                                 ),
                               ),
                             ),
