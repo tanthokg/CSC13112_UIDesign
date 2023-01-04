@@ -28,7 +28,7 @@ class PickUpDestinationCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.my_location, color: purple),
+                    Icon(Icons.radio_button_checked, color: purple),
                     Container(
                         height: 60,
                         margin: const EdgeInsets.only(left: 9),
