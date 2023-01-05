@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uniride/constants/colors.dart';
 import 'package:uniride/widget/dash_line_vertical.dart';
 
+import '../../constants/routes.dart';
 import '../../constants/status.dart';
 
 class DetailCreatedTripView extends StatefulWidget {
@@ -645,7 +646,9 @@ class _DetailCreatedTripViewState extends State<DetailCreatedTripView> {
               // Buttons
               trip['status'] == TripStatus.waiting
                   ? ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.driverReadyToStart);
+                      },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(56),
                       ),

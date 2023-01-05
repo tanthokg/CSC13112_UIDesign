@@ -45,6 +45,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
     final str = '$_pickedDateStr lúc ${_to24HourTime()}';
 
     data['dateTime'] = dateTime;
+    _endDate != null ? data['endDate'] = _endDate : null;
     data['str'] = str;
     print(data);
     return data;
@@ -143,6 +144,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
       final str = '$_pickedDateStr lúc ${_to24HourTime()}';
 
       data['dateTime'] = dateTime;
+      _endDate != null ? data['endDate'] = _endDate : null;
       data['str'] = str;
       data['periodicType'] = PeriodicTypesEnum.everyday;
       print(data);
@@ -199,6 +201,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
         final str = 'Ngày ${_pickedDateStr.substring(0, 2)} hằng tháng';
 
         data['dateTime'] = dateTime;
+        _endDate != null ? data['endDate'] = _endDate : null;
         data['str'] = str;
         data['periodicType'] = PeriodicTypesEnum.everyMonth;
         print(data);
@@ -269,6 +272,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
             );
         final str = '$_pickedDateStr lúc ${_to24HourTime()}';
         data['dateTime'] = dateTime;
+        _endDate != null ? data['endDate'] = _endDate : null;
         data['str'] = str;
         data['periodicType'] = PeriodicTypesEnum.everyday;
         print(data);
@@ -296,6 +300,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
         }
         final str = '$_pickedDateStr lúc ${_to24HourTime()}';
         data['dateTime'] = _getNearestWeekDay();
+        _endDate != null ? data['endDate'] = _endDate : null;
         data['str'] = str;
         data['periodicType'] = PeriodicTypesEnum.everyWeek;
         print(data);
@@ -667,6 +672,7 @@ class _PickTripTimeViewState extends State<PickTripTimeView> {
                           setState(() {
                             if (result != null) {
                               _endDate = result;
+                              print('END DATE $_endDate');
                               _endDateStr = DateFormat('dd/MM/yyyy').format(result);
                             }
                           });
