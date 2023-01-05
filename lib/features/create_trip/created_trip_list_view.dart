@@ -18,14 +18,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
   DateTime _focusedDate = DateTime.now();
   bool _isCreated = false;
 
-  final status = <String>[
-    'Còn trống',
-    'Đợi phản hồi',
-    'Đã nhận',
-    'Đã huỷ',
-    'Đang chở',
-    'Hoàn thành'
-  ];
+  final status = <String>['Còn trống', 'Đợi phản hồi', 'Đã nhận', 'Đã huỷ', 'Đang chở', 'Hoàn thành'];
   int? selectedStatusIndex;
   TripStatus? selectedStatusFilter;
   final List<Map<String, dynamic>> createdList = [
@@ -69,18 +62,14 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
         case PeriodicTypesEnum.everyday:
           if (createdTrip.containsKey('endDate')) {
             for (int i = 0;
-                (createdTrip['date'] as DateTime)
-                        .add(Duration(days: i))
-                        .compareTo(createdTrip['endDate']) <
-                    1;
+                (createdTrip['date'] as DateTime).add(Duration(days: i)).compareTo(createdTrip['endDate']) < 1;
                 i++) {
               createdList.add(
                 {
                   'avatar': createdTrip['avatar'],
                   'name': createdTrip['name'],
                   'content': createdTrip['content'],
-                  'date':
-                      (createdTrip['date'] as DateTime).add(Duration(days: i)),
+                  'date': (createdTrip['date'] as DateTime).add(Duration(days: i)),
                   'price': createdTrip['price'],
                   'new': createdTrip['new'],
                   'status': createdTrip['status'],
@@ -94,8 +83,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
                   'avatar': createdTrip['avatar'],
                   'name': createdTrip['name'],
                   'content': createdTrip['content'],
-                  'date':
-                      (createdTrip['date'] as DateTime).add(Duration(days: i)),
+                  'date': (createdTrip['date'] as DateTime).add(Duration(days: i)),
                   'price': createdTrip['price'],
                   'new': createdTrip['new'],
                   'status': createdTrip['status'],
@@ -107,18 +95,14 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
         case PeriodicTypesEnum.everyWeek:
           if (createdTrip.containsKey('endDate')) {
             for (int i = 0;
-                (createdTrip['date'] as DateTime)
-                        .add(Duration(days: i * 7))
-                        .compareTo(createdTrip['endDate']) <
-                    1;
+                (createdTrip['date'] as DateTime).add(Duration(days: i * 7)).compareTo(createdTrip['endDate']) < 1;
                 i++) {
               createdList.add(
                 {
                   'avatar': createdTrip['avatar'],
                   'name': createdTrip['name'],
                   'content': createdTrip['content'],
-                  'date': (createdTrip['date'] as DateTime)
-                      .add(Duration(days: i * 7)),
+                  'date': (createdTrip['date'] as DateTime).add(Duration(days: i * 7)),
                   'price': createdTrip['price'],
                   'new': createdTrip['new'],
                   'status': createdTrip['status'],
@@ -132,8 +116,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
                   'avatar': createdTrip['avatar'],
                   'name': createdTrip['name'],
                   'content': createdTrip['content'],
-                  'date': (createdTrip['date'] as DateTime)
-                      .add(Duration(days: i * 7)),
+                  'date': (createdTrip['date'] as DateTime).add(Duration(days: i * 7)),
                   'price': createdTrip['price'],
                   'new': createdTrip['new'],
                   'status': createdTrip['status'],
@@ -145,9 +128,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
         case PeriodicTypesEnum.everyMonth:
           if (createdTrip.containsKey('endDate')) {
             for (int i = 0;
-                DateTime(
-                            (createdTrip['date'] as DateTime).year,
-                            (createdTrip['date'] as DateTime).month + i,
+                DateTime((createdTrip['date'] as DateTime).year, (createdTrip['date'] as DateTime).month + i,
                             (createdTrip['date'] as DateTime).day)
                         .compareTo(createdTrip['endDate']) <
                     1;
@@ -158,9 +139,12 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
                   'name': createdTrip['name'],
                   'content': createdTrip['content'],
                   'date': DateTime(
-                      (createdTrip['date'] as DateTime).year,
-                      (createdTrip['date'] as DateTime).month + i,
-                      (createdTrip['date'] as DateTime).day),
+                    (createdTrip['date'] as DateTime).year,
+                    (createdTrip['date'] as DateTime).month + i,
+                    (createdTrip['date'] as DateTime).day,
+                    (createdTrip['date'] as DateTime).hour,
+                    (createdTrip['date'] as DateTime).minute,
+                  ),
                   'price': createdTrip['price'],
                   'new': createdTrip['new'],
                   'status': createdTrip['status'],
@@ -175,9 +159,12 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
                   'name': createdTrip['name'],
                   'content': createdTrip['content'],
                   'date': DateTime(
-                      (createdTrip['date'] as DateTime).year,
-                      (createdTrip['date'] as DateTime).month + i,
-                      (createdTrip['date'] as DateTime).day),
+                    (createdTrip['date'] as DateTime).year,
+                    (createdTrip['date'] as DateTime).month + i,
+                    (createdTrip['date'] as DateTime).day,
+                    (createdTrip['date'] as DateTime).hour,
+                    (createdTrip['date'] as DateTime).minute,
+                  ),
                   'price': createdTrip['price'],
                   'new': createdTrip['new'],
                   'status': createdTrip['status'],
@@ -200,13 +187,12 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
 
   @override
   Widget build(BuildContext context) {
-    final createdTrip =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    final createdTrip = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     if (!_isCreated) addCreatedTrip(createdTrip);
 
     filteredTrip.clear();
-    createdList.sort((firstTrip, secondTrip) => (secondTrip['date'] as DateTime)
-        .compareTo(firstTrip['date'] as DateTime));
+    createdList
+        .sort((firstTrip, secondTrip) => (secondTrip['date'] as DateTime).compareTo(firstTrip['date'] as DateTime));
     for (var value in createdList) {
       var compareDay = _selectedDateTime == null
           ? true
@@ -306,14 +292,10 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
                         setState(() {
                           filteredTrip[index]!['new'] = false;
                         });
-                        Navigator.pushNamed(context, Routes.detailCreatedTrip,
-                            arguments: {
-                              'trip': filteredTrip[index],
-                              'location': {
-                                'src': createdTrip['src'],
-                                'dest': createdTrip['dest']
-                              }
-                            });
+                        Navigator.pushNamed(context, Routes.detailCreatedTrip, arguments: {
+                          'trip': filteredTrip[index],
+                          'location': {'src': createdTrip['src'], 'dest': createdTrip['dest']}
+                        });
                       },
                       child: _CardInformation(
                         trip: filteredTrip[index]!,

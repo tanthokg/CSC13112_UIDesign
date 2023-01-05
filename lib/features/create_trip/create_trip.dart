@@ -378,11 +378,11 @@ class _CreateTripState extends State<CreateTrip> {
               ],
             ),
             const SizedBox(height: 32),
-            const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.all(24),
               child: TextButton(
                 onPressed: () {
+                  print(metadata['dateTime']);
                   Navigator.pushNamed(
                     context,
                     Routes.createdTrip,
