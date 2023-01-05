@@ -25,7 +25,7 @@ class CustomDialog extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 18,
+            height: 24,
           ),
           Column(
             children: [
@@ -38,7 +38,7 @@ class CustomDialog extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 12,
+                height: 8,
               ),
               Text(
                 content,

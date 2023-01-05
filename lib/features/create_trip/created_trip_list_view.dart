@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/entity/periodic_type.dart';
 
 import '../../constants/routes.dart';
 import '../../constants/status.dart';
@@ -15,52 +16,184 @@ class CreatedTripListView extends StatefulWidget {
 class _CreatedTripListViewState extends State<CreatedTripListView> {
   DateTime? _selectedDateTime;
   DateTime _focusedDate = DateTime.now();
+  bool _isCreated = false;
 
-  final status = <String>[
-    'Còn trống',
-    'Đợi phản hồi',
-    'Đã nhận',
-    'Đã huỷ',
-    'Đang chở',
-    'Hoàn thành'
-  ];
+  final status = <String>['Còn trống', 'Đợi phản hồi', 'Đã nhận', 'Đã huỷ', 'Đang chở', 'Hoàn thành'];
   int? selectedStatusIndex;
   TripStatus? selectedStatusFilter;
-  final createdList = {
-    0: {
+  final List<Map<String, dynamic>> createdList = [
+    {
       'avatar': 'assets/avatar/avatar-02.jpg',
-      'name': 'Nguyễn Văn A',
+      'name': 'Nguyễn Văn B',
       'content': ' đang chờ phản hồi chuyến đi lái xe cùng bạn.',
-      'date': DateTime(2022, 11, 19, 12, 30),
+      'date': DateTime(2023, 01, 01, 12, 30),
       'price': '7,000đ',
       'new': true,
       'status': TripStatus.waiting
     },
-    1: {
+    {
       'avatar': 'assets/avatar/default-avatar.png',
       'name': '',
       'content': 'Chuyến đi lái xe chưa tìm được người đi cùng.',
-      'date': DateTime(2022, 11, 18, 16, 30),
+      'date': DateTime(2022, 12, 30, 16, 30),
       'price': '7,000đ',
       'new': true,
       'status': TripStatus.empty
     },
-    2: {
+    {
       'avatar': 'assets/avatar/default-avatar.png',
       'name': '',
       'content': 'Chuyến đi lái xe chưa tìm được người đi cùng.',
-      'date': DateTime(2022, 11, 18, 10, 00),
+      'date': DateTime(2022, 12, 29, 10, 00),
       'price': '7,000đ',
       'new': false,
       'status': TripStatus.empty
     },
-  };
+  ];
   Map<int, Map<String, dynamic>> filteredTrip = {};
+
+  void addCreatedTrip(Map<String, dynamic> createdTrip) {
+    if (createdTrip.containsKey('periodicType')) {
+      print(createdTrip.containsKey('endDate'));
+      switch (createdTrip['periodicType']) {
+        case PeriodicTypesEnum.once:
+          createdList.add(createdTrip);
+          break;
+        case PeriodicTypesEnum.everyday:
+          if (createdTrip.containsKey('endDate')) {
+            for (int i = 0;
+                (createdTrip['date'] as DateTime).add(Duration(days: i)).compareTo(createdTrip['endDate']) < 1;
+                i++) {
+              createdList.add(
+                {
+                  'avatar': createdTrip['avatar'],
+                  'name': createdTrip['name'],
+                  'content': createdTrip['content'],
+                  'date': (createdTrip['date'] as DateTime).add(Duration(days: i)),
+                  'price': createdTrip['price'],
+                  'new': createdTrip['new'],
+                  'status': createdTrip['status'],
+                },
+              );
+            }
+          } else {
+            for (int i = 0; i < 15; i++) {
+              createdList.add(
+                {
+                  'avatar': createdTrip['avatar'],
+                  'name': createdTrip['name'],
+                  'content': createdTrip['content'],
+                  'date': (createdTrip['date'] as DateTime).add(Duration(days: i)),
+                  'price': createdTrip['price'],
+                  'new': createdTrip['new'],
+                  'status': createdTrip['status'],
+                },
+              );
+            }
+          }
+          break;
+        case PeriodicTypesEnum.everyWeek:
+          if (createdTrip.containsKey('endDate')) {
+            for (int i = 0;
+                (createdTrip['date'] as DateTime).add(Duration(days: i * 7)).compareTo(createdTrip['endDate']) < 1;
+                i++) {
+              createdList.add(
+                {
+                  'avatar': createdTrip['avatar'],
+                  'name': createdTrip['name'],
+                  'content': createdTrip['content'],
+                  'date': (createdTrip['date'] as DateTime).add(Duration(days: i * 7)),
+                  'price': createdTrip['price'],
+                  'new': createdTrip['new'],
+                  'status': createdTrip['status'],
+                },
+              );
+            }
+          } else {
+            for (int i = 0; i < 15; i++) {
+              createdList.add(
+                {
+                  'avatar': createdTrip['avatar'],
+                  'name': createdTrip['name'],
+                  'content': createdTrip['content'],
+                  'date': (createdTrip['date'] as DateTime).add(Duration(days: i * 7)),
+                  'price': createdTrip['price'],
+                  'new': createdTrip['new'],
+                  'status': createdTrip['status'],
+                },
+              );
+            }
+          }
+          break;
+        case PeriodicTypesEnum.everyMonth:
+          if (createdTrip.containsKey('endDate')) {
+            for (int i = 0;
+                DateTime((createdTrip['date'] as DateTime).year, (createdTrip['date'] as DateTime).month + i,
+                            (createdTrip['date'] as DateTime).day)
+                        .compareTo(createdTrip['endDate']) <
+                    1;
+                i++) {
+              createdList.add(
+                {
+                  'avatar': createdTrip['avatar'],
+                  'name': createdTrip['name'],
+                  'content': createdTrip['content'],
+                  'date': DateTime(
+                    (createdTrip['date'] as DateTime).year,
+                    (createdTrip['date'] as DateTime).month + i,
+                    (createdTrip['date'] as DateTime).day,
+                    (createdTrip['date'] as DateTime).hour,
+                    (createdTrip['date'] as DateTime).minute,
+                  ),
+                  'price': createdTrip['price'],
+                  'new': createdTrip['new'],
+                  'status': createdTrip['status'],
+                },
+              );
+            }
+          } else {
+            for (int i = 0; i < 10; i++) {
+              createdList.add(
+                {
+                  'avatar': createdTrip['avatar'],
+                  'name': createdTrip['name'],
+                  'content': createdTrip['content'],
+                  'date': DateTime(
+                    (createdTrip['date'] as DateTime).year,
+                    (createdTrip['date'] as DateTime).month + i,
+                    (createdTrip['date'] as DateTime).day,
+                    (createdTrip['date'] as DateTime).hour,
+                    (createdTrip['date'] as DateTime).minute,
+                  ),
+                  'price': createdTrip['price'],
+                  'new': createdTrip['new'],
+                  'status': createdTrip['status'],
+                },
+              );
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    } else {
+      createdList.add(createdTrip);
+    }
+
+    setState(() {
+      _isCreated = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final createdTrip = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    if (!_isCreated) addCreatedTrip(createdTrip);
+
     filteredTrip.clear();
-    createdList.forEach((key, value) {
+    createdList
+        .sort((firstTrip, secondTrip) => (secondTrip['date'] as DateTime).compareTo(firstTrip['date'] as DateTime));
+    for (var value in createdList) {
       var compareDay = _selectedDateTime == null
           ? true
           : (value['date'] as DateTime).year == _selectedDateTime?.year &&
@@ -71,7 +204,7 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
       } else if (value['status'] == selectedStatusFilter && compareDay) {
         filteredTrip[filteredTrip.length] = value;
       }
-    });
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -95,6 +228,11 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
                   if (!isSameDay(_selectedDateTime, selectedDay)) {
                     setState(() {
                       _selectedDateTime = selectedDay;
+                      _focusedDate = focusedDay;
+                    });
+                  } else if (isSameDay(_selectedDateTime, selectedDay)) {
+                    setState(() {
+                      _selectedDateTime = null;
                       _focusedDate = focusedDay;
                     });
                   }
@@ -151,7 +289,13 @@ class _CreatedTripListViewState extends State<CreatedTripListView> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, Routes.detailCreatedTrip);
+                        setState(() {
+                          filteredTrip[index]!['new'] = false;
+                        });
+                        Navigator.pushNamed(context, Routes.detailCreatedTrip, arguments: {
+                          'trip': filteredTrip[index],
+                          'location': {'src': createdTrip['src'], 'dest': createdTrip['dest']}
+                        });
                       },
                       child: _CardInformation(
                         trip: filteredTrip[index]!,

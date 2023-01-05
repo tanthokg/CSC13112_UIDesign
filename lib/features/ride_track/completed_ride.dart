@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:uniride/constants/colors.dart';
+import 'package:uniride/constants/routes.dart';
 import 'package:uniride/entity/trip.dart';
 import 'package:uniride/widget/driver_information.dart';
 
@@ -40,13 +41,17 @@ class _CompletedRideViewState extends State<CompletedRideView> {
               ),
 
               // Thông tin tuyến đường đi của người đi nhờ
-              _RoadHitchhikerInformation(trip: widget.trip,),
+              _RoadHitchhikerInformation(
+                trip: widget.trip,
+              ),
               const SizedBox(
                 height: 12,
               ),
 
               // Thời gian, giá tiền của chuyến xe
-              _TimeInformation(trip: widget.trip,),
+              _TimeInformation(
+                trip: widget.trip,
+              ),
 
               _RatingRider(
                 trip: widget.trip,
@@ -75,7 +80,11 @@ class _RatingButtons extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            //Navigator.pushNamed(context, Routes.rating);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.home,
+                  (route) => false,
+            );
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(purple),
@@ -85,7 +94,7 @@ class _RatingButtons extends StatelessWidget {
             ),
           ),
           child: const Text(
-            'Đánh giá',
+            'Gửi đánh giá',
             style: TextStyle(
               fontSize: 18,
             ),
@@ -95,7 +104,13 @@ class _RatingButtons extends StatelessWidget {
           height: 12,
         ),
         OutlinedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.home,
+              (route) => false,
+            );
+          },
           style: ButtonStyle(
             side: MaterialStateProperty.all(
               BorderSide(
@@ -130,19 +145,11 @@ class _RatingRider extends StatefulWidget {
 }
 
 class _RatingRiderState extends State<_RatingRider> {
-  var detailRatingText = <String>[
-    'Đúng giờ',
-    'Chạy cẩn thận',
-    'Vui vẻ',
-    'Lịch sự',
-    'Xe đẹp',
-    'Có nón sẵn'
-  ];
-  var tipText = <String>['0đ', '5,000đ', '10,000đ', '15,000đ', '20,000đ'];
+  var detailRatingText = <String>['Đúng giờ', 'Chạy cẩn thận', 'Vui vẻ', 'Lịch sự', 'Xe đẹp', 'Có nón sẵn'];
+  var tipText = <String>['5,000đ', '10,000đ', '15,000đ', '20,000đ'];
 
   var detailRating = <bool>[false, false, false, false, false, false];
   int? selectedTipIndex;
-  var tipForRider = <bool>[false, false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -232,6 +239,11 @@ class _RatingRiderState extends State<_RatingRider> {
                       detailRating[index] = selected;
                     });
                   },
+                  shape: StadiumBorder(
+                    side: BorderSide(
+                      color: blackBlue.shade300,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -271,15 +283,13 @@ class _RatingRiderState extends State<_RatingRider> {
                       fontSize: 16,
                     ),
                   ),
-                  maxLines: 5,
+                  maxLines: 3,
                 ),
               ),
             ),
             const SizedBox(
               height: 12,
             ),
-
-            // Tiền bo cho người lái xe
             Text(
               'Tiền bo cho người lái xe',
               style: TextStyle(
@@ -307,10 +317,21 @@ class _RatingRiderState extends State<_RatingRider> {
                   ),
                   selected: selectedTipIndex == index,
                   onSelected: (selected) {
-                    setState(() {
-                      selectedTipIndex = index;
-                    });
+                    if (selectedTipIndex == index) {
+                      setState(() {
+                        selectedTipIndex = null;
+                      });
+                    } else {
+                      setState(() {
+                        selectedTipIndex = index;
+                      });
+                    }
                   },
+                  shape: StadiumBorder(
+                    side: BorderSide(
+                      color: blackBlue.shade300,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -432,10 +453,10 @@ class _TimeInformation extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  NumberFormat('#,##0').format(trip.price),
+                  '${NumberFormat('#,##0').format(trip.price)}đ',
                   style: TextStyle(
                     color: blackBlue,
-                    fontSize: 20,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -450,7 +471,8 @@ class _TimeInformation extends StatelessWidget {
 
 class _RoadHitchhikerInformation extends StatelessWidget {
   const _RoadHitchhikerInformation({
-    Key? key, required this.trip,
+    Key? key,
+    required this.trip,
   }) : super(key: key);
 
   final Trip trip;
@@ -521,7 +543,7 @@ class _RoadHitchhikerInformation extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: CustomPaint(
-                      size: const Size(1, 32),
+                      size: const Size(1, 40),
                       painter: DashedLineVerticalPainter(blueSky[900]!),
                     ),
                   ),
@@ -535,7 +557,7 @@ class _RoadHitchhikerInformation extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: SizedBox(
-                      height: 32,
+                      height: 40,
                       child: VerticalDivider(
                         width: 2,
                         color: purple[900],
@@ -552,7 +574,7 @@ class _RoadHitchhikerInformation extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: CustomPaint(
-                      size: const Size(1, 32),
+                      size: const Size(1, 40),
                       painter: DashedLineVerticalPainter(blueSky[900]!),
                     ),
                   ),

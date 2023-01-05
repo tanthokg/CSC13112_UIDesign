@@ -21,8 +21,8 @@ class _ResultHitchhikerLocationViewState
     Trip(
         rider: 'Nguyễn Thị B',
         hitchhiker: '',
-        createdTime: DateTime(2022, 11, 19, 10, 30),
-        startTime: DateTime(2022, 11, 19, 17, 30),
+        createdTime: DateTime(2023, 01, 8, 10, 30),
+        startTime: DateTime(2023, 01, 09, 17, 30),
         departure: '',
         dest: '',
         price: 5000,
@@ -31,8 +31,8 @@ class _ResultHitchhikerLocationViewState
     Trip(
         rider: 'Lê Văn C',
         hitchhiker: '',
-        createdTime: DateTime(2022, 11, 18, 8),
-        startTime: DateTime(2022, 11, 19, 12, 30),
+        createdTime: DateTime(2023, 01, 8, 8),
+        startTime: DateTime(2023, 01, 10, 12, 30),
         departure: '',
         dest: '',
         price: 8000,
@@ -41,8 +41,8 @@ class _ResultHitchhikerLocationViewState
     Trip(
         rider: 'Quế Bạch D',
         hitchhiker: '',
-        createdTime: DateTime(2022, 11, 19, 12, 30),
-        startTime: DateTime(2022, 11, 20, 17, 30),
+        createdTime: DateTime(2023, 01, 09, 12, 30),
+        startTime: DateTime(2023, 01, 10, 17, 30),
         departure: '',
         dest: '',
         price: 5000,
@@ -51,8 +51,8 @@ class _ResultHitchhikerLocationViewState
     Trip(
         rider: 'Nguyễn Thị B',
         hitchhiker: '',
-        createdTime: DateTime(2022, 11, 20, 18, 30),
-        startTime: DateTime(2022, 11, 21, 8, 30),
+        createdTime: DateTime(2023, 01, 09, 18, 30),
+        startTime: DateTime(2023, 01, 11, 8, 30),
         departure: '',
         dest: '',
         price: 15000,
@@ -99,7 +99,7 @@ class _ResultHitchhikerLocationViewState
                       text: 'Hiển thị ',
                     ),
                     TextSpan(
-                      text: '3',
+                      text: trip.length.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: blackBlue,
@@ -182,7 +182,7 @@ class _RoadInformation extends StatelessWidget {
             const SizedBox(
               width: 12,
             ),
-            Flexible(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -203,6 +203,7 @@ class _RoadInformation extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 6,),
                   Text(
                     '${trip.startTime.hour}:${trip.startTime.minute}, ${trip.startTime.day}/${trip.startTime.month}/${trip.startTime.year}',
                     style: TextStyle(
@@ -217,11 +218,11 @@ class _RoadInformation extends StatelessWidget {
               width: 12,
             ),
             Text(
-              NumberFormat('#,##0').format(trip.price),
+              '${NumberFormat('#,##0').format(trip.price)}đ',
               style: TextStyle(
                 color: blackBlue,
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 24,
               ),
             ),
           ],
